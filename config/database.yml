@@ -1,0 +1,26 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: dacp2989dv7omm
+  pool: 5
+  host: ec2-23-23-81-221.compute-1.amazonaws.com
+  username: utfiogalcrchax
+  password: Ue2jBFU4ggO-G_SsNZuNHqRTuT
+
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: pup-share-test
+  pool: 5
+  host: localhost
+  username: action
+  password:
+
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: pup-share-prod
+  pool: 5
+  host: localhost
+  username: action
+  password:

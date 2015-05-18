@@ -1,0 +1,29 @@
+<%= form_for(@pup) do |f| %>
+  <% if @pup.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@pup.errors.count, "error") %> prohibited this pup from being saved:</h2>
+
+      <ul>
+      <% @pup.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+  <div class="field">
+    <%= f.label :gender %><br>
+    <%= f.text_field :gender %>
+  </div>
+  <div class="field">
+    <%= f.label :age %><br>
+    <%= f.number_field :age %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>
