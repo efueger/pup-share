@@ -2,10 +2,12 @@
 
 Rails.application.routes.draw do
   
-  root 'people#index'
+  resources :jobs
+
+  root 'static_pages#index'
+  get 'help', :to => 'static_pages#help'
   
   resources :pups
-
   resources :people
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -1,0 +1,34 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @job.name %>
+</p>
+
+<p>
+  <strong>Job type:</strong>
+  <%= @job.job_type %>
+</p>
+
+<p>
+  <strong>Drop off time:</strong>
+  <%= @job.drop_off_time %>
+</p>
+
+<p>
+  <strong>Drop off location:</strong>
+  <%= @job.drop_off_location %>
+</p>
+
+<p>
+  <strong>Pick up time:</strong>
+  <%= @job.pick_up_time %>
+</p>
+
+<p>
+  <strong>Pick up location:</strong>
+  <%= @job.pick_up_location %>
+</p>
+
+<%= link_to 'Edit', edit_job_path(@job) %> |
+<%= link_to 'Back', jobs_path %>
