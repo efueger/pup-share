@@ -1,0 +1,16 @@
+<%= simple_form_for(@availability) do |f| %>
+  <%= f.error_notification %>
+
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :walker_sitter %>
+    <%= f.input :available_from %>
+    <%= f.input :available_location %>
+    <%= f.input :available_to %>
+    <%= f.input :dog_size %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit %>
+  </div>
+<% end %>

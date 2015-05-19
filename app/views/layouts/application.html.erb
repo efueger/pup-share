@@ -7,7 +7,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-
+    
     <!-- start navbar -->
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -16,7 +16,8 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><a href="#">Search Walkers and Sitters</a></li>
+            <li><%= link_to 'Search Walkers', availabilities_path %></li>  
+            <li><%= link_to 'Search Sitters', availabilities_path %></li> 
             <li><a href="#">Become a Walker or Sitter</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
@@ -30,12 +31,25 @@
     <!-- end navbar -->
 
 
+    <div class="row">
+      <div class="col-md-2">
+      </div>
+      
+      <div class="col-md-6">
+        <%= yield %>      
+      </div>
 
-    <%= yield %>
+      <div class="col-md-2">
+      </div>     
+    </div>
 
-    <footer>
-      <p>Copyright 2015</p>
+
+
+    
+    <footer class="footer">
+        <p>Some stuff goes down here. &copy 2015, etc.</p>
     </footer>
+        
 
 
   </body>

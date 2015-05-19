@@ -2,6 +2,8 @@
 
 Rails.application.routes.draw do
   
+  resources :availabilities
+
   resources :jobs
 
   root 'static_pages#index'
