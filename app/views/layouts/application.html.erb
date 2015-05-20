@@ -16,13 +16,12 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><%= link_to 'Search Walkers', availabilities_path %></li>  
-            <li><%= link_to 'Search Sitters', availabilities_path %></li> 
-            <li><a href="#">Become a Walker or Sitter</a></li>
+            <li><%= link_to 'Search Walkers', availabilities_path(job_type: 'walker') %></li>  
+            <li><a href="#">Become a Walker</a></li>
           </ul>
-          <ul class="nav navbar-nav navbar-right">
+          <ul class="nav navbar-nav navbar-right"> 
+            <li><%= link_to 'Sign Up', new_person_path %></li> 
             <li><a href="#">Sign In</a></li>
-            <li><a href="#">Sign Up</a></li>
             <li><%= link_to 'Help', help_path %></li>
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -47,7 +46,7 @@
 
     
     <footer class="footer">
-        <p>Some stuff goes down here. &copy 2015, etc.</p>
+        <p>Stuff goes down here. &copy 2015, etc.</p>
     </footer>
         
 
