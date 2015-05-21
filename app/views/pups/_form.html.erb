@@ -1,29 +1,22 @@
-<%= form_for(@pup) do |f| %>
-  <% if @pup.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@pup.errors.count, "error") %> prohibited this pup from being saved:</h2>
+<%= simple_form_for(@pup) do |f| %>
+  <%= f.error_notification %>
 
-      <ul>
-      <% @pup.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <div class="form-inputs">
+    <%= f.input :name %>
+    <%= f.input :breed %>
+    <%= f.input :weight %>
+    <%= f.input :gender %>
+    <%= f.input :birthday %>
+    <%= f.input :picture %>
+    <%= f.input :tracking_chip %>
+    <%= f.input :neutered %>
+    <%= f.input :good_w_dogs %>
+    <%= f.input :special_requirements %>
+    <%= f.input :care_instructions %>
+    <%= f.input :vet_phone %>
+  </div>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :gender %><br>
-    <%= f.text_field :gender %>
-  </div>
-  <div class="field">
-    <%= f.label :age %><br>
-    <%= f.number_field :age %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="form-actions">
+    <%= f.button :submit %>
   </div>
 <% end %>

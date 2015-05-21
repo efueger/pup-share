@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150519204123) do
+ActiveRecord::Schema.define(version: 20150521145600) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,19 +39,34 @@ ActiveRecord::Schema.define(version: 20150519204123) do
   end
 
   create_table "people", force: :cascade do |t|
-    t.string   "name"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "building"
+    t.string   "address"
     t.string   "email"
-    t.string   "password"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.string   "phone"
+    t.string   "emergency_phone"
+    t.boolean  "pup_parent"
+    t.boolean  "pup_provider"
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
   end
 
   create_table "pups", force: :cascade do |t|
     t.string   "name"
+    t.string   "breed"
+    t.integer  "weight"
     t.string   "gender"
-    t.integer  "age"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "birthday"
+    t.string   "picture"
+    t.boolean  "tracking_chip"
+    t.boolean  "neutered"
+    t.boolean  "good_w_dogs"
+    t.text     "special_requirements"
+    t.text     "care_instructions"
+    t.string   "vet_phone"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
 end

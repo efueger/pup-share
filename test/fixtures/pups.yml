@@ -2,10 +2,28 @@
 
 one:
   name: MyString
+  breed: MyString
+  weight: 1
   gender: MyString
-  age: 1
+  birthday: 2015-05-21 14:56:00
+  picture: MyString
+  tracking_chip: false
+  neutered: false
+  good_w_dogs: false
+  special_requirements: MyText
+  care_instructions: MyText
+  vet_phone: MyString
 
 two:
   name: MyString
+  breed: MyString
+  weight: 1
   gender: MyString
-  age: 1
+  birthday: 2015-05-21 14:56:00
+  picture: MyString
+  tracking_chip: false
+  neutered: false
+  good_w_dogs: false
+  special_requirements: MyText
+  care_instructions: MyText
+  vet_phone: MyString

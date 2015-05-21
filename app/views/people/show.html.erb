@@ -1,8 +1,23 @@
 <p id="notice"><%= notice %></p>
 
 <p>
-  <strong>Name:</strong>
-  <%= @person.name %>
+  <strong>First name:</strong>
+  <%= @person.first_name %>
+</p>
+
+<p>
+  <strong>Last name:</strong>
+  <%= @person.last_name %>
+</p>
+
+<p>
+  <strong>Building:</strong>
+  <%= @person.building %>
+</p>
+
+<p>
+  <strong>Address:</strong>
+  <%= @person.address %>
 </p>
 
 <p>
@@ -11,9 +26,23 @@
 </p>
 
 <p>
-  <strong>Password:</strong>
-  <%= @person.password %>
+  <strong>Phone:</strong>
+  <%= @person.phone %>
 </p>
 
-<%= link_to 'Edit', edit_person_path(@person) %> |
-<%= link_to 'Back', people_path %>
+<p>
+  <strong>Emergency phone:</strong>
+  <%= @person.emergency_phone %>
+</p>
+
+<p>
+  <strong>Pup parent:</strong>
+  <%= @person.pup_parent %>
+</p>
+
+<p>
+  <strong>Pup provider:</strong>
+  <%= @person.pup_provider %>
+</p>
+
+<%= link_to 'Edit', edit_person_path(@person) %>

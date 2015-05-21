@@ -3,6 +3,7 @@ class PeopleController < ApplicationController
 
   # GET /people
   # GET /people.json
+  # *****should be only viewable to the administrator
   def index
     @people = Person.all
   end
@@ -69,6 +70,6 @@ class PeopleController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def person_params
-      params.require(:person).permit(:name, :email, :password)
+      params.require(:person).permit(:first_name, :last_name, :building, :address, :email, :phone, :emergency_phone, :pup_parent, :pup_provider)
     end
 end

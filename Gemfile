@@ -25,6 +25,8 @@ gem 'simple_form'
 # debugger
 gem 'pry-rails', :group => :development
 
+# authentication
+gem 'devise', '>= 3.2.4'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'

@@ -2,17 +2,18 @@
 
 Rails.application.routes.draw do
   
+  devise_for :people
+  resources :pups
+
+  resources :people
+
   resources :availabilities
 
   resources :jobs
 
   root 'static_pages#index'
   get 'help', :to => 'static_pages#help'
-  
-  resources :pups
-  resources :people
-
-  # The priority is based upon order of creation: first created -> highest priority.
+    # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
