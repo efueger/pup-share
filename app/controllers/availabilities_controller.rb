@@ -1,4 +1,5 @@
 class AvailabilitiesController < ApplicationController
+  before_action :authenticate_person!, except: [:index, :show]
   before_action :set_availability, only: [:show, :edit, :update, :destroy]
 
   # GET /availabilities

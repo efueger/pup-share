@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150521155442) do
+ActiveRecord::Schema.define(version: 20150521193043) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,7 +25,10 @@ ActiveRecord::Schema.define(version: 20150521155442) do
     t.string   "dog_size"
     t.datetime "created_at",         null: false
     t.datetime "updated_at",         null: false
+    t.string   "person_id"
   end
+
+  add_index "availabilities", ["person_id"], name: "index_availabilities_on_person_id", using: :btree
 
   create_table "jobs", force: :cascade do |t|
     t.string   "name"
@@ -36,7 +39,10 @@ ActiveRecord::Schema.define(version: 20150521155442) do
     t.string   "pick_up_location"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
+    t.string   "person_id"
   end
+
+  add_index "jobs", ["person_id"], name: "index_jobs_on_person_id", using: :btree
 
   create_table "people", force: :cascade do |t|
     t.string   "first_name"
@@ -79,6 +85,9 @@ ActiveRecord::Schema.define(version: 20150521155442) do
     t.string   "vet_phone"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.integer  "job_id"
   end
+
+  add_index "pups", ["job_id"], name: "index_pups_on_job_id", using: :btree
 
 end

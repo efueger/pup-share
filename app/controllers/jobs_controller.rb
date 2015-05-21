@@ -1,4 +1,5 @@
 class JobsController < ApplicationController
+  before_action :authenticate_person!
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
   # GET /jobs
@@ -24,8 +25,8 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
-    @job = Job.new(job_params)
-
+    @job = current_person.jobs.new(job_params)
+ 
     respond_to do |format|
       if @job.save
         format.html { redirect_to @job, notice: 'Job was successfully created.' }

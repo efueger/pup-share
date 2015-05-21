@@ -18,6 +18,9 @@
   <tbody>
     <% @jobs.each do |job| %>
       <tr>
+        <% if job.person.present? %>
+        <strong><%= job.person.email %></strong>
+        <% end %>
         <td><%= job.name %></td>
         <td><%= job.job_type %></td>
         <td><%= job.drop_off_time %></td>
