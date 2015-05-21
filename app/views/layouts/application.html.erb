@@ -20,9 +20,12 @@
             <li><a href="#">Become a Walker</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right"> 
-            <li><%= link_to 'Sign Up', new_person_path %></li> 
-            <li><a href="#">Sign In</a></li>
-            <li><%= link_to 'Help', help_path %></li>
+            <% if person_signed_in? %>
+            <li><%= link_to 'Sign out', destroy_person_session_path, method: :delete %></li>
+            <% else %>
+            <li><%= link_to 'Sign in', new_person_session_path %></li>
+            <li><%= link_to 'Sign up', new_person_registration_path %></li>
+            <% end %>          
           </ul>
         </div><!-- /.navbar-collapse -->
       </div><!-- /.container-fluid -->

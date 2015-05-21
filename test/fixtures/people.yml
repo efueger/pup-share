@@ -5,7 +5,6 @@ one:
   last_name: MyString
   building: MyString
   address: MyString
-  email: MyString
   phone: MyString
   emergency_phone: MyString
   pup_parent: false
@@ -16,7 +15,6 @@ two:
   last_name: MyString
   building: MyString
   address: MyString
-  email: MyString
   phone: MyString
   emergency_phone: MyString
   pup_parent: false
