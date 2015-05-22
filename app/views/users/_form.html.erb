@@ -1,4 +1,4 @@
-<%= simple_form_for(@person) do |f| %>
+<%= simple_form_for(@user) do |f| %>
   <%= f.error_notification %>
 
   <div class="form-inputs">
@@ -6,10 +6,11 @@
     <%= f.input :last_name %>
     <%= f.input :building %>
     <%= f.input :address %>
+    <%= f.input :email %>
     <%= f.input :phone %>
     <%= f.input :emergency_phone %>
-    <%= f.input :pup_parent %>
-    <%= f.input :pup_provider %>
+    <%= f.input :parent %>
+    <%= f.input :walker %>
   </div>
 
   <div class="form-actions">

@@ -5,17 +5,19 @@ one:
   last_name: MyString
   building: MyString
   address: MyString
+  email: MyString
   phone: MyString
   emergency_phone: MyString
-  pup_parent: false
-  pup_provider: false
+  parent: false
+  walker: false
 
 two:
   first_name: MyString
   last_name: MyString
   building: MyString
   address: MyString
+  email: MyString
   phone: MyString
   emergency_phone: MyString
-  pup_parent: false
-  pup_provider: false
+  parent: false
+  walker: false

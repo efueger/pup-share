@@ -2,11 +2,9 @@
 
 Rails.application.routes.draw do
   
-  devise_for :people
+  devise_for :users
   
   resources :pups
-  resources :people
-  resources :availabilities
   resources :jobs
 
   root 'static_pages#index'

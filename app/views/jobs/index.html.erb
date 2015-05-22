@@ -1,40 +1,26 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Listing Jobs</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Job type</th>
-      <th>Drop off time</th>
-      <th>Drop off location</th>
-      <th>Pick up time</th>
-      <th>Pick up location</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @jobs.each do |job| %>
-      <tr>
-        <% if job.person.present? %>
-        <strong><%= job.person.email %></strong>
-        <% end %>
-        <td><%= job.name %></td>
-        <td><%= job.job_type %></td>
-        <td><%= job.drop_off_time %></td>
-        <td><%= job.drop_off_location %></td>
-        <td><%= job.pick_up_time %></td>
-        <td><%= job.pick_up_location %></td>
-        <td><%= link_to 'Show', job %></td>
-        <td><%= link_to 'Edit', edit_job_path(job) %></td>
-        <td><%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<%= link_to 'My pup needs a walk too!', new_pup_path %>
 
 <br>
 
+<h1>Let's go for a walk!</h1>
+
+<% @jobs.each do |pup| %>
+<div class="booyah-box">
+  <p><strong><%= pup.name %> the <%= pup.weight %>lb. <%= pup.gender %> <%= pup.breed %></strong></p>
+  <p>Pick me up: <%= job.drop_off_time %> at <%= job.drop_off_location %></p>
+  <p>Drop me off: <%= job.pick_up_time %> at <%= job.pick_up_location %></p>
+  <br>
+  <br>
+  <!-- if person is logged in alter a record they created -->
+  <%= link_to 'Show', pup %>
+  <%= link_to 'Edit', edit_pup_path(pup) %>
+  <%= link_to 'Destroy', pup, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'I want to walk your pup!', root_path, class: 'btn btn-success' %>
+  
+</div>
+<% end %>
+
+<br>
 <%= link_to 'New Job', new_job_path %>
