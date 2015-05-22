@@ -6,17 +6,19 @@
 
 <h1>Let's go for a walk!</h1>
 
-<% @jobs.each do |pup| %>
+<% @jobs.each do |job| %>
 <div class="booyah-box">
-  <p><strong><%= pup.name %> the <%= pup.weight %>lb. <%= pup.gender %> <%= pup.breed %></strong></p>
-  <p>Pick me up: <%= job.drop_off_time %> at <%= job.drop_off_location %></p>
+  <p><strong>
+    <%#= pup.name %> the <%#= pup.weight %>lb. <%#= pup.gender %> <%#= pup.breed %>
+  </strong></p>
+    <p>Pick me up: <%= job.drop_off_time %> at <%= job.drop_off_location %></p>
   <p>Drop me off: <%= job.pick_up_time %> at <%= job.pick_up_location %></p>
   <br>
   <br>
   <!-- if person is logged in alter a record they created -->
-  <%= link_to 'Show', pup %>
-  <%= link_to 'Edit', edit_pup_path(pup) %>
-  <%= link_to 'Destroy', pup, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Show', job %>
+  <%= link_to 'Edit', edit_job_path(job) %>
+  <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %>
   <%= link_to 'I want to walk your pup!', root_path, class: 'btn btn-success' %>
   
 </div>
