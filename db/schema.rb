@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150522201613) do
+ActiveRecord::Schema.define(version: 20150522220237) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,33 +27,6 @@ ActiveRecord::Schema.define(version: 20150522201613) do
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
-
-  create_table "jobs_pups", force: :cascade do |t|
-    t.integer "job_id"
-    t.integer "pup_id"
-  end
-
-  create_table "pups", force: :cascade do |t|
-    t.string   "name"
-    t.string   "breed"
-    t.integer  "weight"
-    t.string   "gender"
-    t.datetime "birthday"
-    t.string   "picture"
-    t.boolean  "tracking_chip"
-    t.boolean  "neutered"
-    t.boolean  "good_w_dogs"
-    t.text     "special_requirements"
-    t.text     "care_instructions"
-    t.string   "vet_phone"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.integer  "job_id"
-    t.integer  "user_id"
-  end
-
-  add_index "pups", ["job_id"], name: "index_pups_on_job_id", using: :btree
-  add_index "pups", ["user_id"], name: "index_pups_on_user_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
@@ -76,6 +49,13 @@ ActiveRecord::Schema.define(version: 20150522201613) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
+    t.string   "pup_name"
+    t.string   "pup_breed"
+    t.integer  "pup_weight"
+    t.boolean  "pup_gender"
+    t.date     "pup_bday"
+    t.string   "pup_vet_phone"
+    t.text     "pup_care_instructions"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
