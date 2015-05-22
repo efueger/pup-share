@@ -25,9 +25,9 @@ class PupsController < ApplicationController
   # POST /pups
   # POST /pups.json
   def create
-#     @pup = Pup.new(pup_params)
-
+    # associate authenticated user with a job
     @pup = current_user.pups.new(pup_params)
+    
     respond_to do |format|
       if @pup.save
         format.html { redirect_to @pup, notice: 'Pup was successfully created.' }

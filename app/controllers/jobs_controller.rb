@@ -25,6 +25,7 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
+    # associate authenticated user with a job
     @job = current_user.jobs.new(job_params)
  
     respond_to do |format|
@@ -70,6 +71,6 @@ class JobsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def job_params
-      params.require(:job).permit(:name, :job_type, :drop_off_time, :drop_off_location, :pick_up_time, :pick_up_location)
+      params.require(:job).permit(:drop_off_time, :drop_off_location, :pick_up_time, :pick_up_location, :pup_id)
     end
 end

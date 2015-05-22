@@ -11,24 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150522154654) do
+ActiveRecord::Schema.define(version: 20150522165749) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "jobs", force: :cascade do |t|
-    t.string   "name"
-    t.string   "job_type"
     t.datetime "drop_off_time"
     t.string   "drop_off_location"
     t.datetime "pick_up_time"
     t.string   "pick_up_location"
     t.datetime "created_at",        null: false
     t.datetime "updated_at",        null: false
-    t.string   "person_id"
+    t.integer  "user_id"
   end
 
-  add_index "jobs", ["person_id"], name: "index_jobs_on_person_id", using: :btree
+  add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
 
   create_table "pups", force: :cascade do |t|
     t.string   "name"
