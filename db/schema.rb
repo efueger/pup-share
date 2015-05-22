@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150522165749) do
+ActiveRecord::Schema.define(version: 20150522201613) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,11 @@ ActiveRecord::Schema.define(version: 20150522165749) do
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
+
+  create_table "jobs_pups", force: :cascade do |t|
+    t.integer "job_id"
+    t.integer "pup_id"
+  end
 
   create_table "pups", force: :cascade do |t|
     t.string   "name"
@@ -49,14 +54,6 @@ ActiveRecord::Schema.define(version: 20150522165749) do
 
   add_index "pups", ["job_id"], name: "index_pups_on_job_id", using: :btree
   add_index "pups", ["user_id"], name: "index_pups_on_user_id", using: :btree
-
-  create_table "pups_jobs", id: false, force: :cascade do |t|
-    t.integer "pup_id"
-    t.integer "job_id"
-  end
-
-  add_index "pups_jobs", ["job_id"], name: "index_pups_jobs_on_job_id", using: :btree
-  add_index "pups_jobs", ["pup_id"], name: "index_pups_jobs_on_pup_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "first_name"
