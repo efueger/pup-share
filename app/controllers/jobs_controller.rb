@@ -1,5 +1,5 @@
 class JobsController < ApplicationController
-  before_action :authenticate_person!
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_job, only: [:show, :edit, :update, :destroy]
 
   # GET /jobs
@@ -25,7 +25,7 @@ class JobsController < ApplicationController
   # POST /jobs
   # POST /jobs.json
   def create
-    @job = current_person.jobs.new(job_params)
+    @job = current_user.jobs.new(job_params)
  
     respond_to do |format|
       if @job.save

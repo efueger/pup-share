@@ -1,4 +1,11 @@
 class Pup < ActiveRecord::Base
-  belongs_to :person
-  belongs_to :job
+  validates :name,            presence: true
+  validates :breed,           presence: true  
+  validates :weight,          presence: true  
+  validates :gender,          presence: true  
+  validates :birthday,        presence: true  
+
+  belongs_to :user
+  has_and_belongs_to_many :jobs
+  
 end

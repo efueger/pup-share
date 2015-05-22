@@ -1,4 +1,5 @@
 class PupsController < ApplicationController
+  before_action :authenticate_user!, except: [:index, :show]
   before_action :set_pup, only: [:show, :edit, :update, :destroy]
 
   # GET /pups
@@ -24,8 +25,9 @@ class PupsController < ApplicationController
   # POST /pups
   # POST /pups.json
   def create
-    @pup = Pup.new(pup_params)
+#     @pup = Pup.new(pup_params)
 
+    @pup = current_user.pups.new(pup_params)
     respond_to do |format|
       if @pup.save
         format.html { redirect_to @pup, notice: 'Pup was successfully created.' }

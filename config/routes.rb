@@ -4,10 +4,11 @@ Rails.application.routes.draw do
   
   devise_for :users
   
+  root 'jobs#index'
+  
   resources :pups
   resources :jobs
 
-  root 'static_pages#index'
   get 'help', :to => 'static_pages#help'
 
 end
