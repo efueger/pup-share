@@ -16,15 +16,14 @@
         </div>
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
-            <li><%= link_to 'Search Walkers', availabilities_path(job_type: 'walker') %></li>  
             <li><a href="#">Become a Walker</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right"> 
-            <% if person_signed_in? %>
-            <li><%= link_to 'Sign out', destroy_person_session_path, method: :delete %></li>
+            <% if user_signed_in? %>
+            <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
             <% else %>
-            <li><%= link_to 'Sign in', new_person_session_path %></li>
-            <li><%= link_to 'Sign up', new_person_registration_path %></li>
+            <li><%= link_to 'Sign in', new_user_session_path %></li>
+            <li><%= link_to 'Sign up', new_user_registration_path %></li>
             <% end %>          
           </ul>
         </div><!-- /.navbar-collapse -->
