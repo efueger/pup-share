@@ -5,7 +5,6 @@
 <% @jobs.each do |job| %>
 <div class="booyah-box">
   <p><strong>
-    <%= "#{job.user.pup_name} the #{job.user.pup_weight}lb. #{job.user.pup_gender} #{job.user.pup_breed}" %>
   </strong></p>
     <p>Pick me up: <%= job.drop_off_time %> at <%= job.drop_off_location %></p>
   <p>Drop me off: <%= job.pick_up_time %> at <%= job.pick_up_location %></p>
