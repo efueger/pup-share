@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150523204810) do
+ActiveRecord::Schema.define(version: 20150523225330) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,9 +21,16 @@ ActiveRecord::Schema.define(version: 20150523204810) do
     t.string   "drop_off_location"
     t.datetime "pick_up_time"
     t.string   "pick_up_location"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
     t.integer  "user_id"
+    t.string   "pup_name"
+    t.string   "pup_breed"
+    t.string   "pup_weight"
+    t.string   "pup_gender"
+    t.date     "pup_bday"
+    t.string   "pup_vet_phone"
+    t.text     "pup_care_instructions"
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
@@ -49,13 +56,6 @@ ActiveRecord::Schema.define(version: 20150523204810) do
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
     t.inet     "last_sign_in_ip"
-    t.string   "pup_name"
-    t.string   "pup_breed"
-    t.integer  "pup_weight"
-    t.string   "pup_gender"
-    t.date     "pup_bday"
-    t.string   "pup_vet_phone"
-    t.text     "pup_care_instructions"
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
