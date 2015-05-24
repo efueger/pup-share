@@ -1,23 +1,9 @@
-<p>
-  <strong>Drop off time:</strong>
-  <%= @job.drop_off_time %>
-</p>
 
-<p>
-  <strong>Drop off location:</strong>
-  <%= @job.drop_off_location %>
-</p>
-
-<p>
-  <strong>Pick up time:</strong>
-  <%= @job.pick_up_time %>
-</p>
-
-<p>
-  <strong>Pick up location:</strong>
-  <%= @job.pick_up_location %>
-</p>
+<% @job.attributes.each do |key, value| %>
+  <p><strong><%= key %>: </strong><%= value %></p>
+<% end %>
 
 <br>
-<%= link_to 'Edit', edit_job_path(@job) %> |
-<%= link_to 'Back', jobs_path %>
+<%= link_to 'Edit', edit_job_path(@job) %>
+<br>
+<%= link_to 'See all Jobs', jobs_path %>
