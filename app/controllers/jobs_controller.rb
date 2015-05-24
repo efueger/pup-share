@@ -5,6 +5,7 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
+#     binding.pry
     @jobs = Job.all
   end
 
