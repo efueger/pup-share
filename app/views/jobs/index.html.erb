@@ -4,15 +4,15 @@
 
 <% @jobs.each do |job| %>
 <div class="booyah-box">
-  <p><strong>
-  </strong></p>
-    <p>Pick me up: <%= job.drop_off_time %> at <%= job.drop_off_location %></p>
+  <p><strong></strong></p>
+  <p>Pick me up: <%= job.drop_off_time %> at <%= job.drop_off_location %></p>
   <p>Drop me off: <%= job.pick_up_time %> at <%= job.pick_up_location %></p>
   <br>
   <br>
   <!-- if person is logged in alter a record they created -->
   <%= link_to 'Edit', edit_job_path(job) %>
   <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' } %>
+  <br>
   <br>
   <%= link_to 'I want to walk your pup!', root_path, class: 'btn btn-success' %>
 
