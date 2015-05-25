@@ -30,7 +30,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        format.html { redirect_to @job, notice: 'Job was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Job was successfully created.' }
         format.json { render :show, status: :created, location: @job }
       else
         format.html { render :new }
@@ -52,24 +52,29 @@ class JobsController < ApplicationController
             redirect_to root_path, notice: 'Request email sent to pup owner.'
             return
           else
+            @job.walk_request_pending = false
+            @job.walk_request_pending_user_id = nil  
+            @job.save
             redirect_to root_path, alert: 'You already have a request pending. Max allowed is 1.'
             return
           end
           if params[:request_approved]
             WalkRequest.walk_request_confirmation.deliver_now
-            job.walk_request_pending = false
-            job.walk_request_pending_user_id = nil
-            job.walk_request_confirmed = true
-            job.walker_id = current_user.id
+            @job.walk_request_pending = false
+            @job.walk_request_pending_user_id = nil
+            @job.walk_request_confirmed = true
+            @job.walker_id = current_user.id
+            @job.save
             # IDEA: convert view to two columns 1) "need a walk" 2) "walk scheduled"
             # IDEA (continued) once confirmed, move job into "walk scheduled" column
             return
           else
             WalkRequest.walk_request_denied.deliver_now
-            job.walk_request_pending = false
-            job.walk_request_pending_user_id = nil
-            job.walk_request_confirmed = false
-            job.walker_id = nil
+            @job.walk_request_pending = false
+            @job.walk_request_pending_user_id = nil
+            @job.walk_request_confirmed = false
+            @job.walker_id = nil
+            @job.save
             return
           end
         else

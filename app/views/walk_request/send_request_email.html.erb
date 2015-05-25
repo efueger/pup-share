@@ -6,9 +6,9 @@
   <body>
     <h1>Somebody wants to take your pup for a walk!</h1>
     <br>  
-    <%= jobs_url(host: 'example.com', controller: 'jobs', action: 'update', request_approved: true)  %>
+    <%= jobs_url(controller: 'jobs', action: 'update', request_approved: true)  %>
     <br>
-    <%= jobs_url(host: 'example.com', controller: 'jobs', action: 'update', request_approved: false) %>
+    <%= jobs_url(controller: 'jobs', action: 'update', request_approved: false) %>
     <br>
   </body>
 </html>
