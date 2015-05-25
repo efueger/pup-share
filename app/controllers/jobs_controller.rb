@@ -27,7 +27,7 @@ class JobsController < ApplicationController
   def create
     # associate authenticated user with a job
     @job = current_user.jobs.new(job_params)
- 
+
     respond_to do |format|
       if @job.save
         format.html { redirect_to @job, notice: 'Job was successfully created.' }
@@ -42,19 +42,23 @@ class JobsController < ApplicationController
   # PATCH/PUT /jobs/1
   # PATCH/PUT /jobs/1.json
   def update
-    binding.pry
-    if params[:walk_request]
-      WalkRequest.send_request_email.deliver_now
-      #     update the job paramater that says request pending
-#       display_alert 'Request email sent to pup owner!'
-      redirect_to root_path
-#       break
-    end
-
     respond_to do |format|
       if @job.update(job_params)
-        format.html { redirect_to @job, notice: 'Job was successfully updated.' }
-        format.json { render :show, status: :ok, location: @job }
+        if params[:walk_request]
+          if current_user.user_pending_requests_count == 0 # user can only have one walk request outstanding for now
+            WalkRequest.send_request_email.deliver_now
+            current_user.user_pending_requests_count += 1
+            current_user.save
+            redirect_to root_path, notice: 'Request email sent to pup owner.'
+            return
+          else
+            redirect_to root_path, alert: 'You already have a request pending. Max allowed is 1.'
+            return
+          end
+        else
+          format.html { redirect_to @job, notice: 'Job was successfully updated.' }
+          format.json { render :show, status: :ok, location: @job }
+        end
       else
         format.html { render :edit }
         format.json { render json: @job.errors, status: :unprocessable_entity }
@@ -73,13 +77,13 @@ class JobsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_job
-      @job = Job.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_job
+    @job = Job.find(params[:id])
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def job_params
-      params.require(:job).permit!
-    end
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def job_params
+    params.require(:job).permit!
+  end
 end

@@ -15,13 +15,22 @@
   <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
   <br>
   <% end %>
-  
+
   <br>
   <% if user_signed_in? %>
-  <%= link_to 'I want to walk your pup!', job_path(job), method: :put, data: { confirm: 'Okay to send a walk request to the pup\'s owner?', walk_request: true}, class: 'btn btn-success' %>      
+    <% if !job.walk_request_pending %><!-- the job must NOT already have a pending request outstanding -->
+      <%= simple_form_for(job, url: job_path(job, walk_request: true)) do |f| %>
+        <%= f.input :walk_request_pending,         as: :hidden, input_html: { value: true } %>
+        <%= f.input :walk_request_pending_user_id, as: :hidden, input_html: { value: current_user.id }  %>
+        <%= f.button :submit, 'I want to walk your pup!', class: 'btn btn-success'%>
+      <% end %>    
+    <% else %>
+      <%= "This job has already been requested by #{User.find(job.walk_request_pending_user_id).first_name}" %> 
+    <% end %>  
   <% else %>
   <%= link_to 'I want to walk your pup!', user_session_path, class: 'btn btn-success' %>
   <% end %>
+  
 </div>
 
 <br>

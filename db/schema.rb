@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150524233653) do
+ActiveRecord::Schema.define(version: 20150525171117) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 20150524233653) do
     t.string   "drop_off_location"
     t.datetime "pick_up_time"
     t.string   "pick_up_location"
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.integer  "user_id"
     t.string   "pup_name"
     t.string   "pup_breed"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20150524233653) do
     t.boolean  "walk_request_pending"
     t.boolean  "walk_request_confirmed"
     t.integer  "walker_id"
+    t.integer  "walk_request_pending_user_id"
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
@@ -47,14 +48,14 @@ ActiveRecord::Schema.define(version: 20150524233653) do
     t.string   "emergency_phone"
     t.boolean  "parent"
     t.boolean  "walker"
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.string   "email",                  default: "", null: false
-    t.string   "encrypted_password",     default: "", null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.string   "email",                       default: "", null: false
+    t.string   "encrypted_password",          default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",          default: 0,  null: false
+    t.integer  "sign_in_count",               default: 0,  null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -62,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150524233653) do
     t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
+    t.integer  "user_pending_requests_count", default: 0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
