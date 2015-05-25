@@ -55,6 +55,23 @@ class JobsController < ApplicationController
             redirect_to root_path, alert: 'You already have a request pending. Max allowed is 1.'
             return
           end
+          if params[:request_approved]
+            WalkRequest.walk_request_confirmation.deliver_now
+            job.walk_request_pending = false
+            job.walk_request_pending_user_id = nil
+            job.walk_request_confirmed = true
+            job.walker_id = current_user.id
+            # IDEA: convert view to two columns 1) "need a walk" 2) "walk scheduled"
+            # IDEA (continued) once confirmed, move job into "walk scheduled" column
+            return
+          else
+            WalkRequest.walk_request_denied.deliver_now
+            job.walk_request_pending = false
+            job.walk_request_pending_user_id = nil
+            job.walk_request_confirmed = false
+            job.walker_id = nil
+            return
+          end
         else
           format.html { redirect_to @job, notice: 'Job was successfully updated.' }
           format.json { render :show, status: :ok, location: @job }

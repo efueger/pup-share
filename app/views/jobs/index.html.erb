@@ -9,7 +9,7 @@
   <p><strong><%= key %>: </strong><%= value %></p>
   <% end %>
 
-  <% if job.user == current_user %>
+  <% if job.user == current_user %><!--# current_user assumes user_signed_in? is true -->
   <br>  
   <%= link_to 'Edit', edit_job_path(job), class: 'btn btn-warning'%>
   <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
@@ -25,7 +25,7 @@
         <%= f.button :submit, 'I want to walk your pup!', class: 'btn btn-success'%>
       <% end %>    
     <% else %>
-      <%= "This job has already been requested by #{User.find(job.walk_request_pending_user_id).first_name}" %> 
+      <%#= "This job has already been requested by #{User.find(job.walk_request_pending_user_id).first_name}" %> 
     <% end %>  
   <% else %>
   <%= link_to 'I want to walk your pup!', user_session_path, class: 'btn btn-success' %>
