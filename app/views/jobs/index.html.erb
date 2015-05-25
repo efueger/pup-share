@@ -17,9 +17,11 @@
   <% end %>
   
   <br>
-  <%= link_to 'I want to walk your pup!', user_signed_in? ? root_path : user_session_path, 
-    data: { confirm: 'Okay to send a walk request to the pup\'s owner?' }, 
-    class: 'btn btn-success' %>
+  <% if user_signed_in? %>
+  <%= link_to 'I want to walk your pup!', job_path(job), method: :put, data: { confirm: 'Okay to send a walk request to the pup\'s owner?', walk_request: true}, class: 'btn btn-success' %>      
+  <% else %>
+  <%= link_to 'I want to walk your pup!', user_session_path, class: 'btn btn-success' %>
+  <% end %>
 </div>
 
 <br>

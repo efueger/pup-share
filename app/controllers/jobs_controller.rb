@@ -5,7 +5,6 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-#     binding.pry
     @jobs = Job.all
   end
 
@@ -43,6 +42,15 @@ class JobsController < ApplicationController
   # PATCH/PUT /jobs/1
   # PATCH/PUT /jobs/1.json
   def update
+    binding.pry
+    if params[:walk_request]
+      WalkRequest.send_request_email.deliver_now
+      #     update the job paramater that says request pending
+#       display_alert 'Request email sent to pup owner!'
+      redirect_to root_path
+#       break
+    end
+
     respond_to do |format|
       if @job.update(job_params)
         format.html { redirect_to @job, notice: 'Job was successfully updated.' }
