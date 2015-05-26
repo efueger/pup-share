@@ -1,9 +1,4 @@
-
 <% @job.attributes.each do |key, value| %>
   <p><strong><%= key %>: </strong><%= value %></p>
 <% end %>
 
-<br>
-<%= link_to 'Edit', edit_job_path(@job) %>
-<br>
-<%= link_to 'See all Jobs', jobs_path %>

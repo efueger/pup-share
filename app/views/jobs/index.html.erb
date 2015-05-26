@@ -9,30 +9,23 @@
   <p><strong><%= key %>: </strong><%= value %></p>
   <% end %>
 
-  <% if job.user == current_user %><!--# current_user assumes user_signed_in? is true -->
+  <% if job.user == current_user && user_signed_in? %>
   <br>  
   <%= link_to 'Edit', edit_job_path(job), class: 'btn btn-warning'%>
   <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
   <br>
   <% end %>
 
-  <br>
-  <% if user_signed_in? %>
-    <% if !job.walk_request_pending %><!-- the job must NOT already have a pending request outstanding -->
-      <%= simple_form_for(job, url: job_path(job, walk_request: true)) do |f| %>
-        <%= f.input :walk_request_pending,         as: :hidden, input_html: { value: true } %>
-        <%= f.input :walk_request_pending_user_id, as: :hidden, input_html: { value: current_user.id }  %>
-        <%= f.button :submit, 'I want to walk your pup!', class: 'btn btn-success'%>
-      <% end %>    
-    <% else %>
-      <%#= "This job has already been requested by #{User.find(job.walk_request_pending_user_id).first_name}" %> 
+  <% if user_signed_in? && !job.walk_request_pending %>
+  <br>  
+  <%= simple_form_for(job, url: job_path(job, walk_request: true)) do |f| %>
+    <%= f.input :walk_request_pending,         as: :hidden, input_html: { value: true } %>
+    <%= f.input :walk_request_pending_user_id, as: :hidden, input_html: { value: current_user.id }  %>
+    <%= f.button :submit, 'I want to walk your pup!', class: 'btn btn-success'%>
     <% end %>  
-  <% else %>
-  <%= link_to 'I want to walk your pup!', user_session_path, class: 'btn btn-success' %>
   <% end %>
-  
-</div>
 
+</div>
 <br>
 <% end %>
 

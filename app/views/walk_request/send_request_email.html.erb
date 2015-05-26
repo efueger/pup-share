@@ -5,9 +5,11 @@
   </head>
   <body>
     <h1>Somebody wants to take your pup for a walk!</h1>
-    <br>  
+    <br>
+    Approve: 
     <%= jobs_url(controller: 'jobs', action: 'update', request_approved: true)  %>
     <br>
+    Decline: 
     <%= jobs_url(controller: 'jobs', action: 'update', request_approved: false) %>
     <br>
   </body>
