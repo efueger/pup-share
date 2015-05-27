@@ -5,27 +5,43 @@
 <% @jobs.each do |job| %>
 
 <div class="booyah-box">
-  <% job.attributes.each do |key, value| %>
-  <p><strong><%= key %>: </strong><%= value %></p>
-  <% end %>
 
-  <% if job.user == current_user && user_signed_in? %>
-  <br>  
-  <%= link_to 'Edit', edit_job_path(job), class: 'btn btn-warning'%>
-  <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-  <br>
-  <% end %>
+  <div class="row">
+    <div class="col-md-6">
+      <p>Pup name: <%=   job.pup_name %></p>
+      <p>Pup breed: <%=  job.pup_breed %></p>
+      <p>Pup weight: <%= job.pup_weight %></p>
+      <p>Pup gender: <%= job.pup_gender %></p>
+    </div>
+    <div class="col-md-6">
+      <p>Drop off: <%= job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
+      <p>Place: <%= job.drop_off_location %></p>
+      <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
+      <p>Place: <%= job.pick_up_location %></p>
+    </div>
+  </div>
 
-  <% if user_signed_in? && !job.walk_request_pending %>
-  <br>  
-  <%= simple_form_for(job, url: job_path(job, walk_request: true)) do |f| %>
-    <%= f.input :walk_request_pending,         as: :hidden, input_html: { value: true } %>
-    <%= f.input :walk_request_pending_user_id, as: :hidden, input_html: { value: current_user.id }  %>
-    <%= f.button :submit, 'I want to walk your pup!', class: 'btn btn-success'%>
-    <% end %>  
-  <% end %>
+  <!-- **** IS THIS THE RIGHT WAY/PLACE TO UPDATE ATTRIBUTES? VIA HIDDEN FORM? **** -->
+  <div class="row">
+    <% if user_signed_in? && !job.walk_request_pending %>
+    <div class="col-md-6">
+      <%= simple_form_for(job, url: job_path(job, walk_request: true)) do |f| %>
+      <%= f.input :walk_request_pending,         as: :hidden, input_html: { value: true } %>
+      <%= f.input :walk_request_pending_user_id, as: :hidden, input_html: { value: current_user.id }  %>
+      <%= f.button :submit, 'I want to walk your pup!', class: 'btn btn-success'%>
+      <% end %>  
+    </div>
+    <% end %>
 
+    <% if job.user == current_user && user_signed_in? %>
+    <div class="col-md-6">
+      <%= link_to 'Edit', edit_job_path(job), class: 'btn btn-warning'%>
+      <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
+    <% end %>
+  </div>
 </div>
+
 <br>
 <% end %>
 

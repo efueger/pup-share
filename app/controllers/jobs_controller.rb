@@ -32,7 +32,7 @@ class JobsController < ApplicationController
   end
 
   def update
-    # what follows is logic tied to sending/confirming/denying walk requests
+#     binding.pry
     if params[:walk_request] && current_user.user_pending_requests_count == 0 # user can only have one walk request outstanding for now
       WalkRequest.send_request_email(current_user).deliver_now
       current_user.user_pending_requests_count += 1
@@ -46,7 +46,6 @@ class JobsController < ApplicationController
       redirect_to root_path, alert: 'Max outstanding requests is 1.'
       return
     elsif params[:request_approved]
-      binding.pry
       WalkRequest.walk_request_confirmation(current_user).deliver_now
       @job.walk_request_pending = false
       @job.walk_request_pending_user_id = nil
@@ -55,7 +54,7 @@ class JobsController < ApplicationController
       @job.save
       redirect_to root_path      
       return
-    elsif !params[:request_approved]
+    elsif !params[:request_approved].nil? && !params[:request_approved] # messy fix for 'Edit' button mistakenly firing denial email (and not saving object after changes)
       WalkRequest.walk_request_denied(current_user).deliver_now
       @job.walk_request_pending = false
       @job.walk_request_pending_user_id = nil
@@ -69,7 +68,7 @@ class JobsController < ApplicationController
     # the usual update action follows
     respond_to do |format|
       if @job.update(job_params)
-        format.html { redirect_to @job, notice: 'Job was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Job was successfully updated.' }
         format.json { render :show, status: :ok, location: @job }
       else
         format.html { render :edit }
