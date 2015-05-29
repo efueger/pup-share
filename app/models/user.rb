@@ -13,4 +13,9 @@ class User < ActiveRecord::Base
   #validates_format_of :email, :with => /.{1,40}@amazon.com/, message: "Email addres must have an @amazon.com extension", on: :create             
   
   has_many :jobs  #, dependent: :destroy
+  
+#   def increment_walk_request_count
+#     self.update user_pending_requests_count += 1
+#   end
+    
 end
