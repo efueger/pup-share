@@ -21,13 +21,10 @@
     </div>
   </div>
 
-  <!-- **** IS THIS THE RIGHT WAY/PLACE TO UPDATE ATTRIBUTES? VIA HIDDEN FORM? **** -->
   <div class="row">
     <% if user_signed_in? && !job.walk_request_pending %>
     <div class="col-md-6">
-      <%= simple_form_for(job, url: job_path(job, walk_request: true)) do |f| %>
-      <%= f.input :walk_request_pending,         as: :hidden, input_html: { value: true } %>
-      <%= f.input :walk_request_pending_user_id, as: :hidden, input_html: { value: current_user.id }  %>
+      <%= simple_form_for job, url: job_walk_request_path(job) do |f| %>
       <%= f.button :submit, 'I want to walk your pup!', class: 'btn btn-success'%>
       <% end %>  
     </div>

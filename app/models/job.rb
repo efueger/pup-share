@@ -5,4 +5,18 @@ class Job < ActiveRecord::Base
   validates :pick_up_location,         presence: true
     
   belongs_to :user
+  
+  def walk_request
+    
+  end
+  
+  def approve_walk_request
+    
+  end
+  
+  def deny_walk_request
+    
+  end
+  
+  
 end
