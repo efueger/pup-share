@@ -24,7 +24,7 @@
   <div class="row">
     <% if user_signed_in? && !job.walk_request_pending %>
     <div class="col-md-6">
-      <%= simple_form_for job, url: job_walk_request_path(job) do |f| %>
+      <%= simple_form_for job, url: job_walk_request_path( job, id: job.id ) do |f| %>
       <%= f.button :submit, 'I want to walk your pup!', class: 'btn btn-success'%>
       <% end %>  
     </div>

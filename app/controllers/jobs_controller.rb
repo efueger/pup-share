@@ -34,7 +34,6 @@ class JobsController < ApplicationController
     # GOAL: 3 lines... get it all in the model. You can do it.
     # @job.walk_request
     # redirect
-
 #     if current_user.user_pending_requests_count == 0 
       # user can only have one walk request outstanding...for now
       @job.update walk_request_pending: true, walk_request_pending_user_id: current_user
