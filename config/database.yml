@@ -1,24 +1,21 @@
-# heroku-postgres-c4637405 :: gold
 development:
   adapter: postgresql
   encoding: unicode
-  database: dacp2989dv7omm
+  database: pup-share-dev
   pool: 5
-  host: ec2-23-23-81-221.compute-1.amazonaws.com
-  username: utfiogalcrchax
-  password: Ue2jBFU4ggO-G_SsNZuNHqRTuT
+  host: localhost
+  username:
+  password:
 
-# heroku-postgres-8f0bd529 :: silver
 test:
   adapter: postgresql
   encoding: unicode
-  database: ddnnld6juoehqd
+  database: pup-share-test
   pool: 5
-  host: ec2-23-23-126-39.compute-1.amazonaws.com
-  username: yogdbjhbirakin
-  password: WJucXE0EAriLPc0HWf96w7tyZd
+  host: localhost
+  username:
+  password:
 
-# polar-badlands-9747 - database
 production:
   adapter: postgresql
   encoding: unicode

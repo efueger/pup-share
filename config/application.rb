@@ -24,4 +24,9 @@ module PupShare
     # Do not swallow errors in after_commit/after_rollback callbacks.
     config.active_record.raise_in_transactional_callbacks = true
   end
+  
+  # to override Devise controller with custom logic (like redirecting to root after user creating and email verification) I created a new controller
+  # the line below makes it so I do not have to move all the associated views to my new controller
+  # paths.app.views << 'app/views/devise'
+  
 end
