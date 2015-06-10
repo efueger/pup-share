@@ -1,7 +1,8 @@
 class WalkRequest < ApplicationMailer
   default :from => 'no-reply@pupshare.com'
 
-  def send_request_email(user)
+  def send_request_email(user, job_id)
+    @job_id = job_id
     mail( :to => user.email,
       :subject => 'Can I take your pup for a stroll?' )
   end  

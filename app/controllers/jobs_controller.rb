@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :walk_request, :approve_walk_request, :deny_walk_request]
-  before_action :set_job, only: [:show, :edit, :update, :destroy, :walk_request]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :walk_request, :approve_walk_request, :deny_walk_request]
 
   def index
     @jobs = Job.all
@@ -31,8 +31,8 @@ class JobsController < ApplicationController
   end
 
   def walk_request
-    @job.walk_request(current_user)
-    redirect_to root_path, notice: 'Request email sent to pup owner.'
+    @job.walk_request(current_user, @job.id)
+    redirect_to root_path, notice: 'Request email sent to pup\'s owner.'
   end
 
   def approve_walk_request

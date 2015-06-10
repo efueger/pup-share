@@ -6,11 +6,11 @@
   <body>
     <h1>Somebody wants to take your pup for a walk!</h1>
     <br>
-    Approve: 
-    <%= jobs_url(controller: 'jobs', action: 'update', request_approved: true)  %>
+    Approve:
+    <%= jobs_url(controller: 'jobs', action: 'approve_walk_request', job_ref: @job_id) %>
     <br>
     Decline: 
-    <%= jobs_url(controller: 'jobs', action: 'update', request_approved: false) %>
+    <%= jobs_url(controller: 'jobs', action: 'deny_walk_request', job_ref: @job_id) %>
     <br>
   </body>
 </html>
