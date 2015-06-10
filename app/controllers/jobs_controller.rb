@@ -36,13 +36,11 @@ class JobsController < ApplicationController
   end
 
   def approve_walk_request
-    binding.pry
     @job.approve_walk_request(current_user)
     redirect_to root_path, notice: 'The pup\'s owner approved your walk request'      
   end
 
   def deny_walk_request
-    binding.pry
     @job.deny_walk_request(current_user)
     redirect_to root_path, alert: 'The pup\'s owner denied your walk request'
   end

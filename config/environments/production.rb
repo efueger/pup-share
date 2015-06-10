@@ -1,5 +1,5 @@
 Rails.application.configure do
-  config.action_mailer.default_url_options = { :host => 'polar-badlands-9747.herokuapp.com' } # Devise configuration
+  config.action_mailer.default_url_options = { :host => 'pup-share.herokuapp.com' }
   ActionMailer::Base.smtp_settings = {
     :address        => "smtp.sendgrid.net",
     :port           => "25",
