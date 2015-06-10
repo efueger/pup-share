@@ -5,9 +5,9 @@ Rails.application.routes.draw do
   root 'jobs#index'
   
   resources :jobs do
-    match :walk_request, via: [:put, :patch]
-    # get :approve_request # must use get because no form allowed/available in email
-    # get :deny_request
+    match :walk_request,         via: [:put, :patch]
+    match :approve_walk_request, via: [:get]          # must use get because no form allowed/available in email
+    match :deny_walk_request,    via: [:get]          # must use get because no form allowed/available in email
   end
 
 end

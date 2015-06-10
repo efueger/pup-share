@@ -7,22 +7,25 @@ class Job < ActiveRecord::Base
   belongs_to :user
 
   def walk_request(user, job_id)
-    # if current_user.user_pending_requests_count == 0
-    self.update walk_request_pending: true, walk_request_pending_user_id: user.id
-    WalkRequest.send_request_email(user, job_id).deliver_now
-    #   user.increment_walk_request_count
-    # else
-    #   redirect_to root_path, alert: 'Max outstanding requests is 1.'  
-    # end    
+    self.update walk_request_pending: true, 
+                walk_request_pending_user_id: user.id
+    WalkRequest.send_request_email(user, job_id).deliver_now 
   end
 
-  def approve_walk_request
-    # how does Rails know which @job the email is referring to?  
+  def approve_walk_request(user)
+    self.update walk_request_pending: false, 
+                walk_request_pending_user_id: nil, 
+                walk_request_confirmed: true, 
+                walker_id: user.id 
+    WalkRequest.walk_request_confirmation(user).deliver_now
   end
   
-  def deny_walk_request
-    # how does Rails know which @job the email is referring to?      
+  def deny_walk_request(user)
+    self.update walk_request_pending: false, 
+                walk_request_pending_user_id: nil,
+                walk_request_confirmed: false, 
+                walker_id: nil
+    WalkRequest.walk_request_denied(user).deliver_now
   end
-  
   
 end

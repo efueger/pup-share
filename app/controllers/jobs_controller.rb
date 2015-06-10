@@ -32,24 +32,19 @@ class JobsController < ApplicationController
 
   def walk_request
     @job.walk_request(current_user, @job.id)
-    redirect_to root_path, notice: 'Request email sent to pup\'s owner.'
+    redirect_to root_path, notice: 'Request email sent to pup\'s owner'
   end
 
   def approve_walk_request
-    # method on the model...?
-    # call the mailer from the model
-    # the method call is triggered by @job.approve_request
-    WalkRequest.walk_request_confirmation(current_user).deliver_now
-    @job.update walk_request_pending: false, walk_request_pending_user_id: nil, 
-    walk_request_confirmed: true, walker_id: current_user.id
-    redirect_to root_path      
+    binding.pry
+    @job.approve_walk_request(current_user)
+    redirect_to root_path, notice: 'The pup\'s owner approved your walk request'      
   end
 
   def deny_walk_request
-    WalkRequest.walk_request_denied(current_user).deliver_now
-    @job.update walk_request_pending: false, walk_request_pending_user_id: nil,
-    walk_request_confirmed: false, walker_id: nil
-    redirect_to root_path
+    binding.pry
+    @job.deny_walk_request(current_user)
+    redirect_to root_path, alert: 'The pup\'s owner denied your walk request'
   end
 
   def update

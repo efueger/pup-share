@@ -7,10 +7,10 @@
     <h1>Somebody wants to take your pup for a walk!</h1>
     <br>
     Approve:
-    <%= jobs_url(controller: 'jobs', action: 'approve_walk_request', job_ref: @job_id) %>
+    <%= job_approve_walk_request_url(@job_id, id: @job_id) %> <!-- seems redundant to have job_id and id...? -->
     <br>
     Decline: 
-    <%= jobs_url(controller: 'jobs', action: 'deny_walk_request', job_ref: @job_id) %>
+    <%= job_deny_walk_request_url(@job_id, id: @job_id) %>
     <br>
   </body>
 </html>
