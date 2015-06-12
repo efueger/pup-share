@@ -22,13 +22,17 @@
   </div>
 
   <div class="row">
-    <% if user_signed_in? && !job.walk_request_pending %>
     <div class="col-md-6">
+      <% if !job.walk_request_pending_user_id.nil? %>
+      <%= "#{User.find(job.walk_request_pending_user_id).email} requested to walk this pup" %>
+      <% elsif !job.walker_id.nil? %>
+      <%= "#{User.find(job.walker_id).email} was approved to walk this pup!" %>
+      <% elsif user_signed_in? %>
       <%= simple_form_for job, url: job_walk_request_path( job, id: job.id ) do |f| %>
       <%= f.button :submit, 'I want to walk your pup!', class: 'btn btn-success'%>
-      <% end %>  
+      <% end %>
+      <% end %>
     </div>
-    <% end %>
 
     <% if job.user == current_user %>
     <div class="col-md-6">

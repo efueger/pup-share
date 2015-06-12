@@ -6,16 +6,13 @@
   </head>
 
   <body>
-    Approve:
-    <%= job_approve_walk_request_url(@job.id, id: @job.id) %>
+    <%= link_to 'Approve', job_approve_walk_request_url(@job.id, id: @job.id) %>
     <br>
-    Decline: 
-    <%= job_deny_walk_request_url(@job.id, id: @job.id) %>
     <br>
-    <p>Drop off: <%= @job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
-    <p>Place: <%= @job.drop_off_location %></p>
-    <p>Pick up: <%= @job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
-    <p>Place: <%= @job.pick_up_location %></p>
+    <%= link_to 'Decline', job_deny_walk_request_url(@job.id, id: @job.id) %>
+    <br>
+    <br>
+    <%= render 'walk_request_details' %>
     <br>
   </body>
 
