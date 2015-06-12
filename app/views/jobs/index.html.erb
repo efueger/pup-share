@@ -13,7 +13,7 @@
       <p>Pup weight: <%= job.pup_weight %></p>
       <p>Pup gender: <%= job.pup_gender %></p>
     </div>
-    <div class="col-md-6">
+    <div class="col-md-6"> <!-- replicating this code in the mailer view -->
       <p>Drop off: <%= job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.drop_off_location %></p>
       <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>

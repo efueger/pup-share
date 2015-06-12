@@ -31,18 +31,24 @@ class JobsController < ApplicationController
   end
 
   def walk_request
-    @job.walk_request(current_user, @job.id)
+    @job.walk_request(current_user)
     redirect_to root_path, notice: 'Request email sent to pup\'s owner'
+  end
+  
+  def cancel_walk_request
+    # allow walker to cancel walk request in two places: 
+    # 1) in the confirmation email they receive after making a request (yet to be built)
+    # 2) in the confirmation email they receive after a pup owner approves the walk request
   end
 
   def approve_walk_request
     @job.approve_walk_request(current_user)
-    redirect_to root_path, notice: 'The pup\'s owner approved your walk request'      
+    redirect_to root_path, notice: 'Thanks for approving the walk request. We sent a confirmation email to the walker!'      
   end
 
   def deny_walk_request
     @job.deny_walk_request(current_user)
-    redirect_to root_path, alert: 'The pup\'s owner denied your walk request'
+    redirect_to root_path, alert: 'Sorry to hear you\'re denying the walk request. We sent a confirmation email to the requester'
   end
 
   def update
@@ -67,7 +73,6 @@ class JobsController < ApplicationController
 
   private
 
-  # Use callbacks to share common setup or constraints between actions.
   def set_job
     @job = Job.find(params[:id])
   end

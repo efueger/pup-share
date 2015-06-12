@@ -6,10 +6,10 @@ class Job < ActiveRecord::Base
 
   belongs_to :user
 
-  def walk_request(user, job_id)
+  def walk_request(user)
     self.update walk_request_pending: true, 
                 walk_request_pending_user_id: user.id
-    WalkRequest.send_request_email(user, job_id).deliver_now 
+    WalkRequest.send_request_email(user, self).deliver_now 
   end
 
   def approve_walk_request(user)

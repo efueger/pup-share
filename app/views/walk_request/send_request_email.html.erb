@@ -1,16 +1,22 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
+
   <body>
-    <h1>Somebody wants to take your pup for a walk!</h1>
-    <br>
     Approve:
-    <%= job_approve_walk_request_url(@job_id, id: @job_id) %> <!-- seems redundant to have job_id and id...? -->
+    <%= job_approve_walk_request_url(@job.id, id: @job.id) %>
     <br>
     Decline: 
-    <%= job_deny_walk_request_url(@job_id, id: @job_id) %>
+    <%= job_deny_walk_request_url(@job.id, id: @job.id) %>
+    <br>
+    <p>Drop off: <%= @job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
+    <p>Place: <%= @job.drop_off_location %></p>
+    <p>Pick up: <%= @job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
+    <p>Place: <%= @job.pick_up_location %></p>
     <br>
   </body>
+
 </html>
