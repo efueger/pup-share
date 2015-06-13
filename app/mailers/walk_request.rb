@@ -1,48 +1,52 @@
 class WalkRequest < ApplicationMailer
-  default :from => 'no-reply@pupshare.com'
+  default from: 'no-reply@pup-share.com'
 
-  def send_request_email(user, job)
-    @user = user
-    @job  = job
-    # mail to the pup's owner
-    mail( to: @job.user.email, 
-      subject: "Please approve or decline #{@user.email}'s request to walk #{@job.pup_name} at #{@job.drop_off_time.to_formatted_s(:long_ordinal)}" )
-end  
+  def walk_request(walk_requester, job)
+    @walk_requester = walk_requester
+    @pup_owner      = job.user    
+    @job            = job
+    mail( to: @pup_owner.email, 
+      subject: "Please approve or decline #{@walk_requester.email}'s request to walk #{@job.pup_name}" )
+  end  
 
-def send_walker_request_confirmation(user, job)
-  @user = user
-  @job  = job
-  # mail to the walk requester
-  mail( to: user.email, 
-    subject: "Confirmation of your requested to walk #{@job.user.email}'s pup #{@job.pup_name} at #{@job.drop_off_time.to_formatted_s(:long_ordinal)}" )    
-end
+  def walk_request_confirmation(walk_requester, job)
+    @walk_requester = walk_requester
+    @pup_owner      = job.user    
+    @job            = job
+    mail( to: @walk_requester.email, 
+      subject: "Confirmation: You requested to walk #{@pup_owner.email}'s pup #{@job.pup_name}" )    
+  end
 
-def walk_request_confirmation(user, job)
-  @user = user
-  @job  = job
-  # mail to the walk requester
-  mail( to: user.email, 
-    subject: "Yay! Your request to walk to walk #{@job.user.email}'s pup #{@job.pup_name} at #{@job.drop_off_time.to_formatted_s(:long_ordinal)} was approved!" )
-end
+  def walk_request_approved(pup_owner, job)
+    @walker    = User.find(job.walker_id)
+    @pup_owner = pup_owner
+    @job       = job
+    mail( to: @walker.email, 
+      subject: "Yay! Your request to walk #{@pup_owner.email}'s pup #{@job.pup_name} was approved!" )
+  end
 
-def walk_request_denied(user, job)
-  @user = user
-  @job  = job
-  # mail to the walk requester
-  mail( to: user.email, 
-    subject: "Sorry. Your request to walk to walk #{@job.user.email}'s pup #{@job.pup_name} at #{@job.drop_off_time.to_formatted_s(:long_ordinal)} was denied." )
-end
+  def walk_request_approved_confirmation(pup_owner, job)
+    @walker    = User.find(job.walker_id)
+    @pup_owner = pup_owner
+    @job       = job
+    mail( to: @pup_owner.email, 
+      subject: "Confirmation: You approved #{@walker.email}'s request to walk your pup #{@job.pup_name}" )  
+  end
 
-# def cancel_walk_request(job)
-#   @job  = job
-#   # mail to the walk requester
-#   mail( to: user.email, @job.
-#     subject: "Sorry. Your request to walk to walk #{@job.user.email}'s pup #{@job.pup_name} at #{@job.drop_off_time.to_formatted_s(:long_ordinal)} was denied." )
-# end
+  def walk_request_denied(pup_owner, job)
+    @walk_requester = User.find(job.walk_request_pending_user_id)
+    @pup_owner      = pup_owner
+    @job            = job
+    mail( to: @walk_requester.email, 
+      subject: "Sorry. Your request to walk #{@pup_owner.email}'s pup #{@job.pup_name} was denied." )
+  end
 
-# def cancel_confirmed_walk(job)
-
-# end
-
+  def walk_request_denied_confirmation(pup_owner, job)
+    @walk_requester = User.find(job.walk_request_pending_user_id)
+    @pup_owner      = pup_owner
+    @job            = job
+    mail( to: @pup_owner.email, 
+      subject: "Confirmation: You declined #{@walk_requester.email}'s request to walk #{@job.pup_name}" )
+  end
 
 end

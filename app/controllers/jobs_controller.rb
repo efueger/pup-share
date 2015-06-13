@@ -21,7 +21,7 @@ class JobsController < ApplicationController
 
     respond_to do |format|
       if @job.save
-        format.html { redirect_to root_path, notice: 'Job was successfully created.' }
+        format.html { redirect_to root_path, notice: 'Job created' }
         format.json { render :show, status: :created, location: @job }
       else
         format.html { render :new }
@@ -31,34 +31,34 @@ class JobsController < ApplicationController
   end
 
   def walk_request
-    @job.walk_request(current_user)
-    redirect_to root_path, notice: 'Request email sent to pup\'s owner'
+    @job.walk_request(current_user) # walk requester
+    redirect_to root_path, notice: 'Request email sent'
   end
   
-#   def cancel_walk_request
-#     @job.cancel_walk_request
-#     redirect_to root_path, alert: 'Walk request cancelled' 
-#   end
-  
-#   def cancel_confirmed_walk 
-#     @job.cancel_confirmed_walk
-#     redirect_to root_path, alert: 'Confirmed walk cancelled' 
-#   end
-
   def approve_walk_request
-    @job.approve_walk_request(User.find(@job.walk_request_pending_user_id))
-    redirect_to root_path, notice: 'Thanks for approving the walk request. We sent a confirmation email to the walker!'      
+    @job.approve_walk_request(current_user)# pup owner
+    redirect_to root_path, notice: 'Walk request approved'      
   end
 
   def deny_walk_request
-    @job.deny_walk_request(User.find(@job.walk_request_pending_user_id))
-    redirect_to root_path, alert: 'Sorry to hear you\'re denying the walk request. We sent a confirmation email to the requester.'
+    @job.deny_walk_request(current_user) # pup owner
+    redirect_to root_path, alert: 'Walk request denied'
   end
+
+  #   def cancel_walk_request
+  #     @job.cancel_walk_request
+  #     redirect_to root_path, alert: 'Walk request cancelled' 
+  #   end
+
+  #   def cancel_confirmed_walk 
+  #     @job.cancel_confirmed_walk
+  #     redirect_to root_path, alert: 'Confirmed walk cancelled' 
+  #   end
 
   def update
     respond_to do |format|
       if @job.update(job_params)
-        format.html { redirect_to root_path, notice: 'Job was successfully updated.' }
+        format.html { redirect_to root_path, notice: 'Job updated' }
         format.json { render :show, status: :ok, location: @job }
       else
         format.html { render :edit }
@@ -70,7 +70,7 @@ class JobsController < ApplicationController
   def destroy
     @job.destroy
     respond_to do |format|
-      format.html { redirect_to jobs_url, notice: 'Job was successfully destroyed.' }
+      format.html { redirect_to jobs_url, notice: 'Job destroyed' }
       format.json { head :no_content }
     end
   end

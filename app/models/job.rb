@@ -8,8 +8,20 @@ class Job < ActiveRecord::Base
 
   def walk_request(user)
     self.update walk_request_pending_user_id: user.id
-    WalkRequest.send_request_email(user, self).deliver_now 
-    WalkRequest.send_walker_request_confirmation(User.find(self.user_id), self).deliver_now
+    WalkRequest.walk_request(user, self).deliver_now 
+    WalkRequest.walk_request_confirmation(User.find(self.user_id), self).deliver_now
+  end
+    
+  def approve_walk_request(user)
+    self.update walk_request_pending_user_id: nil, walker_id: user.id 
+    WalkRequest.walk_request_approved(user, self).deliver_now
+    WalkRequest.walk_request_approved_confirmation(user, self).deliver_now
+  end
+  
+  def deny_walk_request(user)
+    WalkRequest.walk_request_denied(user, self).deliver_now
+    WalkRequest.walk_request_denied_confirmation(user, self).deliver_now
+    self.update walk_request_pending_user_id: nil
   end
   
 #   def cancel_walk_request
@@ -21,15 +33,5 @@ class Job < ActiveRecord::Base
 #     self.update walk_request_pending_user_id: nil, walker_id: nil
 #     WalkRequest.cancel_confirmed_walk(self).deliver_now
 #   end
-  
-  def approve_walk_request(user)
-    self.update walk_request_pending_user_id: nil, walker_id: user.id 
-    WalkRequest.walk_request_confirmation(user, self).deliver_now
-  end
-  
-  def deny_walk_request(user)
-    self.update walk_request_pending_user_id: nil, walker_id: nil
-    WalkRequest.walk_request_denied(user, self).deliver_now
-  end
   
 end
