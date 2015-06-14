@@ -2,7 +2,7 @@ require 'pry'
 require 'test_helper'
 
 class JobTest < ActiveSupport::TestCase
-  
+
   # validations
   test 'job includes a DateTime drop off time' do
     job = FactoryGirl.build(:job)
@@ -16,7 +16,7 @@ class JobTest < ActiveSupport::TestCase
     assert_not_equal 0, job.drop_off_location.size
   end
 
-    test 'job includes a DateTime pick up time' do
+  test 'job includes a DateTime pick up time' do
     job = FactoryGirl.build(:job)
     assert_not job.pick_up_time.nil?
     assert 'DateTime', job.pick_up_time.class
@@ -29,23 +29,27 @@ class JobTest < ActiveSupport::TestCase
   end
 
   # methods
-  # you could also move the creation of the user to a before(:all) block, to speed it up
-  test 'walk_request updates a job to include the requester\'s user id' do
+  # before_action to create job and confirmed user?
+  test 'walk_request sets user id' do
     job            = FactoryGirl.build(:job)
     walk_requester = FactoryGirl.create(:user)
     job.walk_request(walk_requester)
     assert_not job.walk_request_pending_user_id.nil?
   end
-  
-#   test 'walk_request send a walk_request mailer to the pup\'s owner and confirmation to the requester' do
-#     job            = FactoryGirl.build(:job)
-#     walk_requester = FactoryGirl.create(:user)
-#     job.walk_request(walk_requester)
-#     binding.pry
-#     # assert_not ActionMailer::Base.deliveries.empty?
-#     assert_equal ['me@example.com'], email.from
-#     assert_equal ['friend@example.com'], email.to
-#   end
-  
+
+  test 'approve_walk_request sets walker id and pending walker id to nil' do
+    job            = FactoryGirl.build(:job)
+    walk_requester = FactoryGirl.create(:user)
+    job.approve_walk_request(walk_requester)
+    assert job.walk_request_pending_user_id.nil?
+    assert_not job.walker_id.nil?
+  end
+
+  test 'deny_walk_request sets pending walker id to nil' do
+    job            = FactoryGirl.build(:job, walk_request_pending_user_id: 2)
+    walk_requester = FactoryGirl.create(:user, id: 2)
+    job.deny_walk_request(walk_requester)
+    assert job.walk_request_pending_user_id.nil?
+  end
 
 end
