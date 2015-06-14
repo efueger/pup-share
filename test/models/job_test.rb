@@ -31,24 +31,25 @@ class JobTest < ActiveSupport::TestCase
   # methods
   # before_action to create job and confirmed user?
   test 'walk_request sets user id' do
-    job            = FactoryGirl.build(:job)
-    walk_requester = FactoryGirl.create(:user)
-    job.walk_request(walk_requester)
+    job    = FactoryGirl.build(:job)
+    walker = FactoryGirl.create(:user)
+    job.walk_request(walker)
     assert_not job.walk_request_pending_user_id.nil?
   end
 
   test 'approve_walk_request sets walker id and pending walker id to nil' do
-    job            = FactoryGirl.build(:job)
-    walk_requester = FactoryGirl.create(:user)
-    job.approve_walk_request(walk_requester)
+    job    = FactoryGirl.build(:job)
+    walker = FactoryGirl.create(:user)
+    job.approve_walk_request(walker)
     assert job.walk_request_pending_user_id.nil?
     assert_not job.walker_id.nil?
   end
 
   test 'deny_walk_request sets pending walker id to nil' do
-    job            = FactoryGirl.build(:job, walk_request_pending_user_id: 2)
-    walk_requester = FactoryGirl.create(:user, id: 2)
-    job.deny_walk_request(walk_requester)
+    job       = FactoryGirl.build(:job, walk_request_pending_user_id: 2)
+    walker    = FactoryGirl.create(:user, id: 2)
+    pup_owner = FactoryGirl.create(:user, email: 'brnt@gmail.com')
+    job.deny_walk_request(pup_owner)
     assert job.walk_request_pending_user_id.nil?
   end
 
