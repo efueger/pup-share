@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   
   resources :jobs do
     match :walk_request,         via: [:put, :patch]
-    match :approve_walk_request, via: [:get]          # must use get because no form allowed/available in email
-    match :deny_walk_request,    via: [:get]          # must use get because no form allowed/available in email
+    match :approve_walk_request, via: [:get]
+    match :deny_walk_request,    via: [:get]
   end
 
 end

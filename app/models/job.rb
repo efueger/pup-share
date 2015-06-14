@@ -24,14 +24,10 @@ class Job < ActiveRecord::Base
     self.update walk_request_pending_user_id: nil
   end
   
-#   def cancel_walk_request
-#     self.update walk_request_pending_user_id: nil, walker_id: nil
-#     WalkRequest.cancel_walk_request(self).deliver_now
-#   end
+  def cancel_walk_request
+  end
 
-#   def cancel_confirmed_walk
-#     self.update walk_request_pending_user_id: nil, walker_id: nil
-#     WalkRequest.cancel_confirmed_walk(self).deliver_now
-#   end
+  def cancel_confirmed_walk
+  end
   
 end

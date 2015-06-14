@@ -18,7 +18,6 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # the end of the asset-pipeline
 
-
 # forms made easy
 gem 'simple_form'
 
@@ -27,6 +26,9 @@ gem 'pry-rails', :group => :development
 
 # authentication
 gem 'devise', '>= 3.2.4'
+
+# testing helper
+gem 'factory_girl_rails'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
