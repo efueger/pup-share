@@ -1,19 +1,8 @@
-<!DOCTYPE html>
-<html>
 
-  <head>
-    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
-  </head>
-
-  <body>
-    <%= link_to 'Approve', job_approve_walk_request_url(@job.id, id: @job.id) %>
-    <br>
-    <br>
-    <%= link_to 'Decline', job_deny_walk_request_url(@job.id, id: @job.id) %>
-    <br>
-    <br>
-    <%= render 'walk_request_details' %>
-    <br>
-  </body>
-
-</html>
+<p><strong>
+  <%= link_to 'Approve', job_approve_walk_request_url(@job.id, id: @job.id) %>
+  </strong></p>
+<p><strong>
+  <%= link_to 'Decline', job_deny_walk_request_url(@job.id, id: @job.id) %>
+  </strong></p>
+<%= render 'walk_request_details' %>
