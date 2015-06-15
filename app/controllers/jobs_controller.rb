@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   before_action :authenticate_user!, except: [:index, :show, :walk_request, :approve_walk_request, :deny_walk_request]
-  before_action :set_job, only: [:show, :edit, :update, :destroy, :walk_request, :approve_walk_request, :deny_walk_request]
+  before_action :set_job, only: [:show, :edit, :update, :destroy, :walk_request, :approve_walk_request, :deny_walk_request, :cancel_walk]
 
   def index
     @jobs = Job.all
@@ -32,31 +32,27 @@ class JobsController < ApplicationController
 
   def walk_request
     @job.walk_request(current_user) # walker
-    @job.send_walk_request_mailers(current_user)
+    @job.send_walk_request_mailers
     redirect_to root_path, notice: 'Request email sent'
   end
-  
+
   def approve_walk_request
-    @job.approve_walk_request(@job.user)# pup owner
-    @job.send_approve_walk_request_mailers(@job.user)
+    @job.send_approve_walk_request_mailers
+    @job.approve_walk_request
     redirect_to root_path, success: 'You approved a Walk request'      
   end
 
   def deny_walk_request
-    @job.send_deny_walk_request_mailers(@job.user) # pup owner
-    @job.deny_walk_request(@job.user) 
+    @job.send_deny_walk_request_mailers
+    @job.deny_walk_request
     redirect_to root_path, alert: 'You denied a walk request'
   end
 
-  #   def cancel_walk_request
-  #     @job.cancel_walk_request
-  #     redirect_to root_path, alert: 'Walk request cancelled' 
-  #   end
-
-  #   def cancel_confirmed_walk 
-  #     @job.cancel_confirmed_walk
-  #     redirect_to root_path, alert: 'Confirmed walk cancelled' 
-  #   end
+  def cancel_walk 
+    @job.send_cancel_walk_mailer
+    @job.cancel_walk
+    redirect_to root_path, alert: 'Walk cancelled' 
+  end
 
   def update
     respond_to do |format|
