@@ -32,16 +32,19 @@ class JobsController < ApplicationController
 
   def walk_request
     @job.walk_request(current_user) # walker
+    @job.send_walk_request_mailers(current_user)
     redirect_to root_path, notice: 'Request email sent'
   end
   
   def approve_walk_request
     @job.approve_walk_request(@job.user)# pup owner
+    @job.send_approve_walk_request_mailers(@job.user)
     redirect_to root_path, success: 'You approved a Walk request'      
   end
 
   def deny_walk_request
-    @job.deny_walk_request(@job.user) # pup owner
+    @job.send_deny_walk_request_mailers(@job.user) # pup owner
+    @job.deny_walk_request(@job.user) 
     redirect_to root_path, alert: 'You denied a walk request'
   end
 

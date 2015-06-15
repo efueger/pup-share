@@ -5,6 +5,8 @@ class WalkRequest < ApplicationMailer
     @walker    = walker
     @pup_owner = job.user    
     @job       = job
+    # NOTE: the test does not know the association between job and user
+    # so job.user == nil
     mail( to: @pup_owner.email, 
       from: @walker.email,
       subject: "Please approve or deny a walk request" )
