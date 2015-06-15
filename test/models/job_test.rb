@@ -33,7 +33,6 @@ class JobTest < ActiveSupport::TestCase
   test 'walk_request sets user id' do
     @job.walk_request(@walker)
     assert_not @job.walk_request_pending_user_id.nil?
-    binding.pry
     assert @job.walk_request_pending_user_id.is_a? Numeric
   end
 
