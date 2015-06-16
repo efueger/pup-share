@@ -3,9 +3,9 @@ require 'test_helper'
 
 class JobTest < ActiveSupport::TestCase
   setup do
-    @job = FactoryGirl.create(:job)
     @pup_owner = FactoryGirl.create(:pup_owner)
     @walker = FactoryGirl.create(:walker)
+    @job = FactoryGirl.create(:job)
   end
   
   # validations
@@ -36,16 +36,29 @@ class JobTest < ActiveSupport::TestCase
     assert @job.walk_request_pending_user_id.is_a? Numeric
   end
 
-  test 'approve_walk_request sets walker id and pending walker id to nil' do
-    @job.approve_walk_request(@walker)
+  test 'approve_walk_request sets pending walker id to nil and sets walker id' do
+    @job.update walk_request_pending_user_id: @walker.id
+    @job.approve_walk_request
     assert @job.walk_request_pending_user_id.nil?
     assert_not @job.walker_id.nil?
     assert @job.walker_id.is_a? Numeric
   end
 
   test 'deny_walk_request sets pending walker id to nil' do
-    @job.deny_walk_request(@pup_owner)
+    @job.deny_walk_request
     assert @job.walk_request_pending_user_id.nil?
   end
+  
+#   test 'should send email' do
+#     @job.walk_request(@walker)
+#     @job.send_walk_request_mailer
+#     binding.pry
+#     assert_equal 1, ActionMailer::Base.deliveries.count 
+#     assert_equal
+#   end
+  
+  
+  
+  
 
 end
