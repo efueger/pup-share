@@ -48,17 +48,5 @@ class JobTest < ActiveSupport::TestCase
     @job.deny_walk_request
     assert @job.walk_request_pending_user_id.nil?
   end
-  
-#   test 'should send email' do
-#     @job.walk_request(@walker)
-#     @job.send_walk_request_mailer
-#     binding.pry
-#     assert_equal 1, ActionMailer::Base.deliveries.count 
-#     assert_equal
-#   end
-  
-  
-  
-  
 
 end

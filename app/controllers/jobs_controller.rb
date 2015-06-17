@@ -12,7 +12,7 @@ class JobsController < ApplicationController
   def new
     @job = Job.new
   end
-
+  
   def edit
   end
 
@@ -32,21 +32,18 @@ class JobsController < ApplicationController
 
   def walk_request
     @job.walk_request(current_user) # walker
-    @job.send_walk_request_mailer
-    @job.send_walk_request_confirmation_mailer
+    @job.send_walk_request_mailers
     redirect_to root_path, notice: 'Request email sent'
   end
 
   def approve_walk_request
-    @job.send_approve_walk_request_mailer
-    @job.send_approve_walk_request_confirmation_mailer
+    @job.send_approve_walk_request_mailers
     @job.approve_walk_request
     redirect_to root_path, success: 'You approved a Walk request'      
   end
 
   def deny_walk_request
     @job.send_deny_walk_request_mailers
-    @job.send_deny_walk_request_confirmation_mailer
     @job.deny_walk_request
     redirect_to root_path, alert: 'You denied a walk request'
   end

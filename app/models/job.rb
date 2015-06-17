@@ -10,11 +10,8 @@ class Job < ActiveRecord::Base
     self.update walk_request_pending_user_id: user.id
   end
 
-  def send_walk_request_mailer
+  def send_walk_request_mailers
     WalkRequest.walk_request(self).deliver_now 
-  end
-
-  def send_walk_request_confirmation_mailer
     WalkRequest.walk_request_confirmation(self).deliver_now
   end
 
@@ -23,11 +20,8 @@ class Job < ActiveRecord::Base
     walk_request_pending_user_id: nil  
   end
 
-  def send_approve_walk_request_mailer
+  def send_approve_walk_request_mailers
     WalkRequest.walk_request_approved(self).deliver_now
-  end
-
-  def send_approve_walk_request_confirmation_mailer
     WalkRequest.walk_request_approved_confirmation(self).deliver_now
   end
 
@@ -35,11 +29,8 @@ class Job < ActiveRecord::Base
     self.update walk_request_pending_user_id: nil
   end
 
-  def send_deny_walk_request_mailer
+  def send_deny_walk_request_mailers
     WalkRequest.walk_request_denied(self).deliver_now
-  end
-
-  def send_deny_walk_request_confirmation_mailer
     WalkRequest.walk_request_denied_confirmation(self).deliver_now
   end
 
@@ -50,5 +41,5 @@ class Job < ActiveRecord::Base
   def send_cancel_walk_mailer
     WalkRequest.walk_request_cancel(self).deliver_now
   end
-
+  
 end

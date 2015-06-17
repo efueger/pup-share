@@ -1,6 +1,6 @@
 <%= link_to 'New Job', new_job_path, class: 'btn btn-primary'  %>
 
-<h1>Let's go for a walk!</h1>
+<h1>These pups need a walk!</h1>
 
 <% @jobs.each do |job| %>
 
@@ -29,7 +29,7 @@
       <%= "#{User.find(job.walker_id).email} was approved to walk this pup!" %>
       <% elsif user_signed_in? %>
       <%= simple_form_for job, url: job_walk_request_path( job, id: job.id ) do |f| %>
-      <%= f.button :submit, 'I want to walk your pup!', class: 'btn btn-success'%>
+      <%= f.button :submit, 'Take this pup for a walk!', class: 'btn btn-success'%>
       <% end %>
       <% end %>
     </div>

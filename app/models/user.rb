@@ -17,5 +17,7 @@ class User < ActiveRecord::Base
 #   def increment_walk_request_count
 #     self.update user_pending_requests_count += 1
 #   end
+  
+  
     
 end

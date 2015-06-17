@@ -1,8 +1,10 @@
 class WalkRequest < ApplicationMailer
   default from: 'no-reply@pup-share.com'
 
-  # before_action here to set @walker,@pup_owner, @job would be cool
-  
+  # ***
+  # before_action here to set @walker/@pup_owner/@job would be cool
+  # ***
+
   def walk_request(job)
     @walker    = User.find(job.walk_request_pending_user_id)
     @pup_owner = job.user    
@@ -61,5 +63,7 @@ class WalkRequest < ApplicationMailer
     mail( to: [@pup_owner.email, @walker.email],
       subject: 'Walk cancelled notification' )
   end
-  
+
+  private
+
 end
