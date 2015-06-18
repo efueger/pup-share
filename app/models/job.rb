@@ -6,8 +6,8 @@ class Job < ActiveRecord::Base
 
   belongs_to :user
 
-  def walk_request(user)
-    self.update walk_request_pending_user_id: user.id
+  def walk_request(walker)
+    self.update walk_request_pending_user_id: walker.id
   end
 
   def send_walk_request_mailers

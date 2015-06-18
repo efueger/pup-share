@@ -31,7 +31,7 @@ class JobsController < ApplicationController
   end
 
   def walk_request
-    @job.walk_request(current_user) # walker
+    @job.walk_request(current_user)
     @job.send_walk_request_mailers
     redirect_to root_path, notice: 'Request email sent'
   end
