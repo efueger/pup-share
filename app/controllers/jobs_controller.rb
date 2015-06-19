@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
-  before_action :authenticate_user!, except: [:index, :show, :walk_request, :approve_walk_request, :deny_walk_request]
-  before_action :set_job, only: [:show, :edit, :update, :destroy, :walk_request, :approve_walk_request, :deny_walk_request, :cancel_walk]
-
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :walk_request ]
+  before_action :set_job, except: [:index, :new, :create, :cancel_walk] 
+  
   def index
     @jobs = Job.all
   end
@@ -12,7 +12,7 @@ class JobsController < ApplicationController
   def new
     @job = Job.new
   end
-  
+
   def edit
   end
 
@@ -49,9 +49,13 @@ class JobsController < ApplicationController
   end
 
   def cancel_walk 
+    @job = Job.find(params[:id]) # duplication of set_job for rescue
     @job.send_cancel_walk_mailer
     @job.cancel_walk
-    redirect_to root_path, alert: 'Walk cancelled' 
+    redirect_to root_path, alert: 'Walk cancelled'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: 'Job no longer exists'
+    return
   end
 
   def update
@@ -69,7 +73,7 @@ class JobsController < ApplicationController
   def destroy
     @job.destroy
     respond_to do |format|
-      format.html { redirect_to jobs_url, notice: 'Job destroyed' }
+      format.html { redirect_to root_path, notice: 'Job destroyed' }
       format.json { head :no_content }
     end
   end
@@ -83,4 +87,5 @@ class JobsController < ApplicationController
   def job_params
     params.require(:job).permit!
   end
+
 end

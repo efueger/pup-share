@@ -28,7 +28,7 @@
       <% elsif !job.walker_id.nil? %>
       <%= "#{User.find(job.walker_id).email} was approved to walk this pup!" %>
       <% elsif user_signed_in? %>
-      <%= simple_form_for job, url: job_walk_request_path( job, id: job.id ) do |f| %>
+      <%= simple_form_for job, url: walk_request_job_path(job) do |f| %>
       <%= f.button :submit, 'Take this pup for a walk!', class: 'btn btn-success'%>
       <% end %>
       <% end %>
