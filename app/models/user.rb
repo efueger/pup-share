@@ -12,7 +12,8 @@ class User < ActiveRecord::Base
   #validates :emergency_phone,       presence: true # consider using the 'format' validation later
   #validates_format_of :email, :with => /.{1,40}@amazon.com/, message: "Email addres must have an @amazon.com extension", on: :create             
   
-  has_many :jobs  #, dependent: :destroy
+  has_many :jobs, dependent: :destroy
+  has_many :pups, dependent: :destroy
   
 #   def increment_walk_request_count
 #     self.update user_pending_requests_count += 1

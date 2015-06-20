@@ -7,6 +7,7 @@ class Job < ActiveRecord::Base
   belongs_to :user
   belongs_to :walker, class_name: "User"
   belongs_to :walk_request_pending_user, class_name: "User"
+  belongs_to :pup
 
   def walk_request(walker)
     self.update walk_request_pending_user_id: walker.id
