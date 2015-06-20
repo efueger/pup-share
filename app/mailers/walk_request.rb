@@ -14,6 +14,12 @@ class WalkRequest < ApplicationMailer
       from: @walker.email,
       subject: 'Please approve or deny a walk request' )
   end
+
+  def walk_request_confirmation(job)		
+    @walker    = User.find(job.walk_request_pending_user_id)		
+    @pup_owner = job.user    		
+    @job       = job		
+    mail( to: @walker.email,
       subject: 'Confirmation: You submitted a walk request' )    
   end
 
@@ -59,9 +65,9 @@ class WalkRequest < ApplicationMailer
     mail( to: [@pup_owner.email, @walker.email],
       subject: 'Walk cancelled notification' )
   end
-  
+
   def walk_request_cancel_approvedJ(job)
-    
+
   end
 
 end
