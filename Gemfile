@@ -21,8 +21,15 @@ gem 'coffee-rails', '~> 4.1.0'
 # forms made easy
 gem 'simple_form'
 
-# debugger
-gem 'pry-rails', :group => :development
+# debugging!
+group :development do
+  gem 'pry-rails'
+  gem 'better_errors'
+  gem 'binding_of_caller'
+end
+
+# error logging
+gem 'airbrake' ### NOT CONFIGURED, subscription product
 
 # authentication
 gem 'devise', '>= 3.2.4'
