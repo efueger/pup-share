@@ -1,9 +1,13 @@
-FactoryGirl.define do
-
+FactoryGirl.define do  
+  
   factory :user do
     sequence(:email) { |n| "email#{n}@factory.com" }
     password 'lalalala'
     confirmed_at Time.now
+  end
+  
+  factory :pup do
+    
   end
   
   factory :job do
