@@ -3,9 +3,9 @@ require 'test_helper'
 
 class JobTest < ActiveSupport::TestCase
   setup do
-    @pup_owner = FactoryGirl.create(:pup_owner)
-    @walker = FactoryGirl.create(:walker)
-    @job = FactoryGirl.create(:job)
+    @job       = FactoryGirl.create(:job)    
+    @pup_owner = FactoryGirl.create(:user)
+    @walker    = FactoryGirl.create(:user)
   end
   
   # validations
