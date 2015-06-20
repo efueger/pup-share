@@ -2,7 +2,8 @@ require 'test_helper'
 
 class PupsControllerTest < ActionController::TestCase
   setup do
-    @pup = pups(:one)
+#     @pup = pups(:one)
+    @pup = FactoryGirl.create(:pup)
   end
 
   test "should get index" do

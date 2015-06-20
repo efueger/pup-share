@@ -1,7 +1,5 @@
 class Pup < ActiveRecord::Base
   belongs_to :user
-  belongs_to :job
-
-
+  has_many :jobs
 
 end
