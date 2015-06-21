@@ -8,9 +8,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1
-  # GET /users/1.json
-  def show
-  end
+  def show; end
   
   def upcoming_walks
   end
@@ -21,8 +19,7 @@ class UsersController < ApplicationController
   end
 
   # GET /users/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /users
   # POST /users.json
@@ -31,7 +28,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html { redirect_to @user, notice: 'User created' }
         format.json { render :show, status: :created, location: @user }
       else
         format.html { render :new }
