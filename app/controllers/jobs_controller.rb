@@ -49,7 +49,7 @@ class JobsController < ApplicationController
   end
 
   def cancel_walk 
-    @job = Job.find(params[:id]) # duplication of set_job for rescue
+    @job = Job.find(params[:id]) # duplication of set_job to allow rescue
     @job.send_cancel_walk_mailer
     @job.cancel_walk
     redirect_to root_path, alert: 'Walk cancelled'

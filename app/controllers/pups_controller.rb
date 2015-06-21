@@ -1,16 +1,13 @@
 class PupsController < ApplicationController
   before_action :set_pup, only: [:show, :edit, :update, :destroy]
+  before_action :set_user
 
   # GET /pups
-  # GET /pups.json
   def index
     @pups = current_user.pups
   end
 
-  # GET /pups/1
-  # GET /pups/1.json
-  def show
-  end
+  def show; end
 
   # GET /pups/new
   def new
@@ -18,20 +15,15 @@ class PupsController < ApplicationController
   end
 
   # GET /pups/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /pups
-  # POST /pups.json
   def create
     @pup = Pup.new(pup_params)
-
     respond_to do |format|
       if @pup.save
-        format.html { redirect_to @pup, notice: 'Pup was successfully created.' }
-        # browser wants HTML
+        format.html { redirect_to user_pups_path, notice: 'Pup created' }
         format.json { render :show, status: :created, location: @pup }
-        # API requesting json or AJAX request
       else
         format.html { render :new } # by default request returns HTML
         format.json { render json: @pup.errors, status: :unprocessable_entity }
@@ -44,7 +36,7 @@ class PupsController < ApplicationController
   def update
     respond_to do |format|
       if @pup.update(pup_params)
-        format.html { redirect_to @pup, notice: 'Pup was successfully updated.' }
+        format.html { redirect_to user_pups_path, notice: 'Pup updated' }
         format.json { render :show, status: :ok, location: @pup }
       else
         format.html { render :edit }
@@ -58,19 +50,23 @@ class PupsController < ApplicationController
   def destroy
     @pup.destroy
     respond_to do |format|
-      format.html { redirect_to pups_url, notice: 'Pup was successfully destroyed.' }
+      format.html { redirect_to user_pups_path, notice: 'Pup destroyed' }
       format.json { head :no_content }
     end
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_pup
-      @pup = Pup.find(params[:id])
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def pup_params
-      params[:pup]
-    end
+  def set_pup
+    @pup = Pup.find(params[:id])
+  end
+
+  def set_user
+    @user = current_user
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def pup_params
+    params[:pup]
+  end
 end
