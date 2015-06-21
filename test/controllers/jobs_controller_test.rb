@@ -77,12 +77,12 @@ class JobsControllerTest < ActionController::TestCase
     assert_redirected_to root_path
   end
   
-#   test 'approve_walk_request' do
-#     pre_approved_job = FactoryGirl.create(:pre_approved_job)
-#     get :approve_walk_request, id: pre_approved_job.id
-#     assert_equal 'You approved a Walk request', flash[:success]
-#     assert_redirected_to root_path    
-#   end
+  test 'approve_walk_request' do
+    pre_approved_job = FactoryGirl.create(:pre_approved_job)
+    get :approve_walk_request, id: pre_approved_job.id
+    assert_equal 'You approved a walk request', flash[:notice]
+    assert_redirected_to root_path    
+  end
 
   test 'cancel_walk alerts and redirects to root' do
     pre_approved_job = FactoryGirl.create(:pre_approved_job)

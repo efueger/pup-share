@@ -1,25 +1,31 @@
-<p id="notice"><%= notice %></p>
+<h1>My pups</h1>
 
-<h1>Listing Pups</h1>
+<%= link_to 'New Pup', new_user_pup_path(current_user) %>
+<br>
+<br>
 
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+<% @pups.each do |pup| %>
 
-  <tbody>
-    <% @pups.each do |pup| %>
-      <tr>
-        <td><%= link_to 'Show', pup %></td>
-        <td><%= link_to 'Edit', edit_pup_path(pup) %></td>
-        <td><%= link_to 'Destroy', pup, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="booyah-box">
+
+  <div class="row">
+    <div class="col-md-6">
+      <p>Name: <%= pup.pup_name %></p>
+      <p>Breed: <%= pup.pup_breed %></p>
+      <p>Weight: <%= pup.pup_weight %></p>
+      <p>Gender: <%= pup.pup_gender %></p>
+      <p>Age: <%= pup.pup_age %></p>    
+      <p>Vet phone: <%= pup.pup_vet_phone %></p>
+      <p>Care notes: <%= pup.pup_care_instructions %></p>
+    </div>
+  </div>
+
+  <%= link_to 'Edit', edit_user_pup_path(current_user, pup) %>
+  <%= link_to 'Destroy', user_pup_path(current_user, pup), method: :delete, data: { confirm: 'Are you sure?' } %>
+</div>
+  <br>
+  <br>
+<% end %>
 
 <br>
 
-<%= link_to 'New Pup', new_pup_path %>

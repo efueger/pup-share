@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
 
-  resources :pups
+
 
   devise_for :users, controllers: { 
     registrations: 'registrations', 
     confirmations: 'confirmations' 
     }
 
-  resources :users
+  resources :users do
+    resources :pups
+  end
 
   root 'jobs#index'
 

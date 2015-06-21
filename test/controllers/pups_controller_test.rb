@@ -7,7 +7,8 @@ class PupsControllerTest < ActionController::TestCase
   end
 
   test "should get index" do
-    get :index
+    get :index # by defulat request HTML
+    # param: format json ()
     assert_response :success
     assert_not_nil assigns(:pups)
   end

@@ -5,8 +5,10 @@
 
 <div class="form-inputs row">
   <div class="col-md-6">
-    User selects pups here:
-    Radio buttons
+    <% f.collection_radio_buttons :options, 
+    <% current_user.pups.each do |pup| %>
+    <p><%= f.input pup.pup_name %></p>
+    <% end %>
   </div>
 </div>
 

@@ -9,6 +9,8 @@ class Job < ActiveRecord::Base
   belongs_to :walk_request_pending_user, class_name: "User"
   belongs_to :pup
 
+  # TODO: combine update with mailer delivery...
+  
   def walk_request(walker)
     self.update walk_request_pending_user_id: walker.id
   end
@@ -37,6 +39,7 @@ class Job < ActiveRecord::Base
     WalkRequest.walk_request_denied_confirmation(self).deliver_now
   end
 
+  
   def cancel_walk
     self.update walk_request_pending_user_id: nil, walker_id: nil
   end

@@ -66,8 +66,8 @@ class WalkRequest < ApplicationMailer
       subject: 'Walk cancelled notification' )
   end
 
-  def walk_request_cancel_approvedJ(job)
-
+  def walk_request_cancel_approved(job)
+    # TODO
   end
 
 end

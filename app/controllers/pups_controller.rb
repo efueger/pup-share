@@ -4,7 +4,7 @@ class PupsController < ApplicationController
   # GET /pups
   # GET /pups.json
   def index
-    @pups = Pup.all
+    @pups = current_user.pups
   end
 
   # GET /pups/1
@@ -29,9 +29,11 @@ class PupsController < ApplicationController
     respond_to do |format|
       if @pup.save
         format.html { redirect_to @pup, notice: 'Pup was successfully created.' }
+        # browser wants HTML
         format.json { render :show, status: :created, location: @pup }
+        # API requesting json or AJAX request
       else
-        format.html { render :new }
+        format.html { render :new } # by default request returns HTML
         format.json { render json: @pup.errors, status: :unprocessable_entity }
       end
     end

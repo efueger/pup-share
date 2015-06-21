@@ -39,7 +39,7 @@ class JobsController < ApplicationController
   def approve_walk_request
     @job.send_approve_walk_request_mailers
     @job.approve_walk_request
-    redirect_to root_path, success: 'You approved a Walk request'      
+    redirect_to root_path, notice: 'You approved a walk request'      
   end
 
   def deny_walk_request

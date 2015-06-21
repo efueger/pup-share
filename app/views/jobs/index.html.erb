@@ -7,14 +7,6 @@
 <div class="booyah-box">
 
   <div class="row">
-    <!--
-<div class="col-md-6">
-<p>Pup name: <%#=   job.pup_name %></p>
-<p>Pup breed: <%#=  job.pup_breed %></p>
-<p>Pup weight: <%#= job.pup_weight %></p>
-<p>Pup gender: <%#= job.pup_gender %></p>
-</div>
--->
     <div class="col-md-6"> <!-- replicating this code in the mailer view -->
       <p>Drop off: <%= job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.drop_off_location %></p>
