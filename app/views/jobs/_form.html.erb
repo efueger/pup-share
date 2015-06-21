@@ -5,7 +5,7 @@
 
 <div class="form-inputs row">
   <div class="col-md-6">
-    <% f.collection_radio_buttons :options, 
+    <%# TO BE CODED: f.collection_radio_buttons :options, %>
     <% current_user.pups.each do |pup| %>
     <p><%= f.input pup.pup_name %></p>
     <% end %>
