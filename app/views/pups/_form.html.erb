@@ -1,10 +1,30 @@
-<%= simple_form_for [@user, @pup] do |f| %>
-  <%= f.error_notification %>
+<%= simple_form_for [current_user, @pup] do |f| %>
+<%= f.error_notification %>
 
-  <div class="form-inputs">
-  </div>
+<br>
 
-  <div class="form-actions">
-    <%= f.button :submit %>
+<div class="form-inputs row">
+  <div class="col-md-6">
+    <%= f.input :pup_name %>
+    <%= f.input :pup_breed %>
+    <%= f.input :pup_weight %>
   </div>
+  <div class="col-md-6">
+    <%= f.input :pup_gender %> 
+    <%= f.input :pup_age %>
+    <%= f.input :pup_vet_phone %>
+  </div>
+</div>
+
+<div class="form-inputs row">
+  <div class="col-md-12">
+    <%= f.input :pup_care_instructions %>
+  </div>
+</div>
+
+<div class="form-actions">
+  <%# f.association :user, as: :hidden, value: params[:user_id] %>
+  <%= f.button :submit, class: 'btn btn-success'%>
+</div>
+
 <% end %>

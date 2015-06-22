@@ -1,6 +1,6 @@
 <h1>My pups</h1>
 
-<%= link_to 'New Pup', new_user_pup_path(current_user) %>
+<%= link_to 'New Pup', new_user_pup_path(current_user), class: 'btn btn-primary' %>
 <br>
 <br>
 
@@ -20,8 +20,8 @@
     </div>
   </div>
 
-  <%= link_to 'Edit', edit_user_pup_path(current_user, pup) %>
-  <%= link_to 'Destroy', user_pup_path(current_user, pup), method: :delete, data: { confirm: 'Are you sure?' } %>
+  <%= link_to 'Edit', edit_user_pup_path(current_user, pup), class: 'btn btn-warning' %>
+  <%= link_to 'Destroy', user_pup_path(current_user, pup), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'%>
 </div>
   <br>
   <br>
