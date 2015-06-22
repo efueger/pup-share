@@ -27,7 +27,7 @@ class PupsControllerTest < ActionController::TestCase
 
   test "should create pup" do
     assert_difference('Pup.count') do
-      post :create, pup: { }, user_id: @user.id
+      post :create, pup: { pup_name: @pup.pup_name }, user_id: @user.id
     end
     assert_redirected_to user_pups_path(@user)
   end
@@ -38,7 +38,7 @@ class PupsControllerTest < ActionController::TestCase
   end
 
   test "should update pup" do
-    patch :update, id: @pup, pup: {  }, user_id: @user.id 
+    patch :update, id: @pup, pup: { pup_name: @pup.pup_name }, user_id: @user.id 
     assert_redirected_to user_pups_path(@user)
   end
 

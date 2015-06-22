@@ -14,7 +14,6 @@ class PupsController < ApplicationController
   def edit; end
 
   def create
-#     binding.pry
     @pup = current_user.pups.new(pup_params)
 
     if @pup.save
@@ -25,19 +24,13 @@ class PupsController < ApplicationController
   end
 
   def update
-    respond_to do |format|
-      if @pup.update(pup_params)
-        format.html { redirect_to user_pups_path, notice: 'Pupdated' }
-        format.json { render :show, status: :ok, location: @pup }
-      else
-        format.html { render :edit }
-        format.json { render json: @pup.errors, status: :unprocessable_entity }
-      end
+    if @pup.update(pup_params)
+      redirect_to user_pups_path, notice: 'Pupdated'
+    else
+      render :edit
     end
   end
 
-  # DELETE /pups/1
-  # DELETE /pups/1.json
   def destroy
     @pup.destroy
     respond_to do |format|
