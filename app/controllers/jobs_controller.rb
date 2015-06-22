@@ -1,7 +1,7 @@
 class JobsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :walk_request ]
-  before_action :set_job, except: [:index, :new, :create, :cancel_walk] 
-  
+  before_action :set_job, except: [:index, :new, :create, :approve_walk_request, :deny_walk_request, :cancel_walk] 
+
   def index
     @jobs = Job.all
   end
@@ -37,19 +37,28 @@ class JobsController < ApplicationController
   end
 
   def approve_walk_request
+#     binding.pry
+    @job = Job.find(params[:id]) # excluded from set_job before_action to facilitate rescue
     @job.send_approve_walk_request_mailers
     @job.approve_walk_request
-    redirect_to root_path, notice: 'You approved a walk request'      
+    redirect_to root_path, notice: 'You approved a walk request'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: 'Job no longer exists'
+    return
   end
 
   def deny_walk_request
+    @job = Job.find(params[:id]) # excluded from set_job before_action to facilitate rescue
     @job.send_deny_walk_request_mailers
     @job.deny_walk_request
     redirect_to root_path, alert: 'You denied a walk request'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to root_path, alert: 'Job no longer exists'
+    return
   end
 
   def cancel_walk 
-    @job = Job.find(params[:id]) # duplication of set_job to allow rescue
+    @job = Job.find(params[:id]) # excluded from set_job before_action to facilitate rescue
     @job.send_cancel_walk_mailer
     @job.cancel_walk
     redirect_to root_path, alert: 'Walk cancelled'

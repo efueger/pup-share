@@ -1,10 +1,8 @@
 class WalkRequest < ApplicationMailer
+  before_action :set_walker
+  
+  
   default from: 'no-reply@pup-share.com'
-
-  # ***
-  # before_action here to set @walker/@pup_owner/@job would be cool
-  # challenge is passing job object into before_action...
-  # IT IS POSSIBLE***
 
   def walk_request(job)
     @walker    = User.find(job.walk_request_pending_user_id)
@@ -59,7 +57,6 @@ class WalkRequest < ApplicationMailer
 
   def walk_request_cancel(job)
     @walker    = User.find(job.walk_request_pending_user_id) 
-    # to do: after approval, walk_request_pending_user_id = nil, but walker_id = user.id
     @pup_owner = job.user
     @job       = job
     mail( to: [@pup_owner.email, @walker.email],
@@ -68,6 +65,12 @@ class WalkRequest < ApplicationMailer
 
   def walk_request_cancel_approved(job)
     # TODO
+  end
+  
+  private
+  
+  def set_walker
+#     @walker = User.find(job.walk_request_pending_user_id) 
   end
 
 end
