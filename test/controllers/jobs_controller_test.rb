@@ -76,7 +76,7 @@ class JobsControllerTest < ActionController::TestCase
     assert_equal 'Request email sent', flash[:notice]
     assert_redirected_to root_path
   end
-  
+
   test 'approve_walk_request' do
     pre_approved_job = FactoryGirl.create(:pre_approved_job)
     get :approve_walk_request, id: pre_approved_job.id
@@ -91,10 +91,44 @@ class JobsControllerTest < ActionController::TestCase
     assert_redirected_to root_path 
   end
 
+  test 'approve_walk_request on nonexistent job alerts and redirects to root' do
+    get :approve_walk_request, id: 9999
+    assert_equal 'Job request was cancelled or job no longer exists', flash[:alert] 
+    assert_redirected_to root_path    
+  end
+
+  test 'approving a cancelled job alerts and redirects to root' do
+    job = FactoryGirl.create(:job) # walk_request_pending_user_id: nil
+    get :approve_walk_request, id: job
+    assert_equal 'Job request was cancelled or job no longer exists', flash[:alert] 
+    assert_redirected_to root_path      
+  end
+
+  test 'deny_walk_request on nonexistent job alerts and redirects to root' do
+    get :deny_walk_request, id: 9999
+    assert_equal 'Job request was cancelled or job no longer exists', flash[:alert] 
+    assert_redirected_to root_path      
+  end
+
+  test 'denying a cancelled job alerts and redirects to root' do
+    job = FactoryGirl.create(:job) # walk_request_pending_user_id: nil
+    get :deny_walk_request, id: job
+    assert_equal 'Job request was cancelled or job no longer exists', flash[:alert] 
+    assert_redirected_to root_path      
+  end
+
+
   test 'cancel_walk on nonexistent job alerts and redirects to root' do
     get :cancel_walk, id: 9999
-    assert_equal 'Job no longer exists', flash[:alert] 
+    assert_equal 'Job request was cancelled or job no longer exists', flash[:alert] 
     assert_redirected_to root_path
   end
 
+  test 'cancelling an already cancelled job alerts and redirects to root' do
+    job = FactoryGirl.create(:job) # walk_request_pending_user_id: nil
+    get :cancel_walk, id: job
+    assert_equal 'Job request was cancelled or job no longer exists', flash[:alert] 
+    assert_redirected_to root_path
+  end
+  
 end

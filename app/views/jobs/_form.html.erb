@@ -5,11 +5,10 @@
 
 <div class="form-inputs row">
   <div class="col-md-6">
-    Pup radio buttons go here...
+    <%= f.association :pup, as: :radio_buttons, label_method: :pup_name, value_method: :id, include_blank: false %>
+    <%# end %> 
   </div>
 </div>
-
-<br>
 
 <div class="form-inputs row">
   <div class="col-md-6">

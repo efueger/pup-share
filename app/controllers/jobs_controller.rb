@@ -19,14 +19,10 @@ class JobsController < ApplicationController
   def create
     @job = current_user.jobs.new(job_params)
 
-    respond_to do |format|
-      if @job.save
-        format.html { redirect_to root_path, notice: 'Job created' }
-        format.json { render :show, status: :created, location: @job }
-      else
-        format.html { render :new }
-        format.json { render json: @job.errors, status: :unprocessable_entity }
-      end
+    if @job.save
+      redirect_to root_path, notice: 'Job created'
+    else
+      render :new
     end
   end
 
@@ -37,13 +33,12 @@ class JobsController < ApplicationController
   end
 
   def approve_walk_request
-#     binding.pry
     @job = Job.find(params[:id]) # excluded from set_job before_action to facilitate rescue
     @job.send_approve_walk_request_mailers
     @job.approve_walk_request
     redirect_to root_path, notice: 'You approved a walk request'
   rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: 'Job no longer exists'
+    redirect_to root_path, alert: 'Job request was cancelled or job no longer exists'
     return
   end
 
@@ -53,7 +48,7 @@ class JobsController < ApplicationController
     @job.deny_walk_request
     redirect_to root_path, alert: 'You denied a walk request'
   rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: 'Job no longer exists'
+    redirect_to root_path, alert: 'Job request was cancelled or job no longer exists'
     return
   end
 
@@ -63,28 +58,21 @@ class JobsController < ApplicationController
     @job.cancel_walk
     redirect_to root_path, alert: 'Walk cancelled'
   rescue ActiveRecord::RecordNotFound
-    redirect_to root_path, alert: 'Job no longer exists'
+    redirect_to root_path, alert: 'Job request was cancelled or job no longer exists'
     return
   end
 
   def update
-    respond_to do |format|
-      if @job.update(job_params)
-        format.html { redirect_to root_path, notice: 'Job updated' }
-        format.json { render :show, status: :ok, location: @job }
-      else
-        format.html { render :edit }
-        format.json { render json: @job.errors, status: :unprocessable_entity }
-      end
+    if @job.update(job_params)
+      redirect_to root_path, notice: 'Job updated'
+    else
+      render :edit
     end
   end
 
   def destroy
     @job.destroy
-    respond_to do |format|
-      format.html { redirect_to root_path, notice: 'Job destroyed' }
-      format.json { head :no_content }
-    end
+    redirect_to root_path, notice: 'Job destroyed'
   end
 
   private
