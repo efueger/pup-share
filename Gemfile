@@ -24,6 +24,15 @@ gem 'simple_form'
 # picture uploading
 gem 'carrierwave'
 
+# secure config variables
+gem 'figaro'
+
+# facilitates communication between carrierwave and S3 
+gem 'fog'#, '~> 1.3.1'
+
+# fog depends on nokogiri
+# gem 'nokogiri'
+
 # debugging!
 group :development do
   gem 'pry-rails'
