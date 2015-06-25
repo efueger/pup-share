@@ -21,6 +21,9 @@ gem 'coffee-rails', '~> 4.1.0'
 # forms made easy
 gem 'simple_form'
 
+# picture uploading
+gem 'carrierwave'
+
 # debugging!
 group :development do
   gem 'pry-rails'
