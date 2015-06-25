@@ -44,7 +44,7 @@ class JobsController < ApplicationController
 
   def deny_walk_request
     @job = Job.find(params[:id]) # excluded from set_job before_action to facilitate rescue
-    @job.send_deny_walk_request_mailers
+    @job.send_deny_walk_request_mailers # errors out when 
     @job.deny_walk_request
     redirect_to root_path, alert: 'You denied a walk request'
   rescue ActiveRecord::RecordNotFound
