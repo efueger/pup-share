@@ -71,6 +71,7 @@ class JobsController < ApplicationController
   end
 
   def destroy
+    @job.send_destroyed_walk_mailer
     @job.destroy
     redirect_to root_path, notice: 'Job destroyed'
   end

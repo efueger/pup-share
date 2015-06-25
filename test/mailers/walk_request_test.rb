@@ -59,4 +59,30 @@ class WalkRequestTest < ActionMailer::TestCase
     assert_equal ['no-reply@pup-share.com'], email.from      
   end
 
+  test 'walk_request_send_destroyed_mailer to pending walker' do 
+    @job.walk_request_pending_user = @walker
+    @job.user = @pup_owner
+    email = @job.send_destroyed_walk_mailer  
+    assert_not ActionMailer::Base.deliveries.empty?
+    binding.pry
+    assert_equal [@pup_owner.email, @walker.email], email.to
+    assert_equal ['no-reply@pup-share.com'], email.from  
+  end
+
+  test 'walk_request_send_destroyed_mailer to walker' do
+    @job.walker = @walker
+    @job.user = @pup_owner
+    email = @job.send_destroyed_walk_mailer
+    assert_not ActionMailer::Base.deliveries.empty?
+    assert_equal [@pup_owner.email, @walker.email], email.to
+    assert_equal ['no-reply@pup-share.com'], email.from  
+  end
+
+  test 'walk_request_send_destroyed_mailer delivers nothin to nobody' do
+    @job.walk_request_pending_user = nil
+    @job.walker = nil
+    @job.send_destroyed_walk_mailer
+    assert ActionMailer::Base.deliveries.empty?
+  end
+
 end

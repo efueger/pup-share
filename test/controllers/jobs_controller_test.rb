@@ -68,7 +68,7 @@ class JobsControllerTest < ActionController::TestCase
     end
     assert_redirected_to root_path
   end
-
+  
   test 'walk_request redirects to root' do
     sign_in FactoryGirl.create(:user)
     pre_approved_job = FactoryGirl.create(:pre_approved_job)

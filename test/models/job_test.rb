@@ -1,13 +1,14 @@
-require 'pry'
 require 'test_helper'
+require 'pry'
 
 class JobTest < ActiveSupport::TestCase
+
   setup do
     @job       = FactoryGirl.create(:job)    
     @pup_owner = FactoryGirl.create(:user)
     @walker    = FactoryGirl.create(:user)
   end
-  
+
   # validations
   test 'job includes a DateTime drop off time' do
     assert_not @job.drop_off_time.nil?
@@ -37,7 +38,7 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test 'approve_walk_request sets pending walker id to nil and sets walker id' do
-    @job.update walk_request_pending_user_id: @walker.id
+    @job.update walk_request_pending_user_id: @walker.id #FIX THIS to assign rather than update
     @job.approve_walk_request
     assert @job.walk_request_pending_user_id.nil?
     assert_not @job.walker_id.nil?
@@ -47,6 +48,14 @@ class JobTest < ActiveSupport::TestCase
   test 'deny_walk_request sets pending walker id to nil' do
     @job.deny_walk_request
     assert @job.walk_request_pending_user_id.nil?
+  end
+
+  test 'send_destroyed_walk_mailer mailer needs walker or pending walker ' do
+    @job.walk_request_pending_user = @walker
+    @job.send_destroyed_walk_mailer
+    assert !@job.walker.nil? || !@job.walk_request_pending_user.nil? 
+    # i.e. either of walker or pending walker is not nil
+    # sort of a boring test b/c I need to assign a walker or pending walker first...
   end
 
 end
