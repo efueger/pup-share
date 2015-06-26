@@ -23,12 +23,16 @@ gem 'simple_form'
 
 # picture uploading
 gem 'carrierwave'
+gem 'carrierwave-aws'
+
+# image stuff
+gem 'mini_magick'
 
 # secure config variables
 gem 'figaro'
 
 # facilitates communication between carrierwave and S3 
-gem 'fog-aws'
+gem 'fog'
 
 # fog depends on nokogiri
 # gem 'nokogiri'
