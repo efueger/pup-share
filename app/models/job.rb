@@ -3,7 +3,8 @@ class Job < ActiveRecord::Base
   validates :drop_off_location,        presence: true
   validates :pick_up_time,             presence: true
   validates :pick_up_location,         presence: true
-
+  validates :pup_id,                   presence: true
+  
   belongs_to :user
   belongs_to :walker, class_name: 'User'
   belongs_to :walk_request_pending_user, class_name: 'User'

@@ -29,6 +29,10 @@ class JobTest < ActiveSupport::TestCase
     assert_not @job.pick_up_location.nil?
     assert_not_equal 0, @job.pick_up_location.size
   end
+  
+  test 'job incldues pup' do
+    assert_not @job.pup.nil?
+  end
 
   # methods
   test 'walk_request sets user id' do
@@ -38,7 +42,7 @@ class JobTest < ActiveSupport::TestCase
   end
 
   test 'approve_walk_request sets pending walker id to nil and sets walker id' do
-    @job.update walk_request_pending_user_id: @walker.id #FIX THIS to assign rather than update
+    @job.update walk_request_pending_user_id: @walker.id
     @job.approve_walk_request
     assert @job.walk_request_pending_user_id.nil?
     assert_not @job.walker_id.nil?
