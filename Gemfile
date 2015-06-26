@@ -1,41 +1,27 @@
 source 'https://rubygems.org'
 
 
-# Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
-# Use postgresql as the database for Active Record
+
 gem 'pg'
 
-# bootstrap
 gem 'bootstrap-sass', '~> 3.3.4'
-
-# collectively 'the asset pipeline'
-# Use SCSS for stylesheets
 gem 'sass-rails', '>= 3.2'
-# Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-# Use CoffeeScript for .coffee assets and views
 gem 'coffee-rails', '~> 4.1.0'
-# the end of the asset-pipeline
+gem 'jquery-rails'
 
-# forms made easy
 gem 'simple_form'
 
 # picture uploading
 gem 'carrierwave'
 gem 'carrierwave-aws'
-
-# useful for resizing images
-gem 'mini_magick'
-
-# secure config variables
-gem 'figaro'
-
-# facilitates communication between carrierwave and S3 
 gem 'fog'
 
-# fog depends on nokogiri
-# gem 'nokogiri'
+gem 'mini_magick'
+
+# secure env variables
+gem 'figaro'
 
 # debugging!
 group :development do
@@ -48,14 +34,9 @@ end
 # error logging
 gem 'airbrake' ### NOT CONFIGURED, subscription product
 
-# authentication
 gem 'devise', '>= 3.2.4'
 
-# testing helper
 gem 'factory_girl_rails'
-
-# Use jquery as the JavaScript library
-gem 'jquery-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -66,7 +47,7 @@ gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
 gem 'sdoc', '~> 0.4.0', group: :doc
 
-# new server, Heroku recommended
+# new server, Heroku/ProductHunt recommended
 gem 'puma'
 
 # pushes error to std out...? (by default Rails stores errors to txt file and Heroku doesn't read that txt file)
