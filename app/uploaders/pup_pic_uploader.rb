@@ -1,7 +1,7 @@
 # encoding: utf-8
 
 class PupPicUploader < CarrierWave::Uploader::Base
-  include CarrierWave::MiniMagick
+#   include CarrierWave::MiniMagick
 
   storage :aws
 

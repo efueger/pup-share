@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-
 gem 'rails', '4.2.0'
 
 gem 'pg'
@@ -16,7 +15,7 @@ gem 'simple_form'
 
 # gem 'carrierwave'
 gem 'carrierwave-aws' # picture uploading
-gem 'mini_magick'
+# gem 'mini_magick'
 
 gem 'figaro' # secure env variables
 
@@ -33,7 +32,7 @@ gem 'devise', '>= 3.2.4'
 
 gem 'factory_girl_rails'
 
-gem 'turbolinks'
+# gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
