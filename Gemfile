@@ -23,8 +23,9 @@ gem 'simple_form'
 
 # picture uploading
 gem 'carrierwave'
+gem 'carrierwave-aws'
 
-# image stuff
+# useful for resizing images
 gem 'mini_magick'
 
 # secure config variables
