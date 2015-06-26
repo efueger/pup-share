@@ -30,12 +30,14 @@ class JobsControllerTest < ActionController::TestCase
   test 'should create job' do
     sign_in FactoryGirl.create(:user)
     job = FactoryGirl.create(:job)
+    pup = FactoryGirl.create(:pup)
     assert_difference('Job.count') do
       post :create, job: {
         drop_off_location: job.drop_off_location, 
         drop_off_time: job.drop_off_time, 
         pick_up_location: job.pick_up_location, 
-        pick_up_time: job.pick_up_time 
+        pick_up_time: job.pick_up_time,
+        pup_id: pup.id
         }
     end
     assert_redirected_to root_path
