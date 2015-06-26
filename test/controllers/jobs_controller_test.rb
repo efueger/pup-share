@@ -9,8 +9,19 @@ class JobsControllerTest < ActionController::TestCase
     assert_not_nil assigns(:jobs)
   end
 
-  test 'should get new' do
-    sign_in FactoryGirl.create(:user)
+  test 'should redirect if user does not have pups' do
+    user = FactoryGirl.create(:user)
+    sign_in user
+    get :new
+    assert_response :redirect
+  end
+
+  test 'should get new if user has pups' do
+    user = FactoryGirl.create(:user)
+    pup = FactoryGirl.create(:pup)
+    sign_in user
+    user.pups << pup
+    assert !user.pups.empty?
     get :new
     assert_response :success
     assert_not_nil assigns(:job)
@@ -70,7 +81,7 @@ class JobsControllerTest < ActionController::TestCase
     end
     assert_redirected_to root_path
   end
-  
+
   test 'walk_request redirects to root' do
     sign_in FactoryGirl.create(:user)
     pre_approved_job = FactoryGirl.create(:pre_approved_job)
@@ -111,5 +122,5 @@ class JobsControllerTest < ActionController::TestCase
     assert_redirected_to root_path
   end
 
-  
+
 end
