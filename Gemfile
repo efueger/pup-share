@@ -23,7 +23,6 @@ gem 'simple_form'
 
 # picture uploading
 gem 'carrierwave'
-gem 'carrierwave-aws'
 
 # image stuff
 gem 'mini_magick'
