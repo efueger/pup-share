@@ -13,32 +13,26 @@ gem 'jquery-rails'
 
 gem 'simple_form'
 
-# picture uploading
-gem 'carrierwave'
-gem 'carrierwave-aws'
-gem 'fog'
 
+# gem 'carrierwave'
+gem 'carrierwave-aws' # picture uploading
 gem 'mini_magick'
 
-# secure env variables
-gem 'figaro'
+gem 'figaro' # secure env variables
 
-# debugging!
-group :development do
+group :development do # debugging
   gem 'pry-rails'
   gem 'pry-byebug'
   gem 'better_errors'
   gem 'binding_of_caller'
 end
 
-# error logging
 gem 'airbrake' ### NOT CONFIGURED, subscription product
 
 gem 'devise', '>= 3.2.4'
 
 gem 'factory_girl_rails'
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
@@ -53,6 +47,7 @@ gem 'puma'
 # pushes error to std out...? (by default Rails stores errors to txt file and Heroku doesn't read that txt file)
 gem 'rails_12factor', group: :production
 
+gem 'minitest-reporters', '~> 1.0.17'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
