@@ -1,10 +1,10 @@
 # encoding: utf-8
 
 class PupPicUploader < CarrierWave::Uploader::Base
+  include CarrierWave::MiniMagick
+
   storage :aws
 
-  include CarrierWave::MiniMagick
-  
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
   def store_dir
@@ -20,7 +20,7 @@ class PupPicUploader < CarrierWave::Uploader::Base
   # end
 
   # Process files as they are uploaded:
-  process :scale => [200, 300]
+#   process :resize_to_fit => [200, 200]
   #
   # def scale(width, height)
   #   # do something
