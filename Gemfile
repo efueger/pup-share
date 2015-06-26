@@ -28,7 +28,7 @@ gem 'carrierwave'
 gem 'figaro'
 
 # facilitates communication between carrierwave and S3 
-gem 'fog'#, '~> 1.3.1'
+gem 'fog-aws'
 
 # fog depends on nokogiri
 # gem 'nokogiri'
