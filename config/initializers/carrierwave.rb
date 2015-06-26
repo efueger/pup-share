@@ -10,4 +10,11 @@ CarrierWave.configure do |config|
     secret_access_key: ENV['AWS_SECRET_KEY']
     # region:          ENV['']
     }
+
+  # see this link for more detail: https://github.com/carrierwaveuploader/carrierwave
+  if Rails.env.test?
+    config.storage = :file
+    config.enable_processing = false
+  end
+
 end

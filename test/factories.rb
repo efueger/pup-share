@@ -37,4 +37,9 @@ FactoryGirl.define do
     association :walker, factory: :user
   end
 
+  factory :image do
+    description 'default image'
+    logo { Rack::Test::UploadedFile.new(File.join(Rails.root, 'app', 'assets', 'images', 'fallback', 'pup_walk.png')) }
+  end
+
 end

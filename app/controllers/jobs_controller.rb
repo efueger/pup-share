@@ -10,11 +10,14 @@ class JobsController < ApplicationController
   end
 
   def new
-    @job = Job.new
+    if current_user.pups.empty?
+      redirect_to new_user_pup_path(current_user), alert: 'Create a pup to add to your job'
+    else
+      @job = Job.new
+    end
   end
 
-  def edit
-  end
+  def edit; end
 
   def create
     @job = current_user.jobs.new(job_params)

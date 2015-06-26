@@ -25,24 +25,24 @@ class PupsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test "should create pup" do
+  test 'should create pup' do
     assert_difference('Pup.count') do
       post :create, pup: { pup_name: @pup.pup_name }, user_id: @user.id
     end
     assert_redirected_to user_pups_path(@user)
   end
 
-  test "should get edit" do
+  test 'should get edit' do
     get :edit, id: @pup, user_id: @user.id
     assert_response :success
   end
 
-  test "should update pup" do
+  test 'should update pup' do
     patch :update, id: @pup, pup: { pup_name: @pup.pup_name }, user_id: @user.id 
     assert_redirected_to user_pups_path(@user)
   end
 
-  test "should destroy pup" do
+  test 'should destroy pup' do
     assert_difference('Pup.count', -1) do
       delete :destroy, id: @pup, user_id: @user.id
     end

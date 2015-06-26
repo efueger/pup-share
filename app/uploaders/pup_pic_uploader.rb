@@ -1,9 +1,11 @@
 # encoding: utf-8
 
 class PupPicUploader < CarrierWave::Uploader::Base
-  #   include CarrierWave::MiniMagick
+  # include CarrierWave::MiniMagick
 
-  storage :aws
+  # note: this is commented out so that Rails relies on the initializer
+  # specifying storage here means storage specified in the initializer will be ignored
+  # storage :aws  
 
   # Override the directory where uploaded files will be stored.
   # This is a sensible default for uploaders that are meant to be mounted:
@@ -11,7 +13,7 @@ class PupPicUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  # Provide a default URL as a default if there hasn't been a file uploaded:
+  # Provide a default URL as a default if no file uploaded
   def default_url(*args)
     ActionController::Base.helpers.asset_path("fallback/" + [version_name, "pup_walk.png"].compact.join('_'))
   end
