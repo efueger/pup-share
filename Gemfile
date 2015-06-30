@@ -36,7 +36,7 @@ end
 group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
-  gem 'guard-rspec', require: false ### NOT CONFIGURED, auto-runs specs upon savingbundle exec rspec
+  gem 'guard-rspec', require: false ### NOT CONFIGURED, auto-runs specs upon savingbundle exec rspec. Sort of replace by Spring and maybe CI...?
 end
 
 gem 'rails_12factor', group: :production
