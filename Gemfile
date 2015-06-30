@@ -29,7 +29,6 @@ end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
-  gem 'rspec-activemodel-mocks' # add stub_model and mock_model to rspec-mocks
   gem 'faker'
   gem 'spring' # speeds up app
 end
