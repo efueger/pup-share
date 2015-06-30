@@ -1,0 +1,28 @@
+<%= simple_form_for(@availability) do |f| %>
+<%= f.error_notification %>
+
+<br>
+
+<div class="form-inputs row">
+  <div class="col-md-6">
+    <%= f.input :available_from %>
+  </div>
+  <div class="col-md-6">
+    <%= f.input :available_to %>
+  </div>
+</div>
+
+<div class="form-inputs">
+  <div class="col-md-12">
+    <%= f.input :location %>
+  </div>
+  <div class="col-md-12">
+    <%= f.input :comment %>
+  </div>
+</div>
+
+<div class="form-actions">
+  <%= f.button :submit, class: 'btn btn-success'%>
+</div>
+
+<% end %>

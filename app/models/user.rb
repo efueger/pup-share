@@ -12,6 +12,7 @@ class User < ActiveRecord::Base
   # validates_format_of :email, :with => /.{1,40}@amazon.com/, message: "Email addres must have an @amazon.com extension", on: :create             
   has_many :jobs, dependent: :destroy
   has_many :pups, dependent: :destroy
+  has_many :availabilities, dependent: :destroy
       
   mount_uploader :pic, UserPicUploader
   

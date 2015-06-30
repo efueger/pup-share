@@ -21,6 +21,7 @@
           <ul class="nav navbar-nav navbar-right"> 
             <% if user_signed_in? %>
             <li><%= link_to 'My Jobs', user_jobs_path(current_user) %>
+            <li><%= link_to 'My Availabilities', user_availabilities_path(current_user) %>
             <li><%= link_to 'My Pups', user_pups_path(current_user) %>
             <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
             <% else %>
