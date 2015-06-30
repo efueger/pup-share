@@ -1,13 +1,17 @@
 class JobsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :walk_request ]
+  before_action :authenticate_user!, only: [:user_index, :new, :edit, :create, :update, :destroy, :walk_request ]
   before_action :set_job, except: [:index, :new, :create, :approve_walk_request, :deny_walk_request, :cancel_walk] 
 
+
   def index
-    @jobs = Job.all
+    if params[:user_id].nil?
+      @jobs = Job.all
+    else
+      @jobs = Job.where(user_id: params[:user_id])
+    end
   end
 
-  def show
-  end
+  def show; end
 
   def new
     if current_user.pups.empty?

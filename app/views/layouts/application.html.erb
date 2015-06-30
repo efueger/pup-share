@@ -7,7 +7,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body>
-    
+
     <!-- start navbar -->
     <nav class="navbar navbar-inverse">
       <div class="container-fluid">
@@ -20,11 +20,12 @@
           </ul>
           <ul class="nav navbar-nav navbar-right"> 
             <% if user_signed_in? %>
-            <li><%= link_to 'My pups', user_pups_path(current_user) %>
-            <li><%= link_to 'Sign out', destroy_user_session_path, method: :delete %></li>
+            <li><%= link_to 'My Jobs', user_jobs_path(current_user) %>
+            <li><%= link_to 'My Pups', user_pups_path(current_user) %>
+            <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
             <% else %>
-            <li><%= link_to 'Sign in', new_user_session_path %></li>
-            <li><%= link_to 'Sign up', new_user_registration_path %></li>
+            <li><%= link_to 'Sign In', new_user_session_path %></li>
+            <li><%= link_to 'Sign Up', new_user_registration_path %></li>
             <% end %>          
           </ul>
         </div><!-- /.navbar-collapse -->
@@ -42,7 +43,7 @@
     <div class="row">
       <div class="col-md-2">
       </div>
-      
+
       <div class="col-md-6">
         <%= yield %>      
       </div>
@@ -51,7 +52,7 @@
       </div>     
     </div>
 
-    
+
     <br>
     <br>
     <br>

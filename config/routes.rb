@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-
   devise_for :users, controllers: { 
     registrations: 'registrations', 
     confirmations: 'confirmations' 
@@ -9,6 +7,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :pups
+    resources :jobs, only: [:index]
   end
 
   root 'jobs#index'
