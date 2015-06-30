@@ -1,6 +1,4 @@
-<h1>Profile</h1>
-
-<p id="notice"><%= notice %></p>
+<p><%= image_tag @user.pic, :class => 'img-responsive'  %></p>
 
 <p><strong>First name:</strong><%= @user.first_name %></p>
 
@@ -12,9 +10,6 @@
 
 <p><strong>Emergency phone:</strong><%= @user.emergency_phone %></p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
 
-<h1>Upcoming Walks</h1>
+<%= link_to 'Edit', edit_user_path(@user) %>
 
-<%= Job.where(walker_id: current_user) %>

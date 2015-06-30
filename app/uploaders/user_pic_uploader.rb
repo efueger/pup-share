@@ -1,7 +1,7 @@
 # encoding: utf-8
 
-class PupPicUploader < CarrierWave::Uploader::Base
-  
+class UserPicUploader < CarrierWave::Uploader::Base
+
   # Choose what kind of storage to use for this uploader:
   # storage :file
   # storage :fog
@@ -12,13 +12,13 @@ class PupPicUploader < CarrierWave::Uploader::Base
     "uploads/#{model.class.to_s.underscore}/#{mounted_as}/#{model.id}"
   end
 
-  # Provide a default URL as a default if no file uploaded
+  # Provide a default URL as a default if there hasn't been a file uploaded:
   def default_url(*args)
-    ActionController::Base.helpers.asset_path("fallback/" + [version_name, "pup_walk.png"].compact.join('_'))
+    ActionController::Base.helpers.asset_path("fallback/" + [version_name, 'dilbert.jpg'].compact.join('_'))
   end
 
   # Process files as they are uploaded:
-  #   process :resize_to_fit => [200, 200]
+  # process :scale => [200, 300]
   #
   # def scale(width, height)
   #   # do something

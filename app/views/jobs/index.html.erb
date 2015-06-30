@@ -7,21 +7,25 @@
 <div class="booyah-box">
 
   <div class="row">
-    <div class="col-md-6">
+
+    <div class="col-md-4">
+      <%= image_tag job.user.pic, :class => 'img-responsive' %>
+    </div>
+    <div class="col-md-4">
       <p>Name: <%= job.pup.pup_name %>
       <p>Drop off: <%= job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.drop_off_location %></p>
       <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.pick_up_location %></p>
     </div>
-    
-    <div class="col-md-6">
+
+    <div class="col-md-4">
       <%= image_tag job.pup.pup_pic, :class => 'img-responsive' %>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
       <% if !job.walk_request_pending_user_id.nil? %>
       <%= "#{User.find(job.walk_request_pending_user_id).email} requested to walk this pup" %>
       <% elsif !job.walker_id.nil? %>
@@ -32,8 +36,10 @@
       <% end %>
       <% end %>
     </div>
-
-    <div class="col-md-6">
+    
+    <div class="col-md-4"></div>
+                
+    <div class="col-md-4">
       <% if job.user == current_user %>
       <%= link_to 'Edit', edit_job_path(job), class: 'btn btn-warning'%>
       <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
