@@ -22,6 +22,6 @@ describe Job do
   it 'sends walk denial mailers'
   it 'updates pending walker upon cancellation'
   it 'sends cancellation mailers'
-  it 'send destroyed job mailer'
+  it 'sends destroyed job mailer'
   
 end
