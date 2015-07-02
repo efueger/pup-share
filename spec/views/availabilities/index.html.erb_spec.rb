@@ -8,7 +8,7 @@ RSpec.describe "availabilities/index", type: :view do
     ])
   end
 
-  it "renders a list of availabilities" do
-    render
-  end
+#   it "renders a list of availabilities" do
+#     render
+#   end
 end

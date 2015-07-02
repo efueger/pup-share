@@ -30,7 +30,7 @@ end
 group :development, :test do
   gem 'rspec-rails', '~> 3.0'
   gem 'faker'
-  gem 'spring' # speeds up app
+  # gem 'spring' # speeds up app
 end
 
 group :test do
