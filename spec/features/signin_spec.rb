@@ -21,5 +21,5 @@ feature 'Signing in' do
     click_on 'Log in'
     expect(page).to have_content 'Invalid email or password'
   end
-  
+
 end

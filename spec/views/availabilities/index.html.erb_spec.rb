@@ -1,14 +1,14 @@
-require 'rails_helper'
+# require 'rails_helper'
 
-RSpec.describe "availabilities/index", type: :view do
-  before(:each) do
-    assign(:availabilities, [
-      Availability.create!(),
-      Availability.create!()
-    ])
-  end
-
-#   it "renders a list of availabilities" do
-#     render
+# RSpec.describe "availabilities/index", type: :view do
+#   before(:each) do
+#     assign(:availabilities, [
+#       Availability.create!(),
+#       Availability.create!()
+#     ])
 #   end
-end
+
+# #   it "renders a list of availabilities" do
+# #     render
+# #   end
+# end

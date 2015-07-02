@@ -8,7 +8,7 @@ FactoryGirl.define do
     password 'lalalala'
     password_confirmation 'lalalala'
     confirmed_at Time.now
-    # pic { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'support', 'images', 'pup.jpg')) }
+    pic { Rack::Test::UploadedFile.new(File.join(Rails.root, 'spec', 'support', 'images', 'pup.jpg')) }
   end
 
 end
