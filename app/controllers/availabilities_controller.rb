@@ -1,4 +1,5 @@
 class AvailabilitiesController < ApplicationController
+  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy]
   before_action :set_availability, only: [:show, :edit, :update, :destroy]
 
   def index
@@ -41,7 +42,7 @@ class AvailabilitiesController < ApplicationController
   end
 
   private
-  
+
   def set_availability
     @availability = Availability.find(params[:id])
   end

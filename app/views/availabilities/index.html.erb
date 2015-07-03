@@ -1,6 +1,6 @@
 <%= link_to 'New Availability', new_availability_path, class: 'btn btn-primary' %>
 
-<h1>My Availabilities</h1>
+<h1>All Availabilities</h1>
 
 <% @availabilities.each do |availability| %>
 
@@ -12,10 +12,10 @@
       <%= image_tag availability.user.pic, :class => 'img-responsive' %>
     </div>
     <div class="col-md-4">
-      <p>Available from: <% availability.available_from %></p>
-      <p>Available to: <% availability.available_to %></p>
-      <p>Location: <% availability.location %></p>
-      <p>Details: <% availability.comment %></p>
+      <p>Available from: <%= availability.available_from %></p>
+      <p>Available to: <%= availability.available_to %></p>
+      <p>Location: <%= availability.location %></p>
+      <p>Details: <%= availability.comment %></p>
 
     </div>
 

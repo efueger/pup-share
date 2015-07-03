@@ -1,7 +1,7 @@
 class ConfirmationsController < Devise::ConfirmationsController
   
   def show
-    binding.pry
+    # binding.pry
     super
   end
   
