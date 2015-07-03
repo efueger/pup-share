@@ -1,7 +1,8 @@
-# encoding: utf-8
-
 class UserPicUploader < CarrierWave::Uploader::Base
 
+  include CarrierWave::MiniMagick
+  process resize_to_fill: [75, 75]
+  
   # Choose what kind of storage to use for this uploader:
   # storage :file
   # storage :fog
@@ -17,9 +18,6 @@ class UserPicUploader < CarrierWave::Uploader::Base
     ActionController::Base.helpers.asset_path("fallback/" + [version_name, 'dilbert.jpg'].compact.join('_'))
   end
 
-  # Process files as they are uploaded:
-  # process :scale => [200, 300]
-  #
   # def scale(width, height)
   #   # do something
   # end

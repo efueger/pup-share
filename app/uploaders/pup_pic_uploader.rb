@@ -1,7 +1,8 @@
-# encoding: utf-8
-
 class PupPicUploader < CarrierWave::Uploader::Base
-  
+
+  include CarrierWave::MiniMagick
+  process resize_to_fill: [75, 75]
+
   # Choose what kind of storage to use for this uploader:
   # storage :file
   # storage :fog

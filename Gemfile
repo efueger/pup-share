@@ -16,7 +16,7 @@ gem 'jbuilder', '~> 2.0' # Build JSON APIs with ease
 gem 'simple_form'
 
 gem 'carrierwave-aws' # picture uploading
-# gem 'mini_magick'
+gem 'mini_magick'
 
 gem 'figaro' # secure env variables
 
