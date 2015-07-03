@@ -50,6 +50,11 @@ describe AvailabilitiesController do
   end
 
   describe 'GET #new' do
+
+    before :each do
+      sign_in @user = FactoryGirl.create(:user)
+    end
+
     it 'assigns a new availability to @availability' do
       get :new
       expect(assigns(:availability)).to be_a_new(Availability)
@@ -62,6 +67,11 @@ describe AvailabilitiesController do
   end
 
   describe 'GET #edit' do
+
+    before :each do
+      sign_in @user = FactoryGirl.create(:user)
+    end
+
     it 'assigns the requested availability to @availability' do
       lunch = FactoryGirl.create(:availability)
       get :edit, id: lunch
@@ -76,7 +86,7 @@ describe AvailabilitiesController do
   end
 
   describe 'POST #create' do
-    
+
     before :each do
       sign_in @user = FactoryGirl.create(:user)      
     end
