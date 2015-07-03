@@ -1,7 +1,6 @@
 require 'rails_helper'
 
 describe AvailabilitiesController do
-  include Devise::TestHelpers
 
   describe 'GET #index' do
     context 'with params[:user_id]' do
@@ -77,22 +76,23 @@ describe AvailabilitiesController do
   end
 
   describe 'POST #create' do
+    
+    before :each do
+      sign_in @user = FactoryGirl.create(:user)      
+    end
 
     context 'with valid attributes' do
       it 'saves the new availability in the database' do
-        sign_in user = FactoryGirl.create(:user)
         expect{
           post :create, availability: FactoryGirl.attributes_for(:availability)}.to change(Availability, :count).by(1)
       end
 
       it 'redirects to availabilities#show' do
-        sign_in user = FactoryGirl.create(:user)
         post :create, availability: FactoryGirl.attributes_for(:availability)
-        expect(response).to redirect_to user_availabilities_path(user)
+        expect(response).to redirect_to user_availabilities_path(@user)
       end
 
       it 'notifies the user of creation' do
-        sign_in user = FactoryGirl.create(:user)
         post :create, availability: FactoryGirl.attributes_for(:availability)
         expect(flash[:notice]). to eql 'Availability created'
       end
@@ -101,13 +101,11 @@ describe AvailabilitiesController do
 
     context 'with invalid attributes' do
       it 'does not save the new availability in the database' do 
-        sign_in user = FactoryGirl.create(:user)
         expect{
           post :create, availability: FactoryGirl.attributes_for(:invalid_availability)}.not_to change(Availability, :count)     
       end
 
       it 're-renders the :new template' do
-        sign_in user = FactoryGirl.create(:user)
         post :create, availability: FactoryGirl.attributes_for(:invalid_availability)
         expect(response).to render_template :new
       end
@@ -129,7 +127,7 @@ describe AvailabilitiesController do
         expect(assigns(:availability)).to eq(@availability)
       end
 
-      it 'changes @availabilities attributes' do
+      it 'changes @availability attributes' do
         patch :update, id: @availability,
         availability: FactoryGirl.attributes_for(:availability, 
           available_to: Time.new(2002, 10, 31),
@@ -146,7 +144,7 @@ describe AvailabilitiesController do
     end
 
     context 'with invalid attributes' do
-      it 'does not change the availability\'s attributes' do
+      it "does not change the availability's attributes" do
         patch :update, id: @availability,
         availability: FactoryGirl.attributes_for(:availability, 
           available_to: Time.new(2005, 12, 25),

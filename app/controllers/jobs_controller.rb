@@ -33,6 +33,20 @@ class JobsController < ApplicationController
     end
   end
 
+  def update
+    if @job.update(job_params)
+      redirect_to root_path, notice: 'Job updated'
+    else
+      render :edit
+    end
+  end
+
+  def destroy
+    @job.send_destroyed_walk_mailer
+    @job.destroy
+    redirect_to root_path, notice: 'Job destroyed'
+  end
+
   def walk_request
     @job.walk_request(current_user)
     @job.send_walk_request_mailers
@@ -67,20 +81,6 @@ class JobsController < ApplicationController
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path, alert: 'Job request was cancelled or job no longer exists'
     return
-  end
-
-  def update
-    if @job.update(job_params)
-      redirect_to root_path, notice: 'Job updated'
-    else
-      render :edit
-    end
-  end
-
-  def destroy
-    @job.send_destroyed_walk_mailer
-    @job.destroy
-    redirect_to root_path, notice: 'Job destroyed'
   end
 
   private
