@@ -1,0 +1,29 @@
+<h1>All My Requests</h1>
+
+<br>
+<br>
+
+
+<% @requests.each do |request| %>
+
+<div class="booyah-box">
+
+  <div class="row">
+    <div class="col-md-6">
+      <p>Requested by: <%= request.user_id %></p>
+      <p>Requested of: <%= request.requested_of_user_id %></p>
+      <p>Status: <%= request.status %></p>
+      <p>job_id: <%= request.job_id %></p>
+      <p>Availability_id: <%= request.availability_id %></p>
+    </div>
+  </div>
+
+  <%= link_to 'Edit', edit_user_request_path(current_user, request), class: 'btn btn-warning' %>
+  <%= link_to 'Destroy', user_request_path(current_user, request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+</div>
+
+<br>
+<br>
+<% end %>
+
+<br>

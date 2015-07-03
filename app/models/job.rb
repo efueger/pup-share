@@ -51,7 +51,6 @@ class Job < ActiveRecord::Base
   end
 
   def send_destroyed_walk_mailer
-#     binding.pry
     WalkRequest.walk_request_send_destroyed_mailer(self).deliver_now if !self.walker.nil? || !self.walk_request_pending_user.nil? 
     # only send mailer if walker or pending walker is assigned
   end

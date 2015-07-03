@@ -20,6 +20,7 @@ class User < ActiveRecord::Base
   has_many :jobs, dependent: :destroy
   has_many :pups, dependent: :destroy
   has_many :availabilities, dependent: :destroy
+  has_many :requests, dependent: :destroy
       
   mount_uploader :pic, UserPicUploader
   

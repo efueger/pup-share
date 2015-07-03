@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :pups
     resources :jobs, only: [:index]
     resources :availabilities, only: [:index]
+    resources :requests
   end
 
   root 'jobs#index'
@@ -21,8 +22,8 @@ Rails.application.routes.draw do
       match :cancel_walk,          via: [:get] 
     end
   end
-  
+
   resources :availabilities
-  
-  
+
+
 end
