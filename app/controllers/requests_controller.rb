@@ -18,19 +18,18 @@ class RequestsController < ApplicationController
 
   def edit; end
 
-  def create
-    @request = Request.new(request_params)
-
+  def create  
+    @request = current_user.requests.new(request_params)
     if @request.save
-      redirect_to user_requests_path, notice: 'Request created'
+      redirect_to user_requests_path(current_user)
     else
-      render :new
+      render :new 
     end
   end
 
-  def update
+  def update 
     if @request.update(request_params)
-      redirect_to @request, notice: 'Request updated'
+      redirect_to user_requests_path(current_user), notice: 'Request updated'
     else
       render :edit
     end
@@ -38,7 +37,7 @@ class RequestsController < ApplicationController
 
   def destroy
     @request.destroy
-    redirect_to user_requests_path(current_user), notice: 'Request destroyed'
+    redirect_to user_requests_path(current_user)
   end
 
   private
