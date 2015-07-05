@@ -3,7 +3,9 @@ require 'rails_helper'
 describe RequestsController do 
 
   before :each do
-    sign_in @user = FactoryGirl.create(:user)  
+    sign_in @user = FactoryGirl.create(:user) 
+    @requested_of_user = FactoryGirl.create(:user)
+    @job = FactoryGirl.create(:job)
   end
 
   describe 'GET #index' do
@@ -76,7 +78,7 @@ describe RequestsController do
   describe 'POST #create' do
 
     before :each do
-      @request_attr = FactoryGirl.attributes_for(:request, user_id: @user)
+      @request_attr = FactoryGirl.attributes_for(:request, user_id: @user, requested_of_user_id: @requested_of_user, job_id: @job)
       request.env["HTTP_REFERER"] = user_jobs_path(@user)
     end
 
