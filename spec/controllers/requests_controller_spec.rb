@@ -77,6 +77,7 @@ describe RequestsController do
 
     before :each do
       @request_attr = FactoryGirl.attributes_for(:request, user_id: @user)
+      request.env["HTTP_REFERER"] = user_jobs_path(@user)
     end
 
     it 'saves the new request in the database' do
@@ -85,9 +86,14 @@ describe RequestsController do
         }.to change(Request, :count).by(1)
     end
 
-    it 'redirects to user_request root' do
+    it 'notifies the requester' do
       post :create, user_id: @user.id, request: @request_attr
-      expect(response).to redirect_to user_requests_path(@user)
+      expect(flash[:notice]).to eq 'Request sent!'
+    end
+
+    it 'redirects back to the referring page' do
+      post :create, user_id: @user.id, request: @request_attr
+      expect(response).to redirect_to user_jobs_path(@user)
     end
   end
 

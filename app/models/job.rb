@@ -10,6 +10,7 @@ class Job < ActiveRecord::Base
   belongs_to :walker, class_name: 'User'
   belongs_to :walk_request_pending_user, class_name: 'User'
   belongs_to :pup
+  has_many   :requests, dependent: :destroy
 
   # TODO: combine update with mailer delivery...
 

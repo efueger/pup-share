@@ -18,15 +18,12 @@ class RequestsController < ApplicationController
 
   def edit; end
 
-  def create  
-    @request = current_user.requests.new(request_params)
-    if @request.save
-      redirect_to user_requests_path(current_user)
-    else
-      render :new 
-    end
+  def create 
+    @request = current_user.requests.create(request_params)
+    flash[:notice] = 'Request sent!'
+    redirect_to(:back)
   end
-
+  
   def update 
     if @request.update(request_params)
       redirect_to user_requests_path(current_user), notice: 'Request updated'
