@@ -20,11 +20,13 @@ class RequestsController < ApplicationController
 
   def create 
     @request = current_user.requests.create(request_params)
+    @request.walk_request(current_user)
     flash[:notice] = 'Request sent!'
     redirect_to(:back)
   end
-  
-  def update 
+
+  def update
+    # approve/decline links in mailers trigger this action
     if @request.update(request_params)
       redirect_to user_requests_path(current_user), notice: 'Request updated'
     else

@@ -1,12 +1,12 @@
 class WalkRequest < ApplicationMailer
   default from: 'no-reply@pup-share.com'
 
-  def walk_request(job)
-    @walker    = job.walk_request_pending_user
-    @pup_owner = job.user    
-    @job       = job
-    mail( to: @pup_owner.email, 
-      from: @walker.email,
+  def walk_request(request)
+    @requested_by = request.user
+    @requested_of = request.requested_of_user
+    @request      = request
+    mail( to: @requested_of.email, 
+      from: @requested_by.email,
       subject: 'Please approve or deny a walk request' )
   end
 

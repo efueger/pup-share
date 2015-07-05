@@ -12,32 +12,21 @@ class Job < ActiveRecord::Base
   belongs_to :pup
   has_many   :requests, dependent: :destroy
 
-  # TODO: combine update with mailer delivery...
-
-  def walk_request(walker)
-    self.update walk_request_pending_user_id: walker.id
-  end
-
-  def send_walk_request_mailers
-    WalkRequest.walk_request(self).deliver_now 
-    WalkRequest.walk_request_confirmation(self).deliver_now
-  end
+#   def walk_request(walker)
+#     self.update walk_request_pending_user_id: walker.id
+#     WalkRequest.walk_request(self).deliver_now 
+#     WalkRequest.walk_request_confirmation(self).deliver_now
+#   end
 
   def approve_walk_request
     self.update walker_id: self.walk_request_pending_user_id, 
     walk_request_pending_user_id: nil  
-  end
-
-  def send_approve_walk_request_mailers
     WalkRequest.walk_request_approved(self).deliver_now
     WalkRequest.walk_request_approved_confirmation(self).deliver_now
   end
 
   def deny_walk_request
     self.update walk_request_pending_user_id: nil
-  end
-
-  def send_deny_walk_request_mailers
     WalkRequest.walk_request_denied(self).deliver_now
     WalkRequest.walk_request_denied_confirmation(self).deliver_now
   end
@@ -45,15 +34,12 @@ class Job < ActiveRecord::Base
 
   def cancel_walk
     self.update walk_request_pending_user_id: nil, walker_id: nil
-  end
-
-  def send_cancel_walk_mailer
     WalkRequest.walk_request_cancel(self).deliver_now
   end
 
   def send_destroyed_walk_mailer
-    WalkRequest.walk_request_send_destroyed_mailer(self).deliver_now if !self.walker.nil? || !self.walk_request_pending_user.nil? 
-    # only send mailer if walker or pending walker is assigned
+    WalkRequest.walk_request_send_destroyed_mailer(self).deliver_now if !self.walker.nil? || !self.walk_request_pending_user.nil? # only send mailer if walker or pending walker is assigned
+
   end
 
 end

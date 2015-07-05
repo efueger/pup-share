@@ -32,7 +32,7 @@
       <%= "#{User.find(job.walker_id).email} was approved to walk this pup!" %>
       <% elsif user_signed_in? %>
       <%= simple_form_for Request.new, url: user_requests_path(current_user, 
-  request: {user_id: current_user, requested_of_user_id: job.user, status: 'pending', job_id: job}), method: :post do |f| %>     
+  request: {user_id: current_user, requested_of_user_id: job.user, job_id: job}), method: :post do |f| %>     
       <%= f.button :submit, 'Take this pup for a walk!', class: 'btn btn-success'%>
 
       <% end %>

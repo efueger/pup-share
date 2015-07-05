@@ -47,11 +47,11 @@ class JobsController < ApplicationController
     redirect_to root_path, notice: 'Job destroyed'
   end
 
-  def walk_request
-    @job.walk_request(current_user)
-    @job.send_walk_request_mailers
-    redirect_to root_path, notice: 'Request email sent'
-  end
+#   def walk_request
+#     @job.walk_request(current_user)
+#     @job.send_walk_request_mailers
+#     redirect_to root_path, notice: 'Request email sent'
+#   end
 
   def approve_walk_request
     @job = Job.find(params[:id]) # excluded from set_job before_action to facilitate rescue
