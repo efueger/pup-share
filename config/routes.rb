@@ -9,7 +9,7 @@ Rails.application.routes.draw do
     resources :pups
     resources :jobs, only: [:index]
     resources :availabilities, only: [:index]
-    resources :requests
+    resources :requests#, only: [:index, :create, :update]
   end
 
   root 'jobs#index'
@@ -24,6 +24,6 @@ Rails.application.routes.draw do
   end
 
   resources :availabilities
-
+  resources :requests
 
 end

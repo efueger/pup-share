@@ -1,32 +1,44 @@
 class RequestsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: [:edit]
   before_action :set_request, only: [:show, :edit, :update, :destroy]
 
   def index
     if params[:status] == 'approved'
-      @requests = current_user.requests.where(status:'approved')
+      @requests = current_user.requests.where(
+        'status = ? AND user_id = ? OR requested_of_user_id = ?',
+        'approved', current_user, current_user)
     else
       @requests = current_user.requests
     end
   end
 
-  def show; end
+  def show 
+  end
 
   def new
     @request = Request.new
   end
 
-  def edit; end
+  def edit
+    sign_in :user, @request.requested_of_user
+    @request.update status: params[:status]
+    @request.send_mailers
+    redirect_to user_requests_path(current_user, status:'approved')
+  rescue ActiveRecord::RecordNotFound
+    redirect_to user_requests_path(current_user), alert: 'Sorry. The request or job no longer exists'   
+  end
 
   def create 
     @request = current_user.requests.create(request_params)
-    @request.walk_request(current_user)
+    @request.walk_request
     flash[:notice] = 'Request sent!'
     redirect_to(:back)
   end
 
+  # all mailer interaction happens through the :edit action
+  # because email cannot handle :post requests
   def update
-    # approve/decline links in mailers trigger this action
+    binding.pry
     if @request.update(request_params)
       redirect_to user_requests_path(current_user), notice: 'Request updated'
     else

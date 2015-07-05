@@ -1,9 +1,15 @@
 <p><strong>
-  <%#= link_to 'Approve', approve_walk_request_job_url(@job) %>
+  <%= link_to 'Approve', edit_user_request_url(id: @request,
+  user_id: @request.user, 
+  status: 'approved') %>
   </strong></p>
+
 <p><strong>
-  <%#= link_to 'Decline', deny_walk_request_job_url(@job) %>
+  <%= link_to 'Decline', edit_user_request_url(id: @request,
+  user_id: @request.user, 
+  status: 'declined') %>
   </strong></p>
+
 <%= render 'walk_request_details' %>
 <br>
 <%= render 'walk_request_cancel' %>
