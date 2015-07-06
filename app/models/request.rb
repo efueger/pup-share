@@ -19,28 +19,33 @@ class Request < ActiveRecord::Base
     WalkRequest.walk_request_denied_confirmation(self).deliver_now
   end
 
-  def send_mailers
+  def cancel_walk
+    WalkRequest.walk_request_cancel(self).deliver_now
+  end
+
+  def destroyed_walk
+    WalkRequest.walk_request_send_destroyed_mailer(self).deliver_now
+  end
+
+  def send_request_mailers
     case self.status
     when 'pending'
       self.walk_request
+      notifier = 'Request submitted'
     when 'approved'
       self.approve_walk_request
+      notifier = 'Request approved!'
     when 'declined'
       self.deny_walk_request
+      notifier = 'Request declined'
+    when 'cancelled'
+      self.cancel_walk
+      notifier = 'Request cancelled'
+    else
+      self.destroyed_walk
+      return
     end
+    return notifier   
   end
-  # can I pass a message to flash for the controller to deliver?
-
-
-
-  #   def cancel_walk
-  #     self.update walk_request_pending_user_id: nil, walker_id: nil
-  #     WalkRequest.walk_request_cancel(self).deliver_now
-  #   end
-
-  #   def send_destroyed_walk_mailer
-  #     WalkRequest.walk_request_send_destroyed_mailer(self).deliver_now if !self.walker.nil? || !self.walk_request_pending_user.nil? # only send mailer if walker or pending walker is assigned
-
-  #   end
-
+      
 end

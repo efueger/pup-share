@@ -8,52 +8,39 @@
 
   <div class="row">
 
-    <div class="col-md-4">
+    <div class="col-md-3">
       <%= image_tag job.user.pic, :class => 'img-responsive' %>
     </div>
-    <div class="col-md-4">
-      <p>Name: <%= job.pup.pup_name %>
+    <div class="col-md-3">
+      <%= image_tag job.pup.pup_pic, :class => 'img-responsive' %>
+    </div>
+    <div class="col-md-3">
+      <p>Name: <%= job.pup.pup_name %></p>
       <p>Drop off: <%= job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.drop_off_location %></p>
       <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.pick_up_location %></p>
+      <% if job.user == current_user %>
+      <%= link_to 'Edit', edit_job_path(job), class: 'btn btn-warning btn-xs'%>
+      <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+      <% end %>
     </div>
-
-    <div class="col-md-4">
-      <%= image_tag job.pup.pup_pic, :class => 'img-responsive' %>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-md-4">
-      <% if !job.walk_request_pending_user_id.nil? %>
-      <%= "#{User.find(job.walk_request_pending_user_id).email} requested to walk this pup" %>
-      <% elsif !job.walker_id.nil? %>
-      <%= "#{User.find(job.walker_id).email} was approved to walk this pup!" %>
-      <% elsif user_signed_in? %>
+    <div class="col-md-3">
+      <% @current_request = Request.where(job_id: job).last %>
+      <% if !@current_request.nil? %>
+      <%= image_tag @current_request.user.pic, :class => 'img-responsive' %>
+      <% else %>      
       <%= simple_form_for Request.new, url: user_requests_path(current_user, 
   request: {user_id: current_user, requested_of_user_id: job.user, job_id: job, status: 'pending'}), method: :post do |f| %>     
-      <%= f.button :submit, 'Take this pup for a walk!', class: 'btn btn-success'%>
-
+      <%= f.button :submit, 'Walk this pup!', class: 'btn btn-success btn-lg'%>
       <% end %>
       <% end %>
     </div>
-
-    <div class="col-md-4"></div>
-
-    <div class="col-md-4">
-      <% if job.user == current_user %>
-      <%= link_to 'Edit', edit_job_path(job), class: 'btn btn-warning'%>
-      <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-      <% end %>
-    </div>
-  </div> <!-- row -->
-
-</div> <!--booyah-box-->
-
-<br>
+  </div>
+</div>
 
 <% end %>
-
+<br>
+<br>
 
 

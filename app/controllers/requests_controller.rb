@@ -22,8 +22,7 @@ class RequestsController < ApplicationController
   def edit
     sign_in :user, @request.requested_of_user
     @request.update status: params[:status]
-    @request.send_mailers
-    redirect_to user_requests_path(current_user, status:'approved')
+    redirect_to user_requests_path(current_user, status:'approved'), notice: @request.send_request_mailers
   rescue ActiveRecord::RecordNotFound
     redirect_to user_requests_path(current_user), alert: 'Sorry. The request or job no longer exists'   
   end
@@ -35,10 +34,8 @@ class RequestsController < ApplicationController
     redirect_to(:back)
   end
 
-  # all mailer interaction happens through the :edit action
-  # because email cannot handle :post requests
+  # email does not support :post requests
   def update
-    binding.pry
     if @request.update(request_params)
       redirect_to user_requests_path(current_user), notice: 'Request updated'
     else
