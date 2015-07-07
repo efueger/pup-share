@@ -21,7 +21,6 @@
       <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.pick_up_location %></p>
       <% if job.user == current_user %>
-      <%= link_to 'Edit', edit_job_path(job), class: 'btn btn-warning btn-xs'%>
       <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
       <% end %>
     </div>

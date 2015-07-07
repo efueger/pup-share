@@ -5,7 +5,7 @@ class RequestsController < ApplicationController
   def index
     if params[:status] == 'approved'
       @requests = current_user.requests.where(
-        'status = ? AND user_id = ? OR requested_of_user_id = ?',
+        'status = ? AND (user_id = ? OR requested_of_user_id = ?)',
         'approved', current_user, current_user)
     else
       @requests = current_user.requests

@@ -50,7 +50,7 @@ describe AvailabilitiesController do
   end
 
   describe 'GET #new' do
-
+    
     before :each do
       sign_in @user = FactoryGirl.create(:user)
     end

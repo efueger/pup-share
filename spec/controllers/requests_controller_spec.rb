@@ -83,7 +83,6 @@ describe RequestsController do
     end
 
     context 'request no longer exists' do
-
       before :each do
         sign_in @user = FactoryGirl.create(:user)        
       end

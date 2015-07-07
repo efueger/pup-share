@@ -1,5 +1,5 @@
 class WalkRequest < ApplicationMailer
-  default from: 'no-reply@pup-share.com'
+  default from: 'no-reply@PupShare.com'
 
   # cannot extract to before_action because need Request param for each function
   
