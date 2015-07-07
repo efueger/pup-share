@@ -50,7 +50,7 @@ describe  WalkRequest do
         expect(confirm_email).to have_subject 'PupShare: Confirmation: You submitted a walk request'  
       end
     end
-  end # 'walk_request and confirmation'
+  end # walk_request
 
 
 end
