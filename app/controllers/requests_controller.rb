@@ -1,6 +1,6 @@
 class RequestsController < ApplicationController
   before_action :authenticate_user!, except: [:edit]
-  before_action :set_request, only: [:show, :edit, :update, :destroy]
+  before_action :set_request, only: [:show, :update, :destroy]
 
   def index
     if params[:status] == 'approved'
@@ -20,6 +20,7 @@ class RequestsController < ApplicationController
   end
 
   def edit
+    @request = Request.find(params[:id]) # allows rescue for destroyed requests
     sign_in :user, @request.requested_of_user
     @request.update status: params[:status]
     redirect_to user_requests_path(current_user, status:'approved'), notice: @request.send_request_mailers

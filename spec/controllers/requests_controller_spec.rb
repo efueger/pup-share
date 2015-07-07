@@ -68,14 +68,35 @@ describe RequestsController do
 
   describe 'GET #edit' do
 
-    it "redirects to the user's 'approved' requests page" do
-      user = FactoryGirl.create(:user)
-      requested_of_user = FactoryGirl.create(:user)
-      my_request = FactoryGirl.create(:request, user_id: user.id,
-        requested_of_user_id: requested_of_user.id, job_id: @job.id 
-        )
-      get :edit, id: my_request, user_id: user.id
-      expect(response).to redirect_to user_requests_path(requested_of_user, status:'approved')
+    before :each do
+      @user = FactoryGirl.create(:user)
+      @requested_of_user = FactoryGirl.create(:user)
+      @my_request = FactoryGirl.create(:request, user_id: @user.id,
+        requested_of_user_id: @requested_of_user.id, job_id: @job.id)      
+    end
+
+    context 'request exists' do
+      it "redirects to the user's 'approved' requests page" do
+        get :edit, id: @my_request, user_id: @user.id
+        expect(response).to redirect_to user_requests_path(@requested_of_user, status:'approved')
+      end
+    end
+
+    context 'request no longer exists' do
+
+      before :each do
+        sign_in @user = FactoryGirl.create(:user)        
+      end
+            
+      it 'alerts the user' do
+        get :edit, id: 999, user_id: @user.id
+        expect(flash[:alert]).to eq 'Sorry. The request or job no longer exists'
+      end
+      
+      it 'notices the record was not found' do
+        get :edit, id: 999, user_id: @user.id        
+        expect(response).to redirect_to user_requests_path(@user)
+      end
     end
   end
 

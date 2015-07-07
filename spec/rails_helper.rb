@@ -9,6 +9,7 @@ require 'rspec/rails'
 require 'pry'
 require 'faker'
 require 'devise'
+require 'email_spec'
 
 # Add additional requires below this line. Rails is not loaded until this point!
 
@@ -58,5 +59,7 @@ RSpec.configure do |config|
   # config.extend ControllerMacros, :type => :controller
 
   config.infer_spec_type_from_file_location!
+  config.include(EmailSpec::Helpers)
+  config.include(EmailSpec::Matchers)
 end
 
