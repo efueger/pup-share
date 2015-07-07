@@ -3,13 +3,13 @@ require 'rails_helper'
 describe RequestsController do 
 
   before :each do
-    sign_in @user = FactoryGirl.create(:user) 
     @requested_of_user = FactoryGirl.create(:user)
     @job = FactoryGirl.create(:job)
   end
 
   describe 'GET #index' do
     before :each do
+      sign_in @user = FactoryGirl.create(:user) 
       @request1 = FactoryGirl.create(:request, user_id: @user.id, status: 'approved')
       @request2 = FactoryGirl.create(:request, user_id: @user.id)    
     end
@@ -40,6 +40,11 @@ describe RequestsController do
   end
 
   describe "GET #show" do
+
+    before :each do
+      sign_in @user = FactoryGirl.create(:user) 
+    end
+
     it 'assigns the requested request to @request' do
       request = FactoryGirl.create(:request)
       get :show, id: request, user_id: @user.id
@@ -55,6 +60,7 @@ describe RequestsController do
 
   describe 'GET #new' do
     it 'assigns a new request to @request' do
+      sign_in @user = FactoryGirl.create(:user) 
       get :new, id: request, user_id: @user.id
       expect(assigns(:request)).to be_a_new(Request)       
     end
@@ -62,22 +68,21 @@ describe RequestsController do
 
   describe 'GET #edit' do
 
-    it 'assigns the requested request to @request' do
-      request = FactoryGirl.create(:request)
-      get :edit, id: request, user_id: @user.id
-      expect(assigns(:request)).to eq request
-    end
-
-    it 'renders the :edit template' do
-      request = FactoryGirl.create(:request)
-      get :edit, id: request, user_id: @user.id
-      expect(response).to render_template :edit
+    it "redirects to the user's 'approved' requests page" do
+      user = FactoryGirl.create(:user)
+      requested_of_user = FactoryGirl.create(:user)
+      my_request = FactoryGirl.create(:request, user_id: user.id,
+        requested_of_user_id: requested_of_user.id, job_id: @job.id 
+        )
+      get :edit, id: my_request, user_id: user.id
+      expect(response).to redirect_to user_requests_path(requested_of_user, status:'approved')
     end
   end
 
   describe 'POST #create' do
 
     before :each do
+      sign_in @user = FactoryGirl.create(:user) 
       @request_attr = FactoryGirl.attributes_for(:request, user_id: @user, requested_of_user_id: @requested_of_user, job_id: @job)
       request.env["HTTP_REFERER"] = user_jobs_path(@user)
     end
@@ -102,6 +107,7 @@ describe RequestsController do
   describe 'PATCH #update' do
 
     before :each do
+      sign_in @user = FactoryGirl.create(:user) 
       @walk_request = FactoryGirl.create(:request, status: 'denied')
     end
 
@@ -128,6 +134,7 @@ describe RequestsController do
   describe 'DELETE #destroy' do
 
     before :each do
+      sign_in @user = FactoryGirl.create(:user) 
       @walk_request = FactoryGirl.create(:request)
     end
 
