@@ -10,5 +10,4 @@ class PupPicUploader < CarrierWave::Uploader::Base
   def default_url(*args)
     ActionController::Base.helpers.asset_path("fallback/" + [version_name, "pup_walk.png"].compact.join('_'))
   end
-
 end
