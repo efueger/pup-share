@@ -7,11 +7,11 @@
 <div class="booyah-box">
 
   <div class="row">
-
-    <div class="col-md-3">
+    <div class="col-md-6">
       <%= image_tag availability.user.pic, :class => 'img-responsive' %>
     </div>
-    <div class="col-md-3">
+    <div class="col-md-6">
+      <strong><p><%= "#{availability.user.email}'s availability" %></strong>
       <p>Available from: <%= availability.available_from %></p>
       <p>Available to: <%= availability.available_to %></p>
       <p>Location: <%= availability.location %></p>
@@ -20,22 +20,29 @@
       <%= link_to 'Destroy', availability, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
       <% end %>
     </div>
+  </div> <!-- row -->
 
-    <div class="col-md-3">
-      <% @availability_request = Request.where(availability_id: availability).last %> 
-      <% if !@availability_request.nil? %>
-      <%= image_tag @availability_request.user.pic, :class => 'img-responsive' %>
-      <% else %>
+  <br>
+
+  <% if user_signed_in? %>
+  <strong><p><%= "#{current_user.email}'s outstanding jobs" %></p></strong>
+  <% current_user.jobs.each do |job| %>
+  <div class="row">
+    <div class="col-md-10">
+      <strong>Name:</strong><%= job.pup.pup_name %>
+      <strong>Drop off:</strong><%= job.drop_off_time.to_formatted_s(:long_ordinal) %>
+      <strong>Place:</strong><%= job.drop_off_location %>
+      <strong>Pick up:</strong><%= job.pick_up_time.to_formatted_s(:long_ordinal) %>
+      <strong>Place:</strong><%= job.pick_up_location %>
+    </div>
+    <div class="col-md-2">
       <%= simple_form_for Request.new, url: requests_path(current_user, request: {user_id: current_user, requested_of_user_id: availability.user, availability_id: availability, status: 'pending'}), method: :post do |f| %>
-      <%= f.button :submit, 'Walk my pup!', class: 'btn btn-success btn-lg'%>
+      <%= f.button :submit, 'Ask!', class: 'btn btn-success btn-xs'%>
       <% end %>
-      <% end %>
-
-      <div class="col-md-3">
-        <%= image_tag availability.user.pic, :class => 'img-responsive' %>
-      </div>
     </div>
   </div>
+  <% end %>
+  <% end %>
 </div> <!--booyah-box-->
 
 <br>
