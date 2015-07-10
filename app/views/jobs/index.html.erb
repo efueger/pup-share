@@ -25,15 +25,11 @@
       <% end %>
     </div>
     <div class="col-md-3">
-      <% @current_request = Request.where(job_id: job).last %>
+      <% @current_request = Request.where(job_id: job).last %> 
       <% if !@current_request.nil? %>
       <%= image_tag @current_request.user.pic, :class => 'img-responsive' %>
-      <% end %>
-      <% if user_signed_in? %>
-      <%= simple_form_for Request.new, url: user_requests_path(current_user, request: {user_id: current_user, requested_of_user_id: job.user, job_id: job, status: 'pending'}), method: :post do |f| %>     
-      <%# else %>
-      <%#= simple_form_for Request.new, url: request_path(request: {user_id: current_user, requested_of_user_id: job.user, job_id: job, status: 'pending'}), method: :post do |f| %> 
-      <!-- redirect user to log in and complete the request -->
+      <% else %>
+      <%= simple_form_for Request.new, url: requests_path(current_user, request: {user_id: current_user, requested_of_user_id: job.user, job_id: job, status: 'pending'}), method: :post do |f| %>
       <%= f.button :submit, 'Walk this pup!', class: 'btn btn-success btn-lg'%>
       <% end %>
       <% end %>
@@ -41,6 +37,7 @@
   </div>
 </div>
 
+<br>
 <% end %>
 <br>
 <br>

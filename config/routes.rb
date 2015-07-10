@@ -5,25 +5,18 @@ Rails.application.routes.draw do
     confirmations: 'confirmations' 
     }
 
+  root 'static_pages#index'
+
   resources :users do
     resources :pups
     resources :jobs, only: [:index]
     resources :availabilities, only: [:index]
-    resources :requests#, only: [:index, :create, :update]
+    resources :requests, only: [:index, :edit, :destroy]
   end
 
-  root 'jobs#index'
-
-  resources :jobs do
-    member do
-      match :walk_request,         via: [:put, :patch]
-      match :approve_walk_request, via: [:get]
-      match :deny_walk_request,    via: [:get]
-      match :cancel_walk,          via: [:get] 
-    end
-  end
+  resources :jobs 
 
   resources :availabilities
-  resources :requests
+  resources :requests, except: [:edit, :destroy]
 
 end

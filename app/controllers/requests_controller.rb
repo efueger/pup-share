@@ -12,8 +12,7 @@ class RequestsController < ApplicationController
     end
   end
 
-  def show 
-  end
+  def show; end
 
   def new
     @request = Request.new
@@ -28,21 +27,21 @@ class RequestsController < ApplicationController
     redirect_to user_requests_path(current_user), alert: 'Sorry. The request or job no longer exists'   
   end
 
-  def create 
+  def create
     @request = current_user.requests.create(request_params)
-    @request.walk_request
+    @request.send_request_mailers
     flash[:notice] = 'Request sent!'
     redirect_to(:back)
   end
 
   # email does not support :post requests
-  def update
-    if @request.update(request_params)
-      redirect_to user_requests_path(current_user), notice: 'Request updated'
-    else
-      render :edit
-    end
-  end
+  # def update
+  #   if @request.update(request_params)
+  #     redirect_to user_requests_path(current_user), notice: 'Request updated'
+  #   else
+  #     render :edit
+  #   end
+  # end
 
   def destroy
     @request.destroy

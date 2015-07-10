@@ -112,9 +112,9 @@ describe JobsController do
           post :create, job: FactoryGirl.attributes_for(:job, user_id: @user.id, pup_id: @pup.id)}.to change(Job, :count).by(1)
       end
 
-      it 'redirects to root' do
+      it 'redirects to jobs index' do
         post :create, job: FactoryGirl.attributes_for(:job, user_id: @user.id, pup_id: @pup.id)
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to jobs_path
       end
 
       it 'notifies the user of creation' do
@@ -163,9 +163,9 @@ describe JobsController do
         expect(@job.drop_off_location).to eq('Blackfoot')
       end
 
-      it 'redirects to root' do
+      it 'redirects to jobs index' do
         patch :update, id: @job, job: FactoryGirl.attributes_for(:job)
-        expect(response).to redirect_to root_path
+        expect(response).to redirect_to jobs_path
       end
     end      
 
@@ -203,20 +203,10 @@ describe JobsController do
           user_id: @user.id)}.to change(Job, :count).by(-1)
     end    
 
-    it 'redirects to root' do
+    it 'redirects to jobs index' do
       delete :destroy, id: @job
-      expect(response).to redirect_to root_path
+      expect(response).to redirect_to jobs_path
     end    
   end # DELETE
-
-  # non-RESTful methods (eventually to be abstracted away to their own model)
-  
-  describe 'walk_request'
-  describe 'approve_walk_request'
-  describe 'deny_walk_request'
-  describe 'cancel_walk'
-  
-  
-  
   
 end

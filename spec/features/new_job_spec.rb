@@ -4,13 +4,13 @@ feature 'Creating new job' do
 
   let (:user) { FactoryGirl.create(:user, password: 'lolololol', password_confirmation: 'lolololol') }
 
-  scenario 'Creating a new job while not logged in' do
-    visit root_path
+  scenario 'while not logged in' do
+    visit jobs_path
     click_on 'New Job'
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
   end
 
-  scenario 'creating a new job while logged in' do
+  scenario 'while logged in' do
     # log in
     visit new_user_session_path
     fill_in 'Email', with: user.email
@@ -18,12 +18,12 @@ feature 'Creating new job' do
     click_on 'Log in'
     expect(page).to have_content 'Signed in successfully'
     # 
-    visit root_path
+    visit jobs_path
     click_on 'New Job'
     expect(page).to have_content 'Create a pup to add to your job'
   end
 
-  scenario 'Creating new job without pup' do
+  scenario 'without pup' do
     # log in
     visit new_user_session_path
     fill_in 'Email', with: user.email
@@ -31,12 +31,12 @@ feature 'Creating new job' do
     click_on 'Log in'
     expect(page).to have_content 'Signed in successfully'
     # 
-    visit root_path
+    visit jobs_path
     click_on 'New Job'
     expect(page).to have_content 'Create a pup to add to your job'    
   end
 
-  scenario 'Creating new job with pup' do
+  scenario 'with pup' do
     # log in
     visit new_user_session_path
     fill_in 'Email', with: user.email
@@ -53,8 +53,8 @@ feature 'Creating new job' do
     expect(page).to have_content 'Pup created'
     expect(current_path).to eql(user_pups_path(user))
     # create job
-    visit root_path
-    expect(current_path).to eql(root_path)
+    visit jobs_path
+    expect(current_path).to eql(jobs_path)
     click_on 'New Job'
     expect(current_path).to eql(new_job_path)
     choose "job_pup_id_#{Pup.last.id}"
@@ -62,6 +62,6 @@ feature 'Creating new job' do
     fill_in 'Pick up location', with: Time.now
     click_on 'Create Job'
     expect(page).to have_content 'Job created'
-    expect(current_path).to eql(root_path)
+    expect(current_path).to eql(jobs_path)
   end
 end

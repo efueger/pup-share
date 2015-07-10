@@ -76,7 +76,7 @@ describe RequestsController do
     end
 
     context 'request exists' do
-      it "redirects to the user's 'approved' requests page" do
+      it "and redirects to the user's 'approved' page" do
         get :edit, id: @my_request, user_id: @user.id
         expect(response).to redirect_to user_requests_path(@requested_of_user, status:'approved')
       end
@@ -86,12 +86,12 @@ describe RequestsController do
       before :each do
         sign_in @user = FactoryGirl.create(:user)        
       end
-            
+
       it 'alerts the user' do
         get :edit, id: 999, user_id: @user.id
         expect(flash[:alert]).to eq 'Sorry. The request or job no longer exists'
       end
-      
+
       it 'notices the record was not found' do
         get :edit, id: 999, user_id: @user.id        
         expect(response).to redirect_to user_requests_path(@user)
@@ -124,32 +124,32 @@ describe RequestsController do
     end
   end
 
-  describe 'PATCH #update' do
+  #   describe 'PATCH #update' do
 
-    before :each do
-      sign_in @user = FactoryGirl.create(:user) 
-      @walk_request = FactoryGirl.create(:request, status: 'denied')
-    end
+  #     before :each do
+  #       sign_in @user = FactoryGirl.create(:user) 
+  #       @walk_request = FactoryGirl.create(:request, status: 'denied')
+  #     end
 
-    it 'locates the requested request' do
-      patch :update, user_id: @user.id, id: @walk_request, request: FactoryGirl.attributes_for(:request, user_id: @user)
-      expect(assigns(:request)).to eq(@walk_request)
-    end
+  #     it 'locates the requested request' do
+  #       patch :update, user_id: @user.id, id: @walk_request, request: FactoryGirl.attributes_for(:request, user_id: @user)
+  #       expect(assigns(:request)).to eq(@walk_request)
+  #     end
 
-    it 'changes @walk_request attributes' do
-      patch :update, user_id: @user.id, id: @walk_request,
-      request: FactoryGirl.attributes_for(:request, 
-        status: 'whatever', user_id: @user)
-      @walk_request.reload
-      expect(@walk_request.status).to eq('whatever')
-    end
+  #     it 'changes @walk_request attributes' do
+  #       patch :update, user_id: @user.id, id: @walk_request,
+  #       request: FactoryGirl.attributes_for(:request, 
+  #         status: 'whatever', user_id: @user)
+  #       @walk_request.reload
+  #       expect(@walk_request.status).to eq('whatever')
+  #     end
 
-    it 'redirects to the user_request root' do
-      patch :update, user_id: @user.id, id: @walk_request,
-      request: FactoryGirl.attributes_for(:request, user_id: @user)
-      expect(response).to redirect_to user_requests_path(@user)
-    end
-  end
+  #     it 'redirects to the user_request root' do
+  #       patch :update, user_id: @user.id, id: @walk_request,
+  #       request: FactoryGirl.attributes_for(:request, user_id: @user)
+  #       expect(response).to redirect_to user_requests_path(@user)
+  #     end
+  #   end
 
   describe 'DELETE #destroy' do
 
