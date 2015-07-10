@@ -1,14 +1,14 @@
 body {
-    background: image-url('fabric_plaid.png');
+  background: image-url('fabric_plaid.png');
 }
 
 .footer {
-   position:relative;
-   bottom:0;
-   width:100%;
-   height:60px;
-   background:#101010;
-   color:#9d9d9d;
+  position:relative;
+  bottom:0;
+  width:100%;
+  height:60px;
+  background:#101010;
+  color:#9d9d9d;
 }
 
 .booyah-box {
@@ -18,6 +18,22 @@ body {
   background: #fff;
   border: 1px solid #ccc;
   border-color: #e4e4e4 #bebebd #bebebd #e4e4e4;
+}
+
+.btn-xlarge {
+  padding: 20px 30px;
+  font-size: 50px;
+  line-height: normal;
+  -webkit-border-radius: 8px;
+  -moz-border-radius: 8px;
+  border-radius: 8px;
+}
+
+.banner {
+  background-image: url('PupShareBanner.PNG'); 
+/*   background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;  */
 }
 
 

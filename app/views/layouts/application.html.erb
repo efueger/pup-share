@@ -38,25 +38,17 @@
     </nav> 
     <!-- end navbar -->
 
-    <% if notice.present? %>
-    <p class="alert alert-info"><%= notice %></p>
-    <% end %>
-    <% if alert.present? %>
-    <p class="alert alert-danger"><%= alert %></p>
-    <% end %>
-
     <div class="row">
-      <div class="col-md-2">
+      <div class="col-md-3">
       </div>
 
       <div class="col-md-6">
         <%= yield %>      
       </div>
 
-      <div class="col-md-2">
+      <div class="col-md-3">
       </div>     
     </div>
-
 
     <br>
     <br>

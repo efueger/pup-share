@@ -8,22 +8,32 @@
 
   <div class="row">
 
-    <div class="col-md-4">
+    <div class="col-md-3">
       <%= image_tag availability.user.pic, :class => 'img-responsive' %>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <p>Available from: <%= availability.available_from %></p>
       <p>Available to: <%= availability.available_to %></p>
       <p>Location: <%= availability.location %></p>
       <p>Details: <%= availability.comment %></p>
-
-    </div>
-
-    <div class="col-md-4">
       <% if availability.user == current_user %>  
-      <%= link_to 'Edit', edit_availability_path(availability), class: 'btn btn-warning'%>
       <%= link_to 'Destroy', availability, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
       <% end %>
+    </div>
+
+    <div class="col-md-3">
+      <% @availability_request = Request.where(availability_id: availability).last %> 
+      <% if !@availability_request.nil? %>
+      <%= image_tag @availability_request.user.pic, :class => 'img-responsive' %>
+      <% else %>
+      <%= simple_form_for Request.new, url: requests_path(current_user, request: {user_id: current_user, requested_of_user_id: availability.user, availability_id: availability, status: 'pending'}), method: :post do |f| %>
+      <%= f.button :submit, 'Walk my pup!', class: 'btn btn-success btn-lg'%>
+      <% end %>
+      <% end %>
+
+      <div class="col-md-3">
+        <%= image_tag availability.user.pic, :class => 'img-responsive' %>
+      </div>
     </div>
   </div>
 </div> <!--booyah-box-->

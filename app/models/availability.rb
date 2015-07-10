@@ -4,5 +4,7 @@ class Availability < ActiveRecord::Base
   validates :location,         presence: true
 
   belongs_to :user
+  belongs_to :pup
+  has_many   :requests, dependent: :destroy
 
 end

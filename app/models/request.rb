@@ -3,6 +3,7 @@ class Request < ActiveRecord::Base
   belongs_to :user
   belongs_to :requested_of_user, class_name: 'User'
   belongs_to :job
+  belongs_to :availability
 
   def walk_request
     WalkRequest.walk_request(self).deliver_now 
@@ -47,5 +48,5 @@ class Request < ActiveRecord::Base
     end
     return notifier   
   end
-      
+
 end

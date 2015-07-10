@@ -28,6 +28,7 @@ class RequestsController < ApplicationController
   end
 
   def create
+    binding.pry
     @request = current_user.requests.create(request_params)
     @request.send_request_mailers
     flash[:notice] = 'Request sent!'
