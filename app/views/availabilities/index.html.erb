@@ -16,6 +16,16 @@
       <p>Available to: <%= availability.available_to %></p>
       <p>Location: <%= availability.location %></p>
       <p>Details: <%= availability.comment %></p>
+      <% if !user_signed_in? # only show/use this button if no user signed in%>
+      <%= simple_form_for Request.new, url: requests_path(current_user, 
+  request: {
+    user_id: current_user, 
+    requested_of_user_id: availability.user, 
+    status: 'pending'}
+  ), method: :post do |f| %>
+      <%= f.button :submit, 'Have this person walk my pup!', class: 'btn btn-success btn-lg'%>
+      <% end %>
+      <% end %>
       <% if availability.user == current_user %>  
       <%= link_to 'Destroy', availability, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
       <% end %>
@@ -36,7 +46,12 @@
       <strong>Place:</strong><%= job.pick_up_location %>
     </div>
     <div class="col-md-2">
-      <%= simple_form_for Request.new, url: requests_path(current_user, request: {user_id: current_user, requested_of_user_id: availability.user, availability_id: availability, status: 'pending'}), method: :post do |f| %>
+      <%= simple_form_for Request.new, url: requests_path(current_user, request: {
+  user_id: current_user,
+  requested_of_user_id: availability.user, 
+  job_id: job, 
+  availability_id: availability, 
+  status: 'pending'}), method: :post do |f| %>
       <%= f.button :submit, 'Ask!', class: 'btn btn-success btn-xs'%>
       <% end %>
     </div>

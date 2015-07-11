@@ -5,7 +5,8 @@
 
 <div class="form-inputs row">
   <div class="col-md-6">
-    <%= f.association :pup, as: :radio_buttons, label_method: :pup_name, value_method: :id, include_blank: false %>
+    <%= f.association :pup, as: :radio_buttons, label_method: :pup_name, 
+collection: current_user.pups, include_blank: false %>
   </div>
 </div>
 

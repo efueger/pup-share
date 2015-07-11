@@ -1,5 +1,6 @@
 class WalkRequest < ApplicationMailer
   default from: 'no-reply@PupShare.com'
+  default cc: 'brntsllvn@gmail.com' # for UX testing. ***REMOVE IN PRODUCTION***
 
   # cannot extract to before_action because need Request param for each function
   
