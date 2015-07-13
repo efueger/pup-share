@@ -14,17 +14,17 @@ describe RequestsController do
       @request2 = FactoryGirl.create(:request, user_id: @user.id)    
     end
 
-    context "params[:status] = 'approved'" do
-      it 'populates an array of approved requests belonging to a user' do
-        get :index, user_id: @user.id, status: 'approved'
-        expect(assigns(:requests)).to match_array([@request1])
-      end
+#     context "params[:status] = 'approved'" do
+#       it 'populates an array of approved requests belonging to a user' do
+#         get :index, user_id: @user.id, status: 'approved'
+#         expect(assigns(:requests)).to match_array([@request1])
+#       end
 
-      it 'renders the :index template' do
-        get :index, user_id: @user.id, status: 'approved'
-        expect(response).to render_template :index
-      end
-    end
+#       it 'renders the :index template' do
+#         get :index, user_id: @user.id, status: 'approved'
+#         expect(response).to render_template :index
+#       end
+#     end
 
     context "without params[:status]" do
       it 'populates an array of requests belonging to a user' do    
