@@ -1,15 +1,44 @@
 <p><%= image_tag @user.pic, :class => 'img-responsive'  %></p>
 
 <p><strong>First name:</strong><%= @user.first_name %></p>
-
 <p><strong>Last name:</strong><%= @user.last_name %></p>
-
 <p><strong>Email:</strong><%= @user.email %></p>
-
 <p><strong>Phone:</strong><%= @user.phone %></p>
-
 <p><strong>Emergency phone:</strong><%= @user.emergency_phone %></p>
 
+<%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-warning' %>
 
-<%= link_to 'Edit', edit_user_path(@user) %>
+<br>
+<br>
+<br>
 
+<h1>My Pups</h1>
+
+<% @pups.each do |pup| %>
+
+<div class="booyah-box">
+
+  <div class="row">
+    <div class="col-md-6">
+      <p>Name: <%= pup.pup_name %></p>
+      <p>Breed: <%= pup.pup_breed %></p>
+      <p>Weight: <%= pup.pup_weight %></p>
+      <p>Gender: <%= pup.pup_gender %></p>
+      <p>Age: <%= pup.pup_age %></p>    
+      <p>Vet phone: <%= pup.pup_vet_phone %></p>
+      <p>Care notes: <%= pup.pup_care_instructions %></p>
+    </div>
+
+    <div class="col-md-6">
+      <%= image_tag pup.pup_pic, :class => 'img-responsive' %>
+    </div>
+
+  </div>
+
+  <%= link_to 'Edit Pup', edit_user_pup_path(current_user, pup), class: 'btn btn-warning' %>
+  <%= link_to 'Destroy Pup', user_pup_path(current_user, pup), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+</div>
+<br>
+<% end %>
+
+<br>
