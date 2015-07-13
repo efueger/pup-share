@@ -14,6 +14,10 @@
 
 <h1>My Pups</h1>
 
+<%= link_to 'New Pup', new_user_pup_path(current_user), class: 'btn btn-primary' %>
+<br>
+<br>
+
 <% @pups.each do |pup| %>
 
 <div class="booyah-box">
