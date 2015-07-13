@@ -3,13 +3,8 @@ class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :update, :destroy]
 
   def index
-    if params[:status] == 'approved'
-      @requests = current_user.requests.where(
-        'status = ? AND (user_id = ? OR requested_of_user_id = ?)',
-        'approved', current_user, current_user)
-    else
-      @requests = current_user.requests
-    end
+    @requests = current_user.requests.where(
+      'user_id = ? OR requested_of_user_id = ?', current_user, current_user)
   end
 
   def show; end
@@ -28,7 +23,7 @@ class RequestsController < ApplicationController
   end
 
   def create
-#     binding.pry
+    #     binding.pry
     @request = current_user.requests.create(request_params)
     @request.send_request_mailers
     flash[:notice] = 'Request sent!'
