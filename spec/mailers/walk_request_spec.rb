@@ -8,7 +8,7 @@ describe  WalkRequest do
 
   describe 'walk_request' do
 
-    let(:walk_request)       { FactoryGirl.create(:request, user_id: user.id, 
+    let(:walk_request) { FactoryGirl.create(:request, user_id: user.id, 
       requested_of_user_id: requested_of_user.id, job_id: job.id, status: 'pending') }
 
     before :each do
@@ -17,8 +17,9 @@ describe  WalkRequest do
 
     let(:delivered_emails) { ActionMailer::Base.deliveries }
 
-    it 'delivers two emails' do
-      expect(delivered_emails.count).to eq(2)
+    # it 'delivers two emails' do
+    it 'delivers one email' do
+      expect(delivered_emails.count).to eq(1)
     end
 
     context 'request' do
@@ -37,20 +38,20 @@ describe  WalkRequest do
       end
     end
 
-    context 'request confirmation' do
-      let(:confirm_email) { delivered_emails[1] }
-      it 'delivered from the default' do
-        expect(confirm_email).to be_delivered_from 'no-reply@PupShare.com'
-      end
+    #     context 'request confirmation' do
+    #       let(:confirm_email) { delivered_emails[1] }
+    #       it 'delivered from the default' do
+    #         expect(confirm_email).to be_delivered_from 'no-reply@PupShare.com'
+    #       end
 
-      it 'delivered to the requested_by user' do
-        expect(confirm_email).to be_delivered_to user.email 
-      end
+    #       it 'delivered to the requested_by user' do
+    #         expect(confirm_email).to be_delivered_to user.email 
+    #       end
 
-      it 'has the expected subject' do
-        expect(confirm_email).to have_subject 'PupShare: Confirmation: You submitted a walk request'  
-      end
-    end
+    #       it 'has the expected subject' do
+    #         expect(confirm_email).to have_subject 'PupShare: Confirmation: You submitted a walk request'  
+    #       end
+    #     end
   end # walk_request
   ########################################################
   ########################################################
@@ -67,8 +68,9 @@ describe  WalkRequest do
 
     let(:delivered_emails) { ActionMailer::Base.deliveries }
 
-    it 'delivers two emails' do
-      expect(delivered_emails.count).to eq(2)
+    # it 'delivers two emails' do
+    it 'delivers one email' do
+      expect(delivered_emails.count).to eq(1)
     end
 
     context 'approval' do
@@ -87,21 +89,21 @@ describe  WalkRequest do
       end
     end
 
-    context 'approval confirmation' do
-      let(:confirm_email) { delivered_emails[1] }
+    #     context 'approval confirmation' do
+    #       let(:confirm_email) { delivered_emails[1] }
 
-      it 'delivered from the default' do
-        expect(confirm_email).to be_delivered_from 'no-reply@PupShare.com'
-      end
+    #       it 'delivered from the default' do
+    #         expect(confirm_email).to be_delivered_from 'no-reply@PupShare.com'
+    #       end
 
-      it 'delivered to the requested_of user' do
-        expect(confirm_email).to be_delivered_to requested_of_user.email 
-      end
+    #       it 'delivered to the requested_of user' do
+    #         expect(confirm_email).to be_delivered_to requested_of_user.email 
+    #       end
 
-      it 'has the expected subject' do
-        expect(confirm_email).to have_subject 'PupShare: Confirmation: You approved a walk request'   
-      end
-    end
+    #       it 'has the expected subject' do
+    #         expect(confirm_email).to have_subject 'PupShare: Confirmation: You approved a walk request'   
+    #       end
+    #     end
   end # approved request
   ########################################################
   ########################################################
@@ -118,8 +120,9 @@ describe  WalkRequest do
 
     let(:delivered_emails) { ActionMailer::Base.deliveries }
 
-    it 'delivers two emails' do
-      expect(delivered_emails.count).to eq(2)
+    # it 'delivers two emails' do
+    it 'delivers one email' do
+      expect(delivered_emails.count).to eq(1)
     end
 
     context 'denied' do
@@ -138,21 +141,21 @@ describe  WalkRequest do
       end
     end
 
-    context 'denied confirmation' do
-      let(:confirm_email) { delivered_emails[1] }
+#     context 'denied confirmation' do
+#       let(:confirm_email) { delivered_emails[1] }
 
-      it 'delivered from the default' do
-        expect(confirm_email).to be_delivered_from 'no-reply@PupShare.com'
-      end
+#       it 'delivered from the default' do
+#         expect(confirm_email).to be_delivered_from 'no-reply@PupShare.com'
+#       end
 
-      it 'delivered to the requested_of user' do
-        expect(confirm_email).to be_delivered_to requested_of_user.email 
-      end
+#       it 'delivered to the requested_of user' do
+#         expect(confirm_email).to be_delivered_to requested_of_user.email 
+#       end
 
-      it 'has the expected subject' do
-        expect(confirm_email).to have_subject 'PupShare: Confirmation: You declined a walk request'    
-      end
-    end
+#       it 'has the expected subject' do
+#         expect(confirm_email).to have_subject 'PupShare: Confirmation: You declined a walk request'    
+#       end
+#     end
   end # declined request
   ########################################################
   ########################################################

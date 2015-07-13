@@ -7,17 +7,20 @@ class Request < ActiveRecord::Base
 
   def walk_request
     WalkRequest.walk_request(self).deliver_now 
-    WalkRequest.walk_request_confirmation(self).deliver_now
+    # user feedback: unnecessary
+    # WalkRequest.walk_request_confirmation(self).deliver_now 
   end
 
   def approve_walk_request
     WalkRequest.walk_request_approved(self).deliver_now
-    WalkRequest.walk_request_approved_confirmation(self).deliver_now
+    # user feedback: unnecessary
+    # WalkRequest.walk_request_approved_confirmation(self).deliver_now 
   end
 
   def deny_walk_request
     WalkRequest.walk_request_denied(self).deliver_now
-    WalkRequest.walk_request_denied_confirmation(self).deliver_now
+    # user feedback: unnecessary
+    # WalkRequest.walk_request_denied_confirmation(self).deliver_now 
   end
 
   def cancel_walk
