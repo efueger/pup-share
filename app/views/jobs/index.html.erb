@@ -24,17 +24,17 @@
       <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
       <% end %>
     </div>
-    <div class="col-md-3">
-      <%= simple_form_for Request.new, url: requests_path(current_user, 
+    <% if job.user != current_user %>
+    <%= simple_form_for Request.new, url: requests_path(current_user, 
   request: {
     user_id: current_user, 
     requested_of_user_id: job.user, 
     job_id: job, 
     status: 'pending'}), 
 method: :post do |f| %>
-      <%= f.button :submit, 'Walk this pup!', class: 'btn btn-success btn-lg'%>
-      <% end %>
-    </div>
+    <%= f.button :submit, 'Walk this pup!', class: 'btn btn-success btn-xs'%>
+    <% end %>
+    <% end %>
   </div>
 </div><!-- booyah-box -->
 

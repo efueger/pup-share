@@ -27,14 +27,14 @@
       <% end %>
       <% end %>
       <% if availability.user == current_user %>  
-      <%= link_to 'Destroy', availability, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      <%= link_to 'Destroy', availability, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
       <% end %>
     </div>
   </div> <!-- row -->
 
   <br>
 
-  <% if user_signed_in? %>
+  <% if current_user != availability.user %>
   <strong><p><%= "#{current_user.email}'s outstanding jobs" %></p></strong>
   <% current_user.jobs.each do |job| %>
   <div class="row">
