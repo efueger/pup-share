@@ -78,7 +78,7 @@ describe RequestsController do
     context 'request exists' do
       it "and redirects to the user's 'approved' page" do
         get :edit, id: @my_request, user_id: @user.id
-        expect(response).to redirect_to user_requests_path(@requested_of_user, status:'approved')
+        expect(response).to redirect_to root_path(@requested_of_user, status:'approved')
       end
     end
 

@@ -7,7 +7,7 @@
   <div class="col-md-4">           
     <p><%= "#{@user.first_name} #{@user.last_name}" %></p>
     <p><%= "#{@user.email} #{@user.phone}" %></p>
-    <p>Emergency phone: <%= @user.emergency_phone %></p>
+    Emergency phone: <%= @user.emergency_phone %>
   </div>
   <div class="col-md-4"> 
     <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-warning' %>
@@ -32,7 +32,7 @@
     <p><%= "#{pup.pup_name} #{pup.pup_breed}" %></p>
     <p><%= "#{pup.pup_age} years old, #{pup.pup_weight} #{pup.pup_gender}" %></p>   
     <p>Vet phone: <%= pup.pup_vet_phone %></p>
-    <p>Care notes: <%= pup.pup_care_instructions %></p>
+    Care notes: <%= pup.pup_care_instructions %>
   </div>
 
   <div class="col-md-4">
@@ -62,7 +62,7 @@
     <p>Drop off: <%= job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
     <p>Place: <%= job.drop_off_location %></p>
     <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
-    <p>Place: <%= job.pick_up_location %></p>
+    Place: <%= job.pick_up_location %>
   </div>
   <div class="col-md-2">
     <%= link_to 'Destroy Job', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
@@ -87,7 +87,7 @@
     <p>Available from: <%= availability.available_from %></p>
     <p>Available to: <%= availability.available_to %></p>
     <p>Location: <%= availability.location %></p>
-    <p>Details: <%= availability.comment %></p>
+    Details: <%= availability.comment %>
   </div>
   <div class="col-md-4">
     <%= link_to 'Destroy Availability', availability, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>

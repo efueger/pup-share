@@ -3,37 +3,20 @@ require 'rails_helper'
 describe AvailabilitiesController do
 
   describe 'GET #index' do
-    context 'with params[:user_id]' do
-      it 'populates an array of availabilities belonging to a user' do
-        user        = FactoryGirl.create(:user)
-        lunch       = FactoryGirl.create(:availability, user_id: user.id)
-        after_work  = FactoryGirl.create(:availability, user_id: user.id + 1)
-        get :index, user_id: user.id
-        expect(assigns(:availabilities)).to match_array([lunch])
-      end
-
-      it 'renders the :index template' do
-        user = FactoryGirl.create(:user)
-        get :index, user_id: user.id
-        expect(response).to render_template :index
-      end
+    it 'populates an array with all availabilities' do
+      user        = FactoryGirl.create(:user)
+      lunch       = FactoryGirl.create(:availability, user_id: user.id)
+      after_work  = FactoryGirl.create(:availability, user_id: user.id + 1)
+      get :index
+      expect(assigns(:availabilities)).to match_array([lunch, after_work])
     end
 
-    context 'without params[:user_id]' do
-      it 'populates an array with all availabilities' do
-        user        = FactoryGirl.create(:user)
-        lunch       = FactoryGirl.create(:availability, user_id: user.id)
-        after_work  = FactoryGirl.create(:availability, user_id: user.id + 1)
-        get :index
-        expect(assigns(:availabilities)).to match_array([lunch, after_work])
-      end
-
-      it 'renders the :index template' do
-        get :index
-        expect(response).to render_template :index
-      end
+    it 'renders the :index template' do
+      get :index
+      expect(response).to render_template :index
     end
   end
+
 
   describe "GET #show" do
     it 'assigns the requested availability to @availability' do
@@ -50,7 +33,7 @@ describe AvailabilitiesController do
   end
 
   describe 'GET #new' do
-    
+
     before :each do
       sign_in @user = FactoryGirl.create(:user)
     end
