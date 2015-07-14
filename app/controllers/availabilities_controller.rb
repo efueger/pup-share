@@ -3,11 +3,7 @@ class AvailabilitiesController < ApplicationController
   before_action :set_availability, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:user_id].nil?
       @availabilities = Availability.all
-    else
-      @availabilities = Availability.where(user_id: params[:user_id])
-    end
   end
 
   def show; end

@@ -7,18 +7,33 @@
 
 <div class="booyah-box">
 
+  <h3>Status: <%= request.status %></h3>
+
   <div class="row">
-    <div class="col-md-6">
-      <p>Requested by: <%= request.user_id %></p>
-      <p>Requested of: <%= request.requested_of_user_id %></p>
-      <p>Status: <%= request.status %></p>
-      <p>job_id: <%= request.job_id %></p>
-      <p>Availability_id: <%= request.availability_id %></p>
+    <div class="col-md-3">
+      Pup Owner
+      <%= image_tag request.job.user.pic, :class => 'img-responsive' %>
+    </div>
+    <div class="col-md-3">
+      Pup
+      <%= image_tag request.job.pup.pup_pic, :class => 'img-responsive' %>
+    </div>
+    <div class="col-md-3">
+      <p>Drop off: <%= request.job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
+      <p>Place: <%= request.job.drop_off_location %></p>
+      <p>Pick up: <%= request.job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
+      <p>Place: <%= request.job.pick_up_location %></p>
+      <% if request.user == current_user || request.requested_of_user == current_user %>
+      <%= link_to 'Destroy', user_request_path(current_user, request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
+      <% end %>
+    </div>
+    <div class="col-md-3">
+      Walker
+      <%= image_tag request.user.pic, :class => 'img-responsive' %>
     </div>
   </div>
 
-  <%= link_to 'Edit', edit_user_request_path(current_user, request), class: 'btn btn-warning' %>
-  <%= link_to 'Destroy', user_request_path(current_user, request), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+
 </div>
 
 <br>

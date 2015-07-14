@@ -1,49 +1,98 @@
 <h1>Me</h1>
-<p><%= image_tag @user.pic, :class => 'img-responsive'  %></p>
+<div class="booyah-box row">
+  <div class="col-md-4">
+    <p><%= image_tag @user.pic, :class => 'img-responsive profile-image'  %></p>
+  </div>
 
-<p><strong>First name:</strong><%= @user.first_name %></p>
-<p><strong>Last name:</strong><%= @user.last_name %></p>
-<p><strong>Email:</strong><%= @user.email %></p>
-<p><strong>Phone:</strong><%= @user.phone %></p>
-<p><strong>Emergency phone:</strong><%= @user.emergency_phone %></p>
-
-<%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-warning' %>
+  <div class="col-md-4">           
+    <p><%= "#{@user.first_name} #{@user.last_name}" %></p>
+    <p><%= "#{@user.email} #{@user.phone}" %></p>
+    <p>Emergency phone: <%= @user.emergency_phone %></p>
+  </div>
+  <div class="col-md-4"> 
+    <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-warning' %>
+  </div>
+</div>
 
 <br>
-<br>
-<br>
 
-<h1>My Pups</h1>
-
+<h1>My Pups</h1> 
 <%= link_to 'New Pup', new_user_pup_path(current_user), class: 'btn btn-primary' %>
 <br>
 <br>
 
 <% @pups.each do |pup| %>
 
-<div class="booyah-box">
-
-  <div class="row">
-    <div class="col-md-6">
-      <p>Name: <%= pup.pup_name %></p>
-      <p>Breed: <%= pup.pup_breed %></p>
-      <p>Weight: <%= pup.pup_weight %></p>
-      <p>Gender: <%= pup.pup_gender %></p>
-      <p>Age: <%= pup.pup_age %></p>    
-      <p>Vet phone: <%= pup.pup_vet_phone %></p>
-      <p>Care notes: <%= pup.pup_care_instructions %></p>
-    </div>
-
-    <div class="col-md-6">
-      <%= image_tag pup.pup_pic, :class => 'img-responsive' %>
-    </div>
-
+<div class="booyah-box row">
+  <div class="col-md-4">  
+    <%= image_tag pup.pup_pic, :class => 'img-responsive profile-image' %>   
   </div>
 
-  <%= link_to 'Edit Pup', edit_user_pup_path(current_user, pup), class: 'btn btn-warning' %>
-  <%= link_to 'Destroy Pup', user_pup_path(current_user, pup), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  <div class="col-md-4">
+    <p><%= "#{pup.pup_name} #{pup.pup_breed}" %></p>
+    <p><%= "#{pup.pup_age} years old, #{pup.pup_weight} #{pup.pup_gender}" %></p>   
+    <p>Vet phone: <%= pup.pup_vet_phone %></p>
+    <p>Care notes: <%= pup.pup_care_instructions %></p>
+  </div>
+
+  <div class="col-md-4">
+    <%= link_to 'Edit Pup', edit_user_pup_path(current_user, pup), class: 'btn btn-warning' %>
+    <%= link_to 'Destroy Pup', user_pup_path(current_user, pup), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  </div>
 </div>
+
 <br>
 <% end %>
 
+<h1>My jobs</h1> 
+<%= link_to 'New Job', new_job_path, class: 'btn btn-primary' %>
 <br>
+<br>
+
+<% @jobs.each do |job| %>
+
+<div class="booyah-box row">
+  <div class="col-md-2">
+    <%= image_tag job.user.pic, :class => 'img-responsive profile-image' %>
+  </div>
+  <div class="col-md-2">
+    <%= image_tag job.pup.pup_pic, :class => 'img-responsive profile-image' %>
+  </div>
+  <div class="col-md-4">
+    <p>Drop off: <%= job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
+    <p>Place: <%= job.drop_off_location %></p>
+    <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
+    <p>Place: <%= job.pick_up_location %></p>
+  </div>
+  <div class="col-md-2">
+    <%= link_to 'Destroy Job', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  </div>
+</div>
+
+<br>
+<% end %>
+
+<h1>My Availabilities</h1>
+<%= link_to 'New Availability', new_availability_path, class: 'btn btn-primary' %>
+
+<br>
+<br>
+<% @availabilities.each do |availability| %>
+
+<div class="booyah-box row">
+  <div class="col-md-4">
+    <%= image_tag availability.user.pic, :class => 'img-responsive profile-image' %>
+  </div>
+  <div class="col-md-4">
+    <p>Available from: <%= availability.available_from %></p>
+    <p>Available to: <%= availability.available_to %></p>
+    <p>Location: <%= availability.location %></p>
+    <p>Details: <%= availability.comment %></p>
+  </div>
+  <div class="col-md-4">
+    <%= link_to 'Destroy Availability', availability, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+  </div> 
+</div>
+
+<br>
+<% end %>

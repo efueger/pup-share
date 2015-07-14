@@ -3,8 +3,9 @@ class RequestsController < ApplicationController
   before_action :set_request, only: [:show, :update, :destroy]
 
   def index
-    @requests = current_user.requests.where(
-      'user_id = ? OR requested_of_user_id = ?', current_user, current_user)
+    my_requests = current_user.requests
+    other_requests = Request.where(requested_of_user: current_user)
+    @requests = (my_requests + other_requests).uniq { |request| request.id }
   end
 
   def show; end
@@ -15,15 +16,13 @@ class RequestsController < ApplicationController
 
   def edit
     @request = Request.find(params[:id]) # allows rescue for destroyed requests
-    sign_in :user, @request.requested_of_user
     @request.update status: params[:status]
-    redirect_to user_requests_path(current_user, status:'approved'), notice: @request.send_request_mailers
+    redirect_to root_path(current_user, status:'approved'), notice: @request.send_request_mailers
   rescue ActiveRecord::RecordNotFound
     redirect_to user_requests_path(current_user), alert: 'Sorry. The request or job no longer exists'   
   end
 
   def create
-    #     binding.pry
     @request = current_user.requests.create(request_params)
     @request.send_request_mailers
     flash[:notice] = 'Request sent!'

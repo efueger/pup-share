@@ -1,8 +1,11 @@
 <%= link_to 'New Availability', new_availability_path, class: 'btn btn-primary' %>
 
-<h1>All Availabilities</h1>
+<h1>Availabilities</h1>
 
 <% @availabilities.each do |availability| %>
+
+<% # don't show own availabilities %>
+<% if current_user != availability.user %> 
 
 <div class="booyah-box">
 
@@ -34,11 +37,13 @@
 
   <br>
 
-  <% if current_user != availability.user %>
-  <strong><p><%= "#{current_user.email}'s outstanding jobs" %></p></strong>
+  <% if user_signed_in? && current_user != availability.user %>
+  <%# logged in as pup owner %>
   <% current_user.jobs.each do |job| %>
+  <% if Request.where(job_id: job).nil? # only show jobs w/o request outstanding %>
   <div class="row">
     <div class="col-md-10">
+      MY JOB: 
       <strong>Name:</strong><%= job.pup.pup_name %>
       <strong>Drop off:</strong><%= job.drop_off_time.to_formatted_s(:long_ordinal) %>
       <strong>Place:</strong><%= job.drop_off_location %>
@@ -48,7 +53,7 @@
     <div class="col-md-2">
       <%= simple_form_for Request.new, url: requests_path(current_user, request: {
   user_id: current_user,
-  requested_of_user_id: availability.user, 
+  requested_of_user_id: job.user, 
   job_id: job, 
   availability_id: availability, 
   status: 'pending'}), method: :post do |f| %>
@@ -56,9 +61,12 @@
       <% end %>
     </div>
   </div>
+  <% end %>  
   <% end %>
   <% end %>
+
 </div> <!--booyah-box-->
+<% end %>
 
 <br>
 

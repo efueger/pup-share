@@ -31,9 +31,11 @@ body {
 
 .banner {
   background-image: url('PupShareBanner.PNG'); 
-/*   background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;  */
+}
+
+.profile-image {
+  max-height: 100px; 
+  max-width: 100px;
 }
 
 
