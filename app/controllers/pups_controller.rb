@@ -34,10 +34,7 @@ class PupsController < ApplicationController
 
   def destroy
     @pup.destroy
-    respond_to do |format|
-      format.html { redirect_to user_path(current_user), notice: 'Pup destroyed' }
-      format.json { head :no_content }
-    end
+    redirect_to user_path(current_user), notice: 'Pup destroyed'
   end
 
   private

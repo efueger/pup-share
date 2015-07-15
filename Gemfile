@@ -37,7 +37,7 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'email_spec'
-  gem "codeclimate-test-reporter", require: nil
+  # gem "codeclimate-test-reporter", require: nil
 end
 
 gem 'rails_12factor', group: :production

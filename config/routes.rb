@@ -15,7 +15,6 @@ Rails.application.routes.draw do
   end
 
   resources :jobs 
-
   resources :availabilities
   resources :requests, except: [:edit, :destroy]
 

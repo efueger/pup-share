@@ -126,7 +126,7 @@ describe JobsController do
 
       it 'does not save the new job in the database' do 
         expect{
-          post :create, job: FactoryGirl.attributes_for(:invalid_job)}.not_to change(Job, :count)     
+          post :create, job: FactoryGirl.attributes_for(:invalid_job)}.not_to change(Job, :count)
       end
 
       it 're-renders the :new template' do
@@ -196,10 +196,7 @@ describe JobsController do
     end 
     
     it 'deletes the job from the database' do
-      expect{
-        delete :destroy, id: @job,
-        job: FactoryGirl.attributes_for(:job, 
-          user_id: @job.user.id)}.to change(Job, :count).by(-1)
+      expect{delete :destroy, id: @job}.to change(Job, :count).by(-1)
     end    
 
     it 'redirects to jobs index' do
