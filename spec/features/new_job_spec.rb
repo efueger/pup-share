@@ -44,17 +44,17 @@ feature 'Creating new job' do
     click_on 'Log in'
     expect(page).to have_content 'Signed in successfully'
     # create pup
-    visit user_pups_path(user)
-    expect(current_path).to eql(user_pups_path(user))
+    visit user_path(user)
+    expect(current_path).to eql(user_path(user))
     click_on 'New Pup'
     expect(current_path).to eql(new_user_pup_path(user))
     fill_in 'Pup name', with: 'Ace'
     click_on 'Create Pup'
     expect(page).to have_content 'Pup created'
-    expect(current_path).to eql(user_pups_path(user))
+    expect(current_path).to eql(user_path(user))
     # create job
-    visit jobs_path
-    expect(current_path).to eql(jobs_path)
+    visit user_path(user)
+    expect(current_path).to eql(user_path(user))
     click_on 'New Job'
     expect(current_path).to eql(new_job_path)
     choose "job_pup_id_#{Pup.last.id}"
@@ -62,6 +62,6 @@ feature 'Creating new job' do
     fill_in 'Pick up location', with: Time.now
     click_on 'Create Job'
     expect(page).to have_content 'Job created'
-    expect(current_path).to eql(jobs_path)
+    expect(current_path).to eql(users_path(user))
   end
 end

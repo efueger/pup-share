@@ -3,11 +3,10 @@
 <h1>These pups need a walk!</h1>
 
 <% @jobs.each do |job| %>
+<% if job.user != current_user # do not show a user own jobs  %>
 
 <div class="booyah-box">
-
   <div class="row">
-
     <div class="col-md-4">
       <%= image_tag job.user.pic, :class => 'img-responsive' %>
     </div>
@@ -20,26 +19,17 @@
       <p>Place: <%= job.drop_off_location %></p>
       <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.pick_up_location %></p>
-      <% if job.user == current_user %>
-      <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
-      <% end %>
-
-      <% if job.user != current_user %>
       <%# logged in as walker %>
       <%= simple_form_for Request.new, url: requests_path(current_user, 
-  request: {
-    user_id: current_user, 
-    requested_of_user_id: job.user, 
-    job_id: job,
-    status: 'pending'}), 
-method: :post do |f| %>
+  request: { user_id: current_user, requested_of_user_id: job.user, job_id: job, status: 'pending'}
+  ), method: :post do |f| %>
       <%= f.button :submit, 'Walk this pup!', class: 'btn btn-success btn-xs'%>
       <% end %>
-      <% end %>
     </div>
-  </div>
+  </div><!-- row -->
 </div><!-- booyah-box -->
 
+<% end %>
 <br>
 <% end %>
 <br>

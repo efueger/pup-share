@@ -3,12 +3,9 @@
 <h1>Availabilities</h1>
 
 <% @availabilities.each do |availability| %>
-
-<% # don't show own availabilities %>
-<% if current_user != availability.user %> 
+<% if current_user != availability.user # don't show own availabilities %> 
 
 <div class="booyah-box">
-
   <div class="row">
     <div class="col-md-6">
       <%= image_tag availability.user.pic, :class => 'img-responsive' %>
@@ -29,16 +26,11 @@
       <%= f.button :submit, 'Have this person walk my pup!', class: 'btn btn-success btn-lg'%>
       <% end %>
       <% end %>
-      <% if availability.user == current_user %>  
-      <%= link_to 'Destroy', availability, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger btn-xs' %>
-      <% end %>
     </div>
   </div> <!-- row -->
 
   <br>
 
-  <% if user_signed_in? && current_user != availability.user %>
-  <%# logged in as pup owner %>
   <% current_user.jobs.each do |job| %>
   <% if Request.where(job_id: job).nil? # only show jobs w/o request outstanding %>
   <div class="row">
@@ -51,18 +43,14 @@
       <strong>Place:</strong><%= job.pick_up_location %>
     </div>
     <div class="col-md-2">
-      <%= simple_form_for Request.new, url: requests_path(current_user, request: {
-  user_id: current_user,
-  requested_of_user_id: job.user, 
-  job_id: job, 
-  availability_id: availability, 
-  status: 'pending'}), method: :post do |f| %>
+      <%= simple_form_for Request.new, url: requests_path(current_user, 
+  request: { user_id: current_user, requested_of_user_id: job.user, job_id: job, availability_id: availability, status: 'pending'}
+  ), method: :post do |f| %>
       <%= f.button :submit, 'Ask!', class: 'btn btn-success btn-xs'%>
       <% end %>
     </div>
   </div>
   <% end %>  
-  <% end %>
   <% end %>
 
 </div> <!--booyah-box-->

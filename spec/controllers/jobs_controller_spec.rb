@@ -3,17 +3,18 @@ require 'rails_helper'
 describe JobsController do
 
   describe 'GET #index' do
+
+    let(:user) { FactoryGirl.create(:user) }
+    let(:job1) { FactoryGirl.create(:job, user_id: user.id) }
+    let(:job2) { FactoryGirl.create(:job, user_id: user.id + 1) }
+
     context 'with params[:user_id]' do
       it 'populates an array of jobs belonging to a user' do
-        user = FactoryGirl.create(:user)
-        job1 = FactoryGirl.create(:job, user_id: user.id)
-        job2 = FactoryGirl.create(:job, user_id: user.id + 1)
         get :index, user_id: user.id
         expect(assigns(:jobs)).to match_array([job1])
       end
 
       it 'renders the :index template' do
-        user = FactoryGirl.create(:user)
         get :index, user_id: user.id
         expect(response).to render_template :index
       end
@@ -21,9 +22,6 @@ describe JobsController do
 
     context 'without params[:user_id]' do
       it 'populates an array with all jobs' do
-        user = FactoryGirl.create(:user)
-        job1 = FactoryGirl.create(:job, user_id: user.id)
-        job2 = FactoryGirl.create(:job, user_id: user.id + 1)
         get :index
         expect(assigns(:jobs)).to match_array([job1, job2])
       end
@@ -36,14 +34,15 @@ describe JobsController do
   end 
 
   describe "GET #show" do
+
+    let(:job) { FactoryGirl.create(:job) }
+
     it 'assigns the requested job to @job' do
-      job = FactoryGirl.create(:job)
       get :show, id: job
       expect(assigns(:job)).to eq job
     end
 
     it 'renders the :show template' do
-      job = FactoryGirl.create(:job)
       get :show, id: job
       expect(response).to render_template :show
     end
@@ -85,14 +84,14 @@ describe JobsController do
       sign_in @user = FactoryGirl.create(:user)      
     end
 
+    let(:job) { FactoryGirl.create(:job) }
+
     it 'assigns the requested job to @job' do
-      job = FactoryGirl.create(:job)
       get :edit, id: job
       expect(assigns(:job)).to eq job
     end
 
     it 'renders the :edit template' do
-      job = FactoryGirl.create(:job)
       get :edit, id: job
       expect(response).to render_template :edit
     end
@@ -114,7 +113,7 @@ describe JobsController do
 
       it 'redirects to jobs index' do
         post :create, job: FactoryGirl.attributes_for(:job, user_id: @user.id, pup_id: @pup.id)
-        expect(response).to redirect_to jobs_path
+        expect(response).to redirect_to users_path(@user)
       end
 
       it 'notifies the user of creation' do
@@ -163,15 +162,15 @@ describe JobsController do
         expect(@job.drop_off_location).to eq('Blackfoot')
       end
 
-      it 'redirects to jobs index' do
+      it 'redirects to user\'s profile (i.e. dashboard)' do
         patch :update, id: @job, job: FactoryGirl.attributes_for(:job)
-        expect(response).to redirect_to jobs_path
+        expect(response).to redirect_to users_path(@user)
       end
     end      
 
     context 'with invalid attributes' do
 
-      it "does not change the job's attributes" do
+      it 'does not change the job\'s attributes' do
         patch :update, id: @job,
         job: FactoryGirl.attributes_for(:job, 
           drop_off_time: Time.new(2005, 12, 25),
@@ -190,23 +189,23 @@ describe JobsController do
   end # PATCH #update 
 
   describe 'DELETE #destroy' do
-    
+
     before :each do
       sign_in @user = FactoryGirl.create(:user) 
       @job = FactoryGirl.create(:job)
-    end  
-
+    end 
+    
     it 'deletes the job from the database' do
       expect{
         delete :destroy, id: @job,
         job: FactoryGirl.attributes_for(:job, 
-          user_id: @user.id)}.to change(Job, :count).by(-1)
+          user_id: @job.user.id)}.to change(Job, :count).by(-1)
     end    
 
     it 'redirects to jobs index' do
       delete :destroy, id: @job
-      expect(response).to redirect_to jobs_path
+      expect(response).to redirect_to users_path(@user)
     end    
   end # DELETE
-  
+
 end

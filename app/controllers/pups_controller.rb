@@ -18,7 +18,7 @@ class PupsController < ApplicationController
     @pup = current_user.pups.new(pup_params)
 
     if @pup.save
-      redirect_to user_pups_path, notice: 'Pup created'
+      redirect_to user_path(current_user), notice: 'Pup created'
     else
       render :new 
     end
@@ -26,7 +26,7 @@ class PupsController < ApplicationController
 
   def update
     if @pup.update(pup_params)
-      redirect_to user_pups_path, notice: 'Pupdated'
+      redirect_to user_path(current_user), notice: 'Pupdated'
     else
       render :edit
     end
@@ -35,7 +35,7 @@ class PupsController < ApplicationController
   def destroy
     @pup.destroy
     respond_to do |format|
-      format.html { redirect_to user_pups_path, notice: 'Pup destroyed' }
+      format.html { redirect_to user_path(current_user), notice: 'Pup destroyed' }
       format.json { head :no_content }
     end
   end
