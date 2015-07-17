@@ -113,7 +113,7 @@ describe JobsController do
 
       it 'redirects to jobs index' do
         post :create, job: FactoryGirl.attributes_for(:job, user_id: @user.id, pup_id: @pup.id)
-        expect(response).to redirect_to users_path(@user)
+        expect(response).to redirect_to user_path(@user)
       end
 
       it 'notifies the user of creation' do
@@ -164,7 +164,7 @@ describe JobsController do
 
       it 'redirects to user\'s profile (i.e. dashboard)' do
         patch :update, id: @job, job: FactoryGirl.attributes_for(:job)
-        expect(response).to redirect_to users_path(@user)
+        expect(response).to redirect_to user_path(@user)
       end
     end      
 
@@ -201,7 +201,7 @@ describe JobsController do
 
     it 'redirects to jobs index' do
       delete :destroy, id: @job
-      expect(response).to redirect_to users_path(@user)
+      expect(response).to redirect_to user_path(@user)
     end    
   end # DELETE
 

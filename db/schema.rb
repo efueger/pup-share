@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150710195202) do
+ActiveRecord::Schema.define(version: 20150717003538) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20150710195202) do
     t.datetime "updated_at",     null: false
     t.integer  "pup_id"
     t.integer  "job_id"
+    t.string   "walk_type"
   end
 
   create_table "availabilities_jobs", id: false, force: :cascade do |t|
@@ -62,6 +63,13 @@ ActiveRecord::Schema.define(version: 20150710195202) do
     t.datetime "created_at",            null: false
     t.datetime "updated_at",            null: false
     t.string   "pup_pic"
+    t.boolean  "special_needs"
+    t.boolean  "playful"
+    t.boolean  "curious_fearless"
+    t.boolean  "sociable"
+    t.boolean  "chase_prone"
+    t.boolean  "aggressive"
+    t.boolean  "spayed_neutered"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -98,6 +106,21 @@ ActiveRecord::Schema.define(version: 20150710195202) do
     t.datetime "confirmation_sent_at"
     t.integer  "user_pending_requests_count", default: 0
     t.string   "pic"
+    t.boolean  "pups_w_special_needs"
+    t.text     "walking_experience"
+    t.boolean  "small_pups"
+    t.boolean  "medium_pups"
+    t.boolean  "large_pups"
+    t.boolean  "giant_pups"
+    t.boolean  "oral_med_admin"
+    t.boolean  "senior_pups"
+    t.boolean  "puppies"
+    t.boolean  "bathroom_breaks"
+    t.text     "referral_quote"
+    t.string   "referral_email"
+    t.string   "referral_first"
+    t.string   "referral_last"
+    t.string   "referral_relationship"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

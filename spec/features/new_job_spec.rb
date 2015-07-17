@@ -62,6 +62,6 @@ feature 'Creating new job' do
     fill_in 'Pick up location', with: Time.now
     click_on 'Create Job'
     expect(page).to have_content 'Job created'
-    expect(current_path).to eql(users_path(user))
+    expect(current_path).to eql(user_path(user))
   end
 end

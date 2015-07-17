@@ -11,7 +11,7 @@
       <%= image_tag availability.user.pic, :class => 'img-responsive' %>
     </div>
     <div class="col-md-6">
-      <strong><p><%= link_to "#{availability.user.email}",  user_path(availability.user) %></strong>
+      <strong><p><%= "#{availability.user.email}" %></strong>
       <p>Available from: <%= availability.available_from %></p>
       <p>Available to: <%= availability.available_to %></p>
       <p>Location: <%= availability.location %></p>
@@ -25,12 +25,13 @@
   ), method: :post do |f| %>
       <%= f.button :submit, 'Have this person walk my pup!', class: 'btn btn-success btn-lg'%>
       <% end %>
-      <% end %>
+
     </div>
   </div> <!-- row -->
 
   <br>
 
+  <% else %>
   <% current_user.jobs.each do |job| %>
   <% if Request.where(job_id: job).nil? # only show jobs w/o request outstanding %>
   <div class="row">
@@ -52,7 +53,8 @@
   </div>
   <% end %>  
   <% end %>
-
+  <% end %>
+  
 </div> <!--booyah-box-->
 <% end %>
 
