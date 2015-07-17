@@ -1,4 +1,4 @@
-<h1>Me</h1>
+<h1><%= @user.email %></h1>
 <div class="booyah-box row">
   <div class="col-md-4">
     <p><%= image_tag @user.pic, :class => 'img-responsive profile-image'  %></p>
@@ -16,7 +16,7 @@
 
 <br>
 
-<h1>My Pups</h1> 
+<h1>Pups</h1> 
 <%= link_to 'New Pup', new_user_pup_path(current_user), class: 'btn btn-primary' %>
 <br>
 <br>
@@ -44,7 +44,7 @@
 <br>
 <% end %>
 
-<h1>My jobs</h1> 
+<h1>Need a Walker</h1> 
 <%= link_to 'New Job', new_job_path, class: 'btn btn-primary' %>
 <br>
 <br>
@@ -72,7 +72,7 @@
 <br>
 <% end %>
 
-<h1>My Availabilities</h1>
+<h1>Able to Walk</h1>
 <%= link_to 'New Availability', new_availability_path, class: 'btn btn-primary' %>
 
 <br>

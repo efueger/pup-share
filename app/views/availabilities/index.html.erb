@@ -1,6 +1,6 @@
 <%= link_to 'New Availability', new_availability_path, class: 'btn btn-primary' %>
 
-<h1>Availabilities</h1>
+<h1>Walkers</h1>
 
 <% @availabilities.each do |availability| %>
 <% if current_user != availability.user # don't show own availabilities %> 
@@ -11,7 +11,7 @@
       <%= image_tag availability.user.pic, :class => 'img-responsive' %>
     </div>
     <div class="col-md-6">
-      <strong><p><%= "#{availability.user.email}'s availability" %></strong>
+      <strong><p><%= link_to "#{availability.user.email}",  user_path(availability.user) %></strong>
       <p>Available from: <%= availability.available_from %></p>
       <p>Available to: <%= availability.available_to %></p>
       <p>Location: <%= availability.location %></p>
