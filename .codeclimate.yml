@@ -45,6 +45,6 @@ ratings:
 # You can globally exclude files from being analyzed by any engine using the
 # exclude_paths key.
 
-#exclude_paths:
-#- spec/**
+exclude_paths:
+- public/assets/application-ead010f291a207efc7b9c2b79a691bbbea0498e66deaf861f2966ea6b58a410f.js
 #- vendor/**
