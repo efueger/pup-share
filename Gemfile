@@ -37,16 +37,12 @@ group :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'email_spec'
-  gem "codeclimate-test-reporter", require: nil
+  gem 'codeclimate-test-reporter', require: nil
 end
 
 gem 'rails_12factor', group: :production
 gem 'airbrake' ### NOT CONFIGURED, subscription product
 
-gem 'sdoc', '~> 0.4.0', group: :doc # bundle exec rake doc:rails generates the API under doc/api.
+gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'puma' # new server, Heroku/ProductHunt recommended
-
-
-
-
