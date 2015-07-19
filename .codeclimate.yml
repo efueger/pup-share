@@ -47,4 +47,4 @@ ratings:
 
 exclude_paths:
 - public/assets/application-ead010f291a207efc7b9c2b79a691bbbea0498e66deaf861f2966ea6b58a410f.js
-#- vendor/**
+- public/assets/application-d32d238f73ce1d05092add45943f1de6ccc9fe10be918935a1352c7a0e11e8f8.css
