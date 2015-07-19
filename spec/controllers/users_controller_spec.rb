@@ -165,7 +165,7 @@ describe UsersController do
 
     it 'redirects to user index' do
       delete :destroy, id: @user
-      expect(response).to redirect_to users_path
+      expect(response).to redirect_to root_path
     end
 
   end # 'DELETE #destroy'

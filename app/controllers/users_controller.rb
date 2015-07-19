@@ -37,7 +37,7 @@ class UsersController < ApplicationController
 
   def destroy
     @user.destroy
-    redirect_to users_url, notice: 'User was successfully destroyed'
+    redirect_to root_path, notice: 'Account deleted. Sorry to see you go'
   end
 
   private
