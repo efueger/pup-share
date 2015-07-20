@@ -1,5 +1,7 @@
 <h1>Me</h1>
 
+<%= render 'job' %>
+
 <div class="booyah-box">
   <div class="row">
     <div class="col-md-2">
@@ -81,8 +83,33 @@
 <br>
 <br>
 
-<%= render partial: 'jobs/job', locals: { jobs: @jobs } %>
+<% @jobs.each do |job| %>
+
+<div class="booyah-box">
+  <div class="row">
+    <div class="col-md-2">
+      <%= image_tag job.user.pic, :class => 'img-responsive profile-image' %>
+    </div>
+
+    <div class="col-md-2">
+      <%= image_tag job.pup.pup_pic, :class => 'img-responsive profile-image' %>
+    </div>
+
+    <div class="col-md-8">
+      <p>Drop off: <%= job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
+      <p>Place: <%= job.drop_off_location %></p>
+      <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
+      <p>Place: <%= job.pick_up_location %></p>
+    </div>
+
+    <div class="col-md-6">
+      <%= link_to 'Destroy Job', job, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    </div>
+  </div><!-- row -->
+</div><!-- booyah-box --> 
+
 <br>
+<% end %>
 
 <h1>Able to Walk</h1>
 <%= link_to 'New Availability', new_availability_path, class: 'btn btn-primary' %>
