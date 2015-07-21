@@ -1,0 +1,16 @@
+<div class="booyah-box">
+  <div class="row">
+    <div class="col-md-4">
+      <%= image_tag availability.user.pic, class: 'img-responsive' %>
+    </div>
+    <div class="col-md-4">
+      <strong><p><%= "#{availability.user.email}" %></strong>
+      <p>Available from: <%= availability.available_from %></p>
+      <p>Available to: <%= availability.available_to %></p>
+      <p>Location: <%= availability.location %></p>
+      <p>Details: <%= availability.comment %></p>
+      <p>Walk Type: <%= availability.walk_type %></p>
+    </div>
+  </div> <!-- row -->
+</div>
+<br>

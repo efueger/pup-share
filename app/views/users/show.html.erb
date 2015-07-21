@@ -88,27 +88,8 @@
 <%= link_to 'New Availability', new_availability_path, class: 'btn btn-primary' %>
 <br>
 <br>
-
 <% @availabilities.each do |availability| %>
-
-<div class="booyah-box">
-  <div class="row">
-    <div class="col-md-4">
-      <%= image_tag availability.user.pic, :class => 'img-responsive profile-image' %>
-    </div>
-    <div class="col-md-8">
-      <p>Available from: <%= availability.available_from %></p>
-      <p>Available to: <%= availability.available_to %></p>
-      <p>Location: <%= availability.location %></p>
-      <p>Details: <%= availability.comment %></p>
-      <p>Walk Type: <%= availability.walk_type %></p>
-    </div>
-
-    <div class="col-md-4">
-      <%= link_to 'Destroy Availability', availability, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-    </div> 
-  </div><!-- row -->
-</div><!-- booyah-box --> 
-
-<br>
+<% if availability.user == current_user # don't show own availabilities %> 
+<%= render partial: 'availabilities/availability', locals: { availability: availability } %>
+<% end %>
 <% end %>

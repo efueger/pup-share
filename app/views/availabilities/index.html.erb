@@ -3,61 +3,12 @@
 <h1>Walkers</h1>
 
 <% @availabilities.each do |availability| %>
-<% if current_user != availability.user # don't show own availabilities %> 
-
-<div class="booyah-box">
-  <div class="row">
-    <div class="col-md-6">
-      <%= image_tag availability.user.pic, :class => 'img-responsive' %>
-    </div>
-    <div class="col-md-6">
-      <strong><p><%= "#{availability.user.email}" %></strong>
-      <p>Available from: <%= availability.available_from %></p>
-      <p>Available to: <%= availability.available_to %></p>
-      <p>Location: <%= availability.location %></p>
-      <p>Details: <%= availability.comment %></p>
-      <% if !user_signed_in? # only show/use this button if no user signed in%>
-      <%= simple_form_for Request.new, url: requests_path(current_user, 
-  request: {
-    user_id: current_user, 
-    requested_of_user_id: availability.user, 
-    status: 'pending'}
-  ), method: :post do |f| %>
-      <%= f.button :submit, 'Have this person walk my pup!', class: 'btn btn-success btn-lg'%>
-      <% end %>
-
-    </div>
-  </div> <!-- row -->
-
-  <br>
-
-  <% else %>
-  <% current_user.jobs.each do |job| %>
-  <% if Request.where(job_id: job).nil? # only show jobs w/o request outstanding %>
-  <div class="row">
-    <div class="col-md-10">
-      MY JOB: 
-      <strong>Name:</strong><%= job.pup.pup_name %>
-      <strong>Drop off:</strong><%= job.drop_off_time.to_formatted_s(:long_ordinal) %>
-      <strong>Place:</strong><%= job.drop_off_location %>
-      <strong>Pick up:</strong><%= job.pick_up_time.to_formatted_s(:long_ordinal) %>
-      <strong>Place:</strong><%= job.pick_up_location %>
-    </div>
-    <div class="col-md-2">
-      <%= simple_form_for Request.new, url: requests_path(current_user, 
-  request: { user_id: current_user, requested_of_user_id: job.user, job_id: job, availability_id: availability, status: 'pending'}
-  ), method: :post do |f| %>
-      <%= f.button :submit, 'Ask!', class: 'btn btn-success btn-xs'%>
-      <% end %>
-    </div>
-  </div>
-  <% end %>  
-  <% end %>
-  <% end %>
-  
-</div> <!--booyah-box-->
+<% if availability.user != current_user # don't show own availabilities %> 
+<%= render partial: 'availability', locals: { availability: availability } %>
+<% elsif !user_signed_in? # only show/use this button if no user signed in%>
+<%= simple_form_for Request.new, url: requests_path(current_user, request: {user_id: current_user, requested_of_user_id: availability.user, status: 'pending'}), 
+method: :post do |f| %>
+<%= f.button :submit, 'Have this person walk my pup!', class: 'btn btn-success btn-lg'%>
 <% end %>
-
-<br>
-
+<% end %>
 <% end %>
