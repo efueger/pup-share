@@ -3,8 +3,7 @@
 <h1>Pups</h1>
 
 <% @jobs.each do |job| %>
-<% if job.user != current_user %>
+<% if job.user != current_user && Request.where(job_id: job.id).empty? %>
 <%= render partial: 'job', locals: { job: job } %>
 <% end %>
 <% end %>
-

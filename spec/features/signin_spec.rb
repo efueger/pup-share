@@ -2,10 +2,8 @@ require 'rails_helper'
 
 feature 'Signing in' do
 
-  let :user do 
-    FactoryGirl.create(:user, password: 'lolololol', password_confirmation: 'lolololol')
-  end
-
+  let(:user) { FactoryGirl.create(:user, password: 'lolololol', password_confirmation: 'lolololol') } 
+  
   scenario 'Signing in with correct credentials' do
     visit new_user_session_path
     fill_in 'Email', with: user.email
@@ -21,5 +19,4 @@ feature 'Signing in' do
     click_on 'Log in'
     expect(page).to have_content 'Invalid email or password'
   end
-
 end

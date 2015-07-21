@@ -2,20 +2,20 @@ require 'rails_helper'
 
 describe UsersController do
 
-  describe 'GET #index' do
-    let(:user1) { FactoryGirl.create(:user) }
-    let(:user2) { FactoryGirl.create(:user) }
+#   describe 'GET #index' do
+#     let(:user1) { FactoryGirl.create(:user) }
+#     let(:user2) { FactoryGirl.create(:user) }
 
-    it 'populates an array with all jobs' do
-      get :index
-      expect(assigns(:users)).to match_array([user1, user2])
-    end
+#     it 'populates an array with all jobs' do
+#       get :index
+#       expect(assigns(:users)).to match_array([user1, user2])
+#     end
 
-    it 'renders the :index template' do
-      get :index
-      expect(response).to render_template :index   
-    end
-  end # 'GET #index'
+#     it 'renders the :index template' do
+#       get :index
+#       expect(response).to render_template :index   
+#     end
+#   end # 'GET #index'
 
   describe 'GET #show' do
 

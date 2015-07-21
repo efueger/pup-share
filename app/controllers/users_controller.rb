@@ -1,9 +1,7 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :upcoming_walks, :edit, :update, :destroy]
 
-  def index
-    @users = User.all
-  end
+  def index; end
 
   def show
     @pups = current_user.pups

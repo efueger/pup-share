@@ -1,82 +1,18 @@
 <h1>Me</h1>
 
-<div class="booyah-box">
-  <div class="row">
-    <div class="col-md-2">
-      <p><%= image_tag @user.pic, :class => 'img-responsive profile-image'  %></p>
-    </div>
-
-    <div class="col-md-5">           
-      <p><%= "#{@user.first_name} #{@user.last_name}" %></p>
-      <p><%= "#{@user.email}" %></p>
-      <p> <%= "Phone #{@user.phone}" %></p>   
-      <p> <%= "Emergency phone #{@user.emergency_phone}" %></p>   
-      <p> <%= "Building #{@user.building}" %></p>
-      <p> <%= "Address #{@user.address}" %></p>
-      <p> <%= "Desk Number" %></p>
-    </div>
-
-    <div class="col-md-5">  
-      <p><%= "Small #{@user.small_pups}" %></p>
-      <p><%= "Medium #{@user.medium_pups}" %></p>
-      <p><%= "Large #{@user.large_pups}" %></p>
-      <p><%= "Giant #{@user.giant_pups}" %></p>
-      <p><%= "Puppies #{@user.puppies}" %></p>     
-      <p><%= "Senior pups #{@user.senior_pups}" %></p>
-      <p><%= "Special needs pups #{@user.pups_w_special_needs}" %></p>  
-      <p><%= "Oral medication administration #{@user.oral_med_admin}" %></p>
-    </div>
-
-    <div class="col-md-5"> 
-      <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-warning' %>
-      <%= link_to 'Delete Account', user_path(current_user), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-    </div>
-  </div><!-- row -->
-</div><!-- booyah-box -->
-
+<%= render @user %>
 <br>
 
 <h1>My Pups</h1> 
 <%= link_to 'New Pup', new_user_pup_path(current_user), class: 'btn btn-primary' %>
 <br>
 <br>
-
 <% @pups.each do |pup| %>
-
-<div class="booyah-box"> 
-  <div class="row">
-    <div class="col-md-2">  
-      <%= image_tag pup.pup_pic, :class => 'img-responsive profile-image' %>   
-    </div>
-
-    <div class="col-md-5">
-      <p><%= "#{pup.pup_name} #{pup.pup_breed}" %></p>
-      <p><%= "#{pup.pup_age} years old, #{pup.pup_weight} #{pup.pup_gender}" %></p>   
-      <p>Vet phone: <%= pup.pup_vet_phone %></p>
-      <p>Care notes: <%= pup.pup_care_instructions %></p>
-    </div>
-
-    <div class="col-md-5">
-      <p><%= "special needs? #{pup.special_needs}" %></p>
-      <p><%= "playful? #{pup.playful}" %></p>
-      <p><%= "curious? #{pup.curious_fearless}" %></p>
-      <p><%= "social? #{pup.sociable }" %></p>
-      <p><%= "chases stuff? #{pup.chase_prone}" %></p>
-      <p><%= "aggressive? #{pup.aggressive}" %></p>
-      <p><%= "spayed/neutered? #{pup.spayed_neutered}" %></p>
-    </div>
-
-    <div class="col-md-6">
-      <%= link_to 'Edit Pup', edit_user_pup_path(current_user, pup), class: 'btn btn-warning' %>
-      <%= link_to 'Destroy Pup', user_pup_path(current_user, pup), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-    </div>
-  </div><!-- row -->
-</div><!-- booyah-box --> 
-
+<%= render partial: 'pups/pup', locals: { pup: pup } %>
 <br>
 <% end %>
 
-<h1>Need a Walker</h1> 
+<h1>Someone else is walking my pup</h1> 
 <%= link_to 'New Job', new_job_path, class: 'btn btn-primary' %>
 <br>
 <br>
@@ -84,12 +20,10 @@
 <%= render partial: 'jobs/job', locals: { job: job } %>
 <% end %>
 
-<h1>Able to Walk</h1>
+<h1>I'm walking someone else's pup</h1>
 <%= link_to 'New Availability', new_availability_path, class: 'btn btn-primary' %>
 <br>
 <br>
-<% @availabilities.each do |availability| %>
-<% if availability.user == current_user # don't show own availabilities %> 
+<% @availabilities.each do |availability| %> 
 <%= render partial: 'availabilities/availability', locals: { availability: availability } %>
-<% end %>
 <% end %>
