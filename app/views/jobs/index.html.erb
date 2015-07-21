@@ -2,5 +2,11 @@
 
 <h1>Pups</h1>
 
-<%= render partial: 'jobs/job', locals: { jobs: @jobs } %>
+<% @jobs.each do |job| %>
+<% if job.user != current_user %>
+<%= render partial: 'job', locals: { job: job } %>
+<% end %>
+<% end %>
 
+
+<%#= render partial: 'jobs/job', collection: @jobs, as: :job %>
