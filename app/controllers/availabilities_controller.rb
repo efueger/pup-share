@@ -18,7 +18,7 @@ class AvailabilitiesController < ApplicationController
     @availability = current_user.availabilities.new(availability_params)
 
     if @availability.save
-      redirect_to users_path(current_user), notice: 'Availability created'
+      redirect_to user_path(current_user), notice: 'Availability created'
     else
       render :new
     end
@@ -26,7 +26,7 @@ class AvailabilitiesController < ApplicationController
 
   def update
     if @availability.update(availability_params)
-      redirect_to users_path(current_user), notice: 'Availability updated'
+      redirect_to user_path(current_user), notice: 'Availability updated'
     else
       render :edit
     end
@@ -34,7 +34,7 @@ class AvailabilitiesController < ApplicationController
 
   def destroy
     @availability.destroy
-    redirect_to users_path(current_user), notice: 'Availability destroyed'
+    redirect_to user_path(current_user), notice: 'Availability destroyed'
   end
 
   private

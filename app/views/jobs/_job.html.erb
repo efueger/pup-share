@@ -19,6 +19,8 @@
   ), method: :post do |f| %>
       <%= f.button :submit, 'Walk this pup!', class: 'btn btn-success btn-xs'%>
       <% end %>
+      <% elsif job.user == current_user %>
+      <%= link_to 'Delete Job', job_path(job), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
       <% end %>
     </div>
   </div><!-- row -->

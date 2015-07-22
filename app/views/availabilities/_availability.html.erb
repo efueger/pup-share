@@ -11,6 +11,9 @@
       <p>Details: <%= availability.comment %></p>
       <p>Walk Type: <%= availability.walk_type %></p>
     </div>
+    <% if availability.user == current_user %>
+    <%= link_to 'Delete Availability', availability_path(availability), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+    <% end %>
   </div> <!-- row -->
 </div>
 <br>

@@ -2,7 +2,6 @@ class JobsController < ApplicationController
   before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :walk_request ]
   before_action :set_job, except: [:index, :new, :create, :approve_walk_request, :deny_walk_request, :cancel_walk] 
 
-
   def index
     if params[:user_id].nil?
       @jobs = Job.all

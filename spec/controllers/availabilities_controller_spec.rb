@@ -82,7 +82,7 @@ describe AvailabilitiesController do
 
       it 'redirects to availabilities#show' do
         post :create, availability: FactoryGirl.attributes_for(:availability)
-        expect(response).to redirect_to users_path(@user)
+        expect(response).to redirect_to user_path(@user)
       end
 
       it 'notifies the user of creation' do
@@ -132,7 +132,7 @@ describe AvailabilitiesController do
 
       it 'redirects to the updated availability' do
         patch :update, id: @availability, availability: FactoryGirl.attributes_for(:availability)
-        expect(response).to redirect_to users_path(@user)
+        expect(response).to redirect_to user_path(@user)
       end
     end
 
@@ -169,7 +169,7 @@ describe AvailabilitiesController do
 
     it 'redirects to user_availabilites#index' do
       delete :destroy, id: @availability
-      expect(response).to redirect_to users_path(@user)
+      expect(response).to redirect_to user_path(@user)
     end
   end
 
