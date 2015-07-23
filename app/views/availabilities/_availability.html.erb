@@ -1,5 +1,5 @@
 <div class="booyah-box">
-  <%#= availability.requests.last.status %>
+  <strong><%= availability.requests.last.status unless availability.requests.empty? %></strong>
   <div class="row">
     <div class="col-md-4">
       <%= image_tag availability.user.pic, class: 'img-responsive' %>

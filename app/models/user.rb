@@ -22,5 +22,17 @@ class User < ActiveRecord::Base
   has_many :requests, dependent: :destroy
 
   mount_uploader :pic, UserPicUploader
+  
+  def walker_jobs
+    walker_jobs = []
+    self.requests.each do |request|
+      walker_jobs << request.job      
+    end
+    return walker_jobs
+  end
+  
+  def all_my_jobs
+    return self.jobs + self.walker_jobs
+  end
 
 end

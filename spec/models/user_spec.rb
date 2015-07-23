@@ -42,4 +42,18 @@ describe User do
   #   it 'is valid with an email ending with @amazon.com'
   #   it 'is invalid without an email ending with @amazon.com'
 
+  # methods
+
+  let(:owner)  { FactoryGirl.create(:user) }
+  let(:walker) { FactoryGirl.create(:user) }
+  let(:job1)   { FactoryGirl.create(:job, user_id: user.id) }
+  let(:job2)   { FactoryGirl.create(:job, user_id: user.id) }
+  let(:job3)   { FactoryGirl.create(:job) }
+
+  it '.walker_jobs' do
+    
+  end
+
+
+
 end

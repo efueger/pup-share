@@ -12,7 +12,7 @@
 <br>
 <% end %>
 
-<h1>Someone else is walking my pup</h1> 
+<h1>Upcoming Walks</h1> 
 <%= link_to 'New Job', new_job_path, class: 'btn btn-primary' %>
 <br>
 <br>
@@ -20,10 +20,9 @@
 <%= render partial: 'jobs/job', locals: { job: job } %>
 <% end %>
 
-<h1>I'm walking someone else's pup</h1>
-<%= link_to 'New Availability', new_availability_path, class: 'btn btn-primary' %>
-<br>
-<br>
-<% @availabilities.each do |availability| %> 
-<%= render partial: 'availabilities/availability', locals: { availability: availability } %>
-<% end %>
+<%#= link_to 'New Availability', new_availability_path, class: 'btn btn-primary' %>
+<!-- <br> -->
+<!-- <br> -->
+<%# @availabilities.each do |availability| %> 
+<%#= render partial: 'availabilities/availability', locals: { availability: availability } %>
+<%# end %>
