@@ -2,7 +2,7 @@ FactoryGirl.define do
 
   factory :job do
     drop_off_time Time.now
-    drop_off_location Faker::Name.first_name
+    sequence(:drop_off_location) { |n| "#{Faker::Name.first_name}_#{n}" }
     pick_up_time Time.now + 1.hour
     pick_up_location Faker::Name.first_name
 

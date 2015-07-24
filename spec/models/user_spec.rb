@@ -44,16 +44,34 @@ describe User do
 
   # methods
 
-  let(:owner)  { FactoryGirl.create(:user) }
-  let(:walker) { FactoryGirl.create(:user) }
-  let(:job1)   { FactoryGirl.create(:job, user_id: user.id) }
-  let(:job2)   { FactoryGirl.create(:job, user_id: user.id) }
-  let(:job3)   { FactoryGirl.create(:job) }
+  let(:owner)    { FactoryGirl.create(:user) }
+  let(:job1)     { FactoryGirl.create(:job, user_id: owner.id) }
+  let(:request2) { FactoryGirl.create(:request, user_id: owner.id, job_id: job2.id)}  
+  
+  let(:walker)   { FactoryGirl.create(:user) }
+  let(:job2)     { FactoryGirl.create(:job, user_id: walker.id) }
+  let(:request1)  { FactoryGirl.create(:request, user_id: walker.id, job_id: job1.id)}
 
-  it '.walker_jobs' do
-    
+  before :each do
+    walker.requests << request1
+    owner.requests << request2
   end
 
+  context '.walker_jobs' do
 
+    it 'returns jobs assocaited with a user\'s requests' do
+      expect(walker.walker_jobs).to eq ([job1])
+    end
 
+    it 'returns nothing with a user has no requests' do
+      empty_walker = FactoryGirl.create(:user)
+      expect(empty_walker.walker_jobs).to be_empty
+    end
+  end
+
+  context '.all_my_jobs' do
+    it 'returns all jobs a user is related to' do
+      expect(owner.all_my_jobs).to eq ([job1,job2])
+    end
+  end
 end

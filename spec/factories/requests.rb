@@ -1,7 +1,7 @@
 FactoryGirl.define do  
 
   factory :request do
-    status 'shenanigans'
+    status Faker::Lorem.word
     association :user
   end
 
