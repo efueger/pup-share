@@ -2,11 +2,7 @@ class RequestsController < ApplicationController
   before_action :authenticate_user!, except: [:edit]
   before_action :set_request, only: [:show, :update, :destroy]
 
-  def index
-    my_requests = current_user.requests
-    other_requests = Request.where(requested_of_user: current_user)
-    @requests = (my_requests + other_requests).uniq { |request| request.id }
-  end
+  def index; end
 
   def show; end
 
@@ -25,7 +21,7 @@ class RequestsController < ApplicationController
   def create
     @request = current_user.requests.create(request_params)
     @request.send_request_mailers
-    flash[:notice] = 'Request sent!'
+    flash[:notice] = 'Request sent! Check your dashboard'
     redirect_to(:back)
   end
 

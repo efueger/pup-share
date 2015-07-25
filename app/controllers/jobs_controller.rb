@@ -26,7 +26,7 @@ class JobsController < ApplicationController
     @job = current_user.jobs.new(job_params)
 
     if @job.save
-      redirect_to user_path(current_user), notice: 'Job created'
+      redirect_to jobs_path, notice: 'Job created'
     else
       render :new
     end
@@ -34,7 +34,12 @@ class JobsController < ApplicationController
 
   def update
     if @job.update(job_params)
-      redirect_to user_path(current_user), notice: 'Job updated'
+      # TODO: tuck this logic into the model: job.message
+      if params[:job][:hidden]
+        redirect_to user_path(current_user), alert: 'Walk cancelled'
+      else
+        redirect_to user_path(current_user), notice: 'Job updated'
+      end
     else
       render :edit
     end

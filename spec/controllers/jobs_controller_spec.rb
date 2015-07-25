@@ -105,7 +105,6 @@ describe JobsController do
     end
 
     context 'with valid attributes' do
-
       it 'saves the new job in the database' do
         expect{
           post :create, job: FactoryGirl.attributes_for(:job, user_id: @user.id, pup_id: @pup.id)}.to change(Job, :count).by(1)
@@ -113,7 +112,7 @@ describe JobsController do
 
       it 'redirects to jobs index' do
         post :create, job: FactoryGirl.attributes_for(:job, user_id: @user.id, pup_id: @pup.id)
-        expect(response).to redirect_to user_path(@user)
+        expect(response).to redirect_to jobs_path
       end
 
       it 'notifies the user of creation' do
@@ -123,7 +122,6 @@ describe JobsController do
     end
 
     context 'with invalid attributes' do
-
       it 'does not save the new job in the database' do 
         expect{
           post :create, job: FactoryGirl.attributes_for(:invalid_job)}.not_to change(Job, :count)
@@ -146,7 +144,6 @@ describe JobsController do
     end    
 
     context 'with valid attributes' do
-
       it 'locates the requested job' do
         patch :update, id: @job, job: FactoryGirl.attributes_for(:job)
         expect(assigns(:job)).to eq(@job)
@@ -169,7 +166,6 @@ describe JobsController do
     end      
 
     context 'with invalid attributes' do
-
       it 'does not change the job\'s attributes' do
         patch :update, id: @job,
         job: FactoryGirl.attributes_for(:job, 

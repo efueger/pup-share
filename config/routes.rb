@@ -12,13 +12,11 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :pups
-    resources :jobs, only: [:index]
-    resources :availabilities, only: [:index]
     resources :requests, only: [:index, :edit, :destroy]
   end
 
   resources :jobs 
   resources :availabilities
-  resources :requests, except: [:edit, :destroy]
+  resources :requests, except: [:index, :edit, :destroy]
 
 end

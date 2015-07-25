@@ -1,29 +1,43 @@
+<% if !job.hidden %>
 <div class="booyah-box">
   <strong><%= job.requests.last.status unless job.requests.empty? %></strong>
   <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-3">
       <%= "#{job.user.email}" %>
-      <%= image_tag job.user.pic, :class => 'img-responsive' %>
+      <%= image_tag job.user.pic, :class => 'img-responsive profile-image' %>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <%= "#{job.pup.pup_name}" %>
-      <%= image_tag job.pup.pup_pic, :class => 'img-responsive' %>
+      <%= image_tag job.pup.pup_pic, :class => 'img-responsive profile-image' %>
     </div>
-    <div class="col-md-4">
+    <div class="col-md-3">
       <p>Drop off: <%= job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.drop_off_location %></p>
       <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.pick_up_location %></p>
-      <% if job.user != current_user # logged in as walker %>
+      <% if job.user != current_user %>
       <%= simple_form_for Request.new, url: requests_path(current_user, 
-  request: { user_id: current_user, requested_of_user_id: job.user, job_id: job, status: 'pending'}
-  ), method: :post do |f| %>
-      <%= f.button :submit, 'Walk this pup!', class: 'btn btn-success btn-xs'%>
+  request: { user_id: current_user, requested_of_user_id: job.user, job_id: job, status: 'pending'}), method: :post do |f| %>
+      <%= f.button :submit, 'Walk this pup!', class: 'btn btn-success'%>
       <% end %>
       <% elsif job.user == current_user %>
-      <%= link_to 'Delete Job', job_path(job), method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+      <% # TODO: should be able to cancel all_my_walks, not just those you created %>
+      <%= simple_form_for job, url: job_path(job, job: { hidden: true }) do |f| %>
+      <%= f.button :submit, 'Cancel walk', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'%>
+      <% end %>
+
+      <% end %>
+    </div>
+    <div class="col-md-3">
+      <% if job.requests.empty? %>
+      This could be you...
+      <%= image_tag "fallback/question_mark.jpg", :class => 'img-responsive profile-image' %>
+      <% else %>
+      <%= "#{job.requests.last.user.email}" %>
+      <%= image_tag job.requests.last.user.pic, :class => 'img-responsive profile-image' %>
       <% end %>
     </div>
   </div><!-- row -->
 </div><!-- booyah-box -->
 <br>
+<% end %>

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150717003538) do
+ActiveRecord::Schema.define(version: 20150724223834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -29,14 +29,6 @@ ActiveRecord::Schema.define(version: 20150717003538) do
     t.string   "walk_type"
   end
 
-  create_table "availabilities_jobs", id: false, force: :cascade do |t|
-    t.integer "availability_id"
-    t.integer "job_id"
-  end
-
-  add_index "availabilities_jobs", ["availability_id"], name: "index_availabilities_jobs_on_availability_id", using: :btree
-  add_index "availabilities_jobs", ["job_id"], name: "index_availabilities_jobs_on_job_id", using: :btree
-
   create_table "jobs", force: :cascade do |t|
     t.datetime "drop_off_time"
     t.string   "drop_off_location"
@@ -47,6 +39,7 @@ ActiveRecord::Schema.define(version: 20150717003538) do
     t.integer  "user_id"
     t.integer  "pup_id"
     t.integer  "availability_id"
+    t.boolean  "hidden"
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
@@ -70,6 +63,7 @@ ActiveRecord::Schema.define(version: 20150717003538) do
     t.boolean  "chase_prone"
     t.boolean  "aggressive"
     t.boolean  "spayed_neutered"
+    t.boolean  "hidden"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -80,6 +74,7 @@ ActiveRecord::Schema.define(version: 20150717003538) do
     t.integer  "availability_id"
     t.datetime "created_at",           null: false
     t.datetime "updated_at",           null: false
+    t.boolean  "hidden"
   end
 
   create_table "users", force: :cascade do |t|
@@ -121,6 +116,7 @@ ActiveRecord::Schema.define(version: 20150717003538) do
     t.string   "referral_first"
     t.string   "referral_last"
     t.string   "referral_relationship"
+    t.boolean  "hidden"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

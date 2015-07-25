@@ -9,5 +9,10 @@ class Job < ActiveRecord::Base
   belongs_to :user
   belongs_to :pup
   has_many   :requests, dependent: :destroy
+  
+  def hide
+    self.update_attributes(hidden: true)
+  end
+  
 end
 
