@@ -6,7 +6,8 @@ class UsersController < ApplicationController
   def show
     @pups = current_user.pups
     @availabilities = current_user.availabilities
-    @jobs = current_user.all_my_jobs
+    @jobs = current_user.jobs
+    @requests = current_user.requests
   end
 
   def new

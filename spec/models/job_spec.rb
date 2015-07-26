@@ -46,15 +46,12 @@ describe Job do
   end
 
   # methods
-
-  it 'updates pending walker'
-  it 'sends walk request mailers'
-  it 'updates walker upon owner approval'
-  it 'sends walk request approved mailers'
-  it 'updates walker upon owner denial'
-  it 'sends walk denial mailers'
-  it 'updates pending walker upon cancellation'
-  it 'sends cancellation mailers'
-  it 'sends destroyed job mailer'
-
+  
+  let(:job) { FactoryGirl.create(:job) }
+  
+  it '.hide makes hidden true' do
+    job.hide
+    expect(job.hidden).to be true
+  end
+  
 end

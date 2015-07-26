@@ -36,7 +36,7 @@ class RequestsController < ApplicationController
 
   def destroy
     @request.destroy
-    redirect_to user_requests_path(current_user)
+    redirect_to user_path(current_user), alert: 'Walk cancelled'
   end
 
   private

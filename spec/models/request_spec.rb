@@ -43,5 +43,6 @@ describe Request do
     end
   end
 
+  # methods
 
 end # describe Request 

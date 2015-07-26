@@ -7,4 +7,8 @@ class Pup < ActiveRecord::Base
 
   mount_uploader :pup_pic, PupPicUploader
 
+  def hide
+    self.update_attributes(hidden: true)
+  end
+
 end

@@ -18,16 +18,6 @@ FactoryGirl.define do
       email "invalid-email@gmail.com"
     end
 
-    #       transient do
-    #         requests_count 3
-    #       end
-
-    #       after(:create) do |walker, evaluator|
-    #         evaluator.requests_count.times do
-    #           walker.requests << create(:request, user: walker)
-    #         end
-    #       end
-
     factory :pup_owner do
       email "pup-owner@amazon.com"
     end

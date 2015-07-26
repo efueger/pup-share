@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724223834) do
+ActiveRecord::Schema.define(version: 20150726154012) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,12 +34,12 @@ ActiveRecord::Schema.define(version: 20150724223834) do
     t.string   "drop_off_location"
     t.datetime "pick_up_time"
     t.string   "pick_up_location"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
     t.integer  "user_id"
     t.integer  "pup_id"
     t.integer  "availability_id"
-    t.boolean  "hidden"
+    t.boolean  "hidden",            default: false
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
@@ -53,8 +53,8 @@ ActiveRecord::Schema.define(version: 20150724223834) do
     t.text     "pup_care_instructions"
     t.integer  "pup_age"
     t.integer  "user_id"
-    t.datetime "created_at",            null: false
-    t.datetime "updated_at",            null: false
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
     t.string   "pup_pic"
     t.boolean  "special_needs"
     t.boolean  "playful"
@@ -63,7 +63,7 @@ ActiveRecord::Schema.define(version: 20150724223834) do
     t.boolean  "chase_prone"
     t.boolean  "aggressive"
     t.boolean  "spayed_neutered"
-    t.boolean  "hidden"
+    t.boolean  "hidden",                default: false
   end
 
   create_table "requests", force: :cascade do |t|
@@ -72,9 +72,9 @@ ActiveRecord::Schema.define(version: 20150724223834) do
     t.string   "status"
     t.integer  "job_id"
     t.integer  "availability_id"
-    t.datetime "created_at",           null: false
-    t.datetime "updated_at",           null: false
-    t.boolean  "hidden"
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.boolean  "hidden",               default: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -84,14 +84,14 @@ ActiveRecord::Schema.define(version: 20150724223834) do
     t.string   "address"
     t.string   "phone"
     t.string   "emergency_phone"
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.string   "email",                       default: "", null: false
-    t.string   "encrypted_password",          default: "", null: false
+    t.datetime "created_at",                                  null: false
+    t.datetime "updated_at",                                  null: false
+    t.string   "email",                       default: "",    null: false
+    t.string   "encrypted_password",          default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",               default: 0,  null: false
+    t.integer  "sign_in_count",               default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.inet     "current_sign_in_ip"
@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 20150724223834) do
     t.string   "referral_first"
     t.string   "referral_last"
     t.string   "referral_relationship"
-    t.boolean  "hidden"
+    t.boolean  "hidden",                      default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

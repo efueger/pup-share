@@ -74,4 +74,5 @@ describe User do
       expect(owner.all_my_jobs).to eq ([job1,job2])
     end
   end
+  
 end

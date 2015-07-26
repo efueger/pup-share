@@ -103,7 +103,7 @@ describe RequestsController do
     before :each do
       sign_in @user = FactoryGirl.create(:user) 
       @request_attr = FactoryGirl.attributes_for(:request, user_id: @user, requested_of_user_id: @requested_of_user, job_id: @job)
-      request.env["HTTP_REFERER"] = user_jobs_path(@user)
+      request.env["HTTP_REFERER"] = user_path(@user)
     end
 
     it 'saves the new request in the database' do
@@ -119,7 +119,7 @@ describe RequestsController do
 
     it 'redirects back to the referring page' do
       post :create, user_id: @user.id, request: @request_attr
-      expect(response).to redirect_to user_jobs_path(@user)
+      expect(response).to redirect_to user_path(@user)
     end
   end
 
@@ -164,10 +164,15 @@ describe RequestsController do
           user_id: @user.id)}.to change(Request, :count).by(-1)
     end
 
-    it 'redirects to user_reqests index' do
+    it 'redirects to user dashboard' do
       delete :destroy, user_id: @user.id, id: @walk_request
-      expect(response).to redirect_to user_requests_path(@user)
-    end   
+      expect(response).to redirect_to user_path(@user)
+    end  
+
+    it 'notifies the requester' do
+      delete :destroy, user_id: @user.id, id: @walk_request
+      expect(flash[:alert]).to eq 'Walk cancelled'
+    end
   end
 
 end # RequestsController
