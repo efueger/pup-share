@@ -10,31 +10,36 @@ class RequestsController < ApplicationController
     @request = Request.new
   end
 
-  def edit
-    @request = Request.find(params[:id]) # allows rescue for destroyed requests
-    @request.update status: params[:status]
-    redirect_to root_path(current_user, status:'approved'), notice: @request.send_request_mailers
-  rescue ActiveRecord::RecordNotFound
-    redirect_to user_requests_path(current_user), alert: 'Sorry. The request or job no longer exists'   
-  end
-
   def create
     @request = current_user.requests.create(request_params)
-    @request.send_request_mailers
+    @request.walk_request
     flash[:notice] = 'Request sent! Check your dashboard'
     redirect_to(:back)
   end
 
-  # email does not support :post requests
-  # def update
-  #   if @request.update(request_params)
-  #     redirect_to user_requests_path(current_user), notice: 'Request updated'
-  #   else
-  #     render :edit
-  #   end
-  # end
+  def edit # facilitates mailer links
+    @request = Request.find(params[:id]) # allows rescue for destroyed requests
+    @request.update status: params[:status]
+    if params[:status] == 'approved'
+      @request.approve_walk_request
+      redirect_to user_path(current_user), notice: 'Request approved'
+    elsif params[:status] == 'declined'
+      @request.deny_walk_request
+      redirect_to user_path(current_user), notice: 'Request declined'
+    elsif params[:status] == 'cancelled'
+      @request.cancel_walk
+      @request.destroy
+      redirect_to user_path(current_user), alert: 'Walk cancelled'
+    end
+  rescue ActiveRecord::RecordNotFound
+    redirect_to user_path(current_user), alert: 'Sorry. The walk no longer exists'   
+  end
 
-  def destroy
+  # email does not support :post requests
+  # def update; end
+
+  def destroy # redundant functionality with #edit 
+    # @request.cancel_walk
     @request.destroy
     redirect_to user_path(current_user), alert: 'Walk cancelled'
   end

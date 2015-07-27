@@ -75,9 +75,9 @@ describe RequestsController do
     end
 
     context 'request exists' do
-      it "and redirects to the user's 'approved' page" do
+      it 'and redirects to the user dashboard' do
         get :edit, id: @my_request, user_id: @user.id
-        expect(response).to redirect_to root_path(@requested_of_user, status:'approved')
+        expect(response.status).to eq(200)
       end
     end
 
@@ -88,12 +88,12 @@ describe RequestsController do
 
       it 'alerts the user' do
         get :edit, id: 999, user_id: @user.id
-        expect(flash[:alert]).to eq 'Sorry. The request or job no longer exists'
+        expect(flash[:alert]).to eq 'Sorry. The walk no longer exists' 
       end
 
       it 'notices the record was not found' do
         get :edit, id: 999, user_id: @user.id        
-        expect(response).to redirect_to user_requests_path(@user)
+        expect(response).to redirect_to user_path(@user)
       end
     end
   end
@@ -158,10 +158,7 @@ describe RequestsController do
     end
 
     it 'deletes the request from the database' do
-      expect{
-        delete :destroy, user_id: @user.id, id: @walk_request,
-        request: FactoryGirl.attributes_for(:request, 
-          user_id: @user.id)}.to change(Request, :count).by(-1)
+      expect{delete :destroy, user_id: @user.id, id: @walk_request}.to change(Request, :count).by(-1)
     end
 
     it 'redirects to user dashboard' do
