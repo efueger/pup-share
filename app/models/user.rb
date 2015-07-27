@@ -32,7 +32,10 @@ class User < ActiveRecord::Base
   end
 
   def all_my_jobs
-    return self.jobs + self.walker_jobs
+    empty_arr = []
+    all_my_jobs = self.jobs + self.walker_jobs
+    return all_my_jobs unless all_my_jobs.nil?
+    return empty_arr
   end
 
 end
