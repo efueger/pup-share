@@ -1,6 +1,5 @@
 class RequestsController < ApplicationController
   before_action :authenticate_user!, except: [:edit]
-  before_action :set_request, only: [:show, :update, :destroy]
 
   def index; end
 
@@ -18,7 +17,7 @@ class RequestsController < ApplicationController
   end
 
   def edit # facilitates mailer links
-    @request = Request.find(params[:id]) # allows rescue for destroyed requests
+    @request = Request.find(params[:id])
     @request.update status: params[:status]
     if params[:status] == 'approved'
       @request.approve_walk_request
@@ -35,20 +34,17 @@ class RequestsController < ApplicationController
     redirect_to user_path(current_user), alert: 'Sorry. The walk no longer exists'   
   end
 
-  # email does not support :post requests
-  # def update; end
+  # def update; end # email does not support :post requests
 
   def destroy # redundant functionality with #edit 
-    # @request.cancel_walk
+    @request = Request.find(params[:id])
     @request.destroy
     redirect_to user_path(current_user), alert: 'Walk cancelled'
+  rescue ActiveRecord::RecordNotFound
+    redirect_to user_path(current_user), alert: 'Sorry. The walk no longer exists' 
   end
 
   private
-
-  def set_request
-    @request = Request.find(params[:id])
-  end
 
   def request_params
     params.require(:request).permit!

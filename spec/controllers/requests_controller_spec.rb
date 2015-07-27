@@ -38,25 +38,6 @@ describe RequestsController do
     end
   end
 
-  describe "GET #show" do
-
-    before :each do
-      sign_in @user = FactoryGirl.create(:user) 
-    end
-
-    it 'assigns the requested request to @request' do
-      request = FactoryGirl.create(:request)
-      get :show, id: request, user_id: @user.id
-      expect(assigns(:request)).to eq request
-    end
-
-    it 'renders the :show template' do
-      request = FactoryGirl.create(:request)
-      get :show, id: request, user_id: @user.id
-      expect(response).to render_template :show
-    end
-  end  
-
   describe 'GET #new' do
     it 'assigns a new request to @request' do
       sign_in @user = FactoryGirl.create(:user) 
