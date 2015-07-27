@@ -18,7 +18,6 @@ class RequestsController < ApplicationController
 
   def edit # facilitates mailer links
     @request = Request.find(params[:id])
-    binding.pry
     @request.update status: params[:status]
     if params[:status] == 'approved'
       @request.approve_walk_request
