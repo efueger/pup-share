@@ -18,6 +18,7 @@ class RequestsController < ApplicationController
 
   def edit # facilitates mailer links
     @request = Request.find(params[:id])
+    binding.pry
     @request.update status: params[:status]
     if params[:status] == 'approved'
       @request.approve_walk_request
@@ -31,7 +32,7 @@ class RequestsController < ApplicationController
       redirect_to user_path(current_user), alert: 'Walk cancelled'
     end
   rescue ActiveRecord::RecordNotFound
-    redirect_to user_path(current_user), alert: 'Sorry. The walk no longer exists'   
+    redirect_to jobs_path, alert: 'Sorry. The walk no longer exists'   
   end
 
   # def update; end # email does not support :post requests
@@ -39,9 +40,9 @@ class RequestsController < ApplicationController
   def destroy # redundant functionality with #edit 
     @request = Request.find(params[:id])
     @request.destroy
-    redirect_to user_path(current_user), alert: 'Walk cancelled'
+    redirect_to :back, alert: 'Walk cancelled'
   rescue ActiveRecord::RecordNotFound
-    redirect_to user_path(current_user), alert: 'Sorry. The walk no longer exists' 
+    redirect_to :back, alert: 'Sorry. The walk no longer exists' 
   end
 
   private

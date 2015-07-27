@@ -60,11 +60,16 @@ describe RequestsController do
         get :edit, id: @my_request, user_id: @user.id
         expect(response.status).to eq(200)
       end
+
+      it 'walk approved notifies'
+      it 'walk declined notifies'
+      it 'walk cancelled notifies'
     end
 
     context 'request no longer exists' do
       before :each do
-        sign_in @user = FactoryGirl.create(:user)        
+        sign_in @user = FactoryGirl.create(:user) 
+        request.env["HTTP_REFERER"] = jobs_path
       end
 
       it 'alerts the user' do
@@ -74,7 +79,7 @@ describe RequestsController do
 
       it 'notices the record was not found' do
         get :edit, id: 999, user_id: @user.id        
-        expect(response).to redirect_to user_path(@user)
+        expect(response).to redirect_to jobs_path
       end
     end
   end
@@ -136,21 +141,23 @@ describe RequestsController do
     before :each do
       sign_in @user = FactoryGirl.create(:user) 
       @walk_request = FactoryGirl.create(:request)
+      request.env["HTTP_REFERER"] = jobs_path
     end
 
+    context 'when record found'
     it 'deletes the request from the database' do
       expect{delete :destroy, user_id: @user.id, id: @walk_request}.to change(Request, :count).by(-1)
     end
 
     it 'redirects to user dashboard' do
       delete :destroy, user_id: @user.id, id: @walk_request
-      expect(response).to redirect_to user_path(@user)
+      expect(response).to redirect_to jobs_path
     end  
 
     it 'notifies the requester' do
       delete :destroy, user_id: @user.id, id: @walk_request
       expect(flash[:alert]).to eq 'Walk cancelled'
     end
-  end
+  end #destroy
 
 end # RequestsController
