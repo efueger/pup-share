@@ -13,23 +13,12 @@ class RequestsController < ApplicationController
     @request = current_user.requests.create(request_params)
     @request.walk_request
     flash[:notice] = 'Request sent! Check your dashboard'
-    redirect_to(:back)
+    redirect_to :back
   end
 
   def edit # facilitates mailer links
     @request = Request.find(params[:id])
-    @request.update status: params[:status]
-    if params[:status] == 'approved'
-      @request.approve_walk_request
-      redirect_to user_path(current_user), notice: 'Request approved'
-    elsif params[:status] == 'declined'
-      @request.deny_walk_request
-      redirect_to user_path(current_user), notice: 'Request declined'
-    elsif params[:status] == 'cancelled'
-      @request.cancel_walk
-      @request.destroy
-      redirect_to user_path(current_user), alert: 'Walk cancelled'
-    end
+    redirect_to jobs_path, notice: @request.send_request_mailers(params[:status]) 
   rescue ActiveRecord::RecordNotFound
     redirect_to jobs_path, alert: 'Sorry. The walk no longer exists'   
   end

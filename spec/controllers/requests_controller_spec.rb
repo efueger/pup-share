@@ -37,14 +37,23 @@ describe RequestsController do
     context 'request exists' do
       it 'and redirects to the user dashboard' do
         get :edit, id: my_request, user_id: user.id
-        expect(response.status).to eq(200)
+        expect(response).to redirect_to jobs_path
       end
 
-      it 'and walk approved notifies' do 
+      it 'and status is approved' do 
+        get :edit, id: my_request, user_id: user.id, status: 'approved'
+        expect(flash[:notice]).to eq 'Request approved'         
       end
 
-      it 'walk declined notifies'
-      it 'walk cancelled notifies'
+      it 'and walk declined notifies' do
+        get :edit, id: my_request, user_id: user.id, status: 'declined'
+        expect(flash[:notice]).to eq 'Request declined' 
+      end
+
+      it 'and walk cancelled notifies' do
+        get :edit, id: my_request, user_id: user.id, status: 'cancelled'
+        expect(flash[:notice]).to eq 'Walk cancelled' 
+      end
     end # request exists
 
     context 'request no longer exists' do
