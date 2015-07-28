@@ -18,18 +18,19 @@
 
       <% # if a user is signed in, grant them access to all the database interaction %>
       <% if user_signed_in? %>
-          <% if !current_user.all_my_jobs.include?(job) %>
+          <% if !current_user.all_my_jobs.include?(job) && !already_requested_and_declined?(job, current_user) %>
               <%= simple_form_for Request.new, url: user_requests_path(current_user, 
                   request: { user_id: current_user, requested_of_user_id: job.user, job_id: job, status: 'pending'}), method: :post do |f| %>
                   <%= f.button :submit, 'Walk this pup!', class: 'btn btn-success'%>
               <% end %>
-          <% elsif current_user.jobs.include?(job) # if current_user owns the job, allows 'destroying'/hiding the job %>
+          <% elsif current_user.jobs.include?(job) # if current_user owns the job, allows hiding the job %>
               <%= simple_form_for job, url: job_path(job, job: { hidden: true }) do |f| %>
                   <%= f.button :submit, 'Cancel walk', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'%>    
               <% end %>
           <% else %>
-              <% # if current_user does not own the job, but instead owns the request, then destroy the request %>
+              <% # if current_user does not own the job, but instead owns the request, then allowing destroy the request %>
               <%= link_to 'Cancel walk', [current_user, job.requests.last], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+              <% # if the request is hidden, implying it was declined by the pup owner, then do not show to walker to request again %>
           <% end %>
       <% # if a user is not signed in, then prompt them to sign in %>
       <% else %>
