@@ -34,7 +34,7 @@ class RequestsController < ApplicationController
     redirect_to jobs_path, alert: 'Sorry. The walk no longer exists'   
   end
 
-  # def update; end # email does not support :post requests
+  def update; end # email does not support :post requests
 
   def destroy # redundant functionality with #edit 
     @request = Request.find(params[:id])

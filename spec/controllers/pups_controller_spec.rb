@@ -143,7 +143,6 @@ describe PupsController do
   end # PATCH #update
 
   describe 'DELETE #destroy' do
-    let(:pup) { FactoryGirl.create(:pup, user_id: user.id) }
 
     before :each do
       sign_in @user = FactoryGirl.create(:user) 
