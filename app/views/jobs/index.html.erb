@@ -1,9 +1,7 @@
 <%= link_to 'New Job', new_job_path, class: 'btn btn-primary' %>
 
-<h1>Pups</h1>
+<h1>Pups in need of a walk</h1>
 
 <% @jobs.each do |job| %>
-<% if job.requests.empty? %>
 <%= render partial: 'job', locals: { job: job } %>
-<% end %>
 <% end %>

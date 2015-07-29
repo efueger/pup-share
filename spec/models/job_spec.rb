@@ -46,12 +46,36 @@ describe Job do
   end
 
   # methods
-  
+
   let(:job) { FactoryGirl.create(:job) }
-  
+
   it '.hide makes hidden true' do
     job.hide
     expect(job.hidden).to be true
   end
+
+  let(:job) { FactoryGirl.create(:job) }
+  let(:user) { FactoryGirl.create(:user) } 
+  let(:requested_of_user) { FactoryGirl.create(:user) } 
+  let(:my_request) { FactoryGirl.create(:request, user_id: user.id,
+    requested_of_user_id: requested_of_user.id, job_id: job.id) }
+
+  it '.already_requested_and_declined? with hidden true' do
+    my_request = FactoryGirl.create(:request, user_id: user.id, 
+      requested_of_user_id: requested_of_user.id, job_id: job.id, hidden: true)
+    expect(job.already_requested_and_declined?(user)).to eq true
+  end
+
+  it '.already_requested_and_declined with hidden false' do
+    my_request = FactoryGirl.create(:request, user_id: user.id, 
+      requested_of_user_id: requested_of_user.id, job_id: job.id, hidden: false)
+    expect(job.already_requested_and_declined?(user)).to eq false
+  end
   
+  it '.already_requested_and_declined? with no request' do
+    unrequested_job = FactoryGirl.create(:job)
+    expect(unrequested_job.already_requested_and_declined?(user)).to eq false
+  end
+
+
 end
