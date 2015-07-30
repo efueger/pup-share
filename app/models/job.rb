@@ -14,11 +14,20 @@ class Job < ActiveRecord::Base
     self.update_attributes(hidden: true)
   end
 
-  def already_requested_and_declined?(user)
-    # returns true if the user's request has already been declined
-    # returns false if the user's request has not been declined
-    return false if self.requests.where(user_id: user.id).first.nil?
-    return self.requests.where(user_id: user.id).first.hidden
+  def update_follow_up_attr(feedback)
+    self.how_did_it_go = feedback, 
+    self.hide
+    self.actual_walker.walks_completed += 1
+    self.pup.walks_completed += 1
+    case feedback
+    when 'awesome'
+      self.actual_walker.awesome_count += 1
+    when 'not_good'
+      self.actual_walker.not_good_count += 1
+    when 'no_show'
+      self.actual_walker.no_show_count += 1
+    end
+    return 'Feedback recorded'
   end
 
 end

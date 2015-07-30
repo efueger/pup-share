@@ -1,13 +1,9 @@
 class JobsController < ApplicationController
-  before_action :authenticate_user!, only: [:new, :edit, :create, :update, :destroy, :walk_request ]
-  before_action :set_job, except: [:index, :new, :create, :approve_walk_request, :deny_walk_request, :cancel_walk] 
+  before_action :authenticate_user!, except: [:index]
+  before_action :set_job, except: [:index, :new, :create] 
 
   def index
-    if params[:user_id].nil?
-      @jobs = Job.all
-    else
-      @jobs = Job.where(user_id: params[:user_id])
-    end
+    @jobs = Job.all
   end
 
   def show; end
@@ -20,11 +16,12 @@ class JobsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit # facilitates mailer links
+    redirect_to jobs_path, notice: @job.update_follow_up_attr(params[:feedback]) 
+  end
 
   def create
     @job = current_user.jobs.new(job_params)
-
     if @job.save
       redirect_to jobs_path, notice: 'Job created'
     else

@@ -1,0 +1,21 @@
+<p><strong>
+  <%= link_to 'Awesome!', edit_job_url(id: @request.job,
+  user_id: @request.job.user, 
+  feedback: 'awesome') %>
+  </strong></p>
+
+<p><strong>
+  <%= link_to 'Not Good...', edit_job_url(id: @request.job,
+  user_id: @request.job.user, 
+  feedback: 'not_good') %>
+  </strong></p>
+
+<p><strong>
+  <%= link_to 'No Show', edit_job_url(id: @request.job,
+  user_id: @request.job.user, 
+  feedback: 'no_show') %>
+  </strong></p>
+
+<%= render 'walk_request_person_details' %>
+<br>
+<%= render 'walk_request_details' %>

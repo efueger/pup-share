@@ -1,6 +1,3 @@
-<p><strong>Pup owner: <%= @request.requested_of_user.email %></strong></p>
-<p><strong>Walker: <%= @request.user.email %></strong></p>
-<br>
 <p>Drop off: <%= @request.job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
 <p>Place: <%= @request.job.drop_off_location %></p>
 <p>Pick up: <%= @request.job.pick_up_time.to_formatted_s(:long_ordinal) %></p>

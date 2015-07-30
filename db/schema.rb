@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150726154012) do
+ActiveRecord::Schema.define(version: 20150730224147) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -40,6 +40,9 @@ ActiveRecord::Schema.define(version: 20150726154012) do
     t.integer  "pup_id"
     t.integer  "availability_id"
     t.boolean  "hidden",            default: false
+    t.string   "how_did_it_go"
+    t.string   "actual_walker"
+    t.string   "status"
   end
 
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id", using: :btree
@@ -57,13 +60,9 @@ ActiveRecord::Schema.define(version: 20150726154012) do
     t.datetime "updated_at",                            null: false
     t.string   "pup_pic"
     t.boolean  "special_needs"
-    t.boolean  "playful"
-    t.boolean  "curious_fearless"
-    t.boolean  "sociable"
-    t.boolean  "chase_prone"
-    t.boolean  "aggressive"
     t.boolean  "spayed_neutered"
     t.boolean  "hidden",                default: false
+    t.integer  "walks_completed"
   end
 
   create_table "requests", force: :cascade do |t|
@@ -111,12 +110,11 @@ ActiveRecord::Schema.define(version: 20150726154012) do
     t.boolean  "senior_pups"
     t.boolean  "puppies"
     t.boolean  "bathroom_breaks"
-    t.text     "referral_quote"
-    t.string   "referral_email"
-    t.string   "referral_first"
-    t.string   "referral_last"
-    t.string   "referral_relationship"
     t.boolean  "hidden",                      default: false
+    t.integer  "awesome_count"
+    t.integer  "not_good_count"
+    t.integer  "no_show_count"
+    t.integer  "walks_completed"
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
