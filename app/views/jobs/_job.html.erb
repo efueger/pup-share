@@ -16,8 +16,12 @@
       <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.pick_up_location %></p>
 
+      <% if user_signed_in? %>
       <%= render partial: 'jobs/buttons', locals: { job: job } %>
-
+      <% else %>
+      <%= link_to 'Walk this pup!', new_user_session_path, class: 'btn btn-success' %>
+      <% end %>
+      
     </div>
     <div class="col-md-3">
       <% if job.requests.empty? %>

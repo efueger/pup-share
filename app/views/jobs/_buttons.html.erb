@@ -1,23 +1,19 @@
-<% # button functionality %>
+<% # logged in users %>
 
-<% # if a user is signed in, grant them access to all the database interaction %>
-<% if user_signed_in? %>
-<% if !current_user.all_my_jobs.include?(job) && !job.already_requested_and_declined?(current_user) %>
-<%= simple_form_for Request.new, url: user_requests_path(current_user, 
-  request: { user_id: current_user, requested_of_user_id: job.user, job_id: job, status: 'pending'}), method: :post do |f| %>
-<%= f.button :submit, 'Walk this pup!', class: 'btn btn-success'%>
-<% end %>
-<% elsif current_user.jobs.include?(job) # if current_user owns the job, allows hiding the job %>
-<%= simple_form_for job, url: job_path(job, job: { hidden: true }) do |f| %>
-<%= f.button :submit, 'Cancel walk', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger'%>    
-<% end %>
-<% else %>
-<% # if current_user does not own the job, but instead owns the request, then allowing destroy the request %>
-<%= link_to 'Cancel walk', [current_user, job.requests.last], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
-<% end %>
-<% else %>
-<% # if a user is not signed in, then prompt them to sign in %>
-<%= link_to 'Walk this pup!', new_user_session_path, class: 'btn btn-success' %>
-<% end %>
+<% # if current_user is the pup owner, then allow them to hide the job %> 
+<% if current_user.jobs.include?(job) %>
+    <%= simple_form_for job, url: job_path(job, job: { hidden: true }) do |f| %>
+    <%= f.button :submit, 'Cancel walk', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>    
+    <% end %>
 
-<% # end of button functionality %>
+<% # elsif current_user is the requester, then allow them to hide their request %>
+<% elsif !(current_user.requests & job.requests).empty? %>
+    <%= link_to 'Cancel walk', [current_user, job.requests.last], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+
+<% # else current_user is just some other guy, then create a new request %>
+<% else %>
+    <%= simple_form_for Request.new, url: user_requests_path(current_user, 
+      request: { user_id: current_user, requested_of_user_id: job.user, job_id: job, status: 'pending'}), method: :post do |f| %>
+    <%= f.button :submit, 'Walk this pup!', class: 'btn btn-success' %>
+    <% end %>
+<% end %>
