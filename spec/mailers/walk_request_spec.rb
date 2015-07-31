@@ -1,6 +1,11 @@
 require 'rails_helper'
 
-describe  WalkRequest do
+describe WalkRequest do
+  include ActiveJob::TestHelper
+
+  after do
+    clear_enqueued_jobs
+  end 
 
   let(:user)               { FactoryGirl.create(:user) }
   let(:requested_of_user)  { FactoryGirl.create(:user) }
@@ -18,7 +23,6 @@ describe  WalkRequest do
     let(:delivered_emails) { ActionMailer::Base.deliveries }
 
     it 'delivers one email' do
-
       expect(delivered_emails.count).to eq(1)
     end
 
@@ -50,9 +54,9 @@ describe  WalkRequest do
 
     let(:delivered_emails) { ActionMailer::Base.deliveries }
 
-    # it 'delivers two emails' do
-    it 'delivers one email' do
-      expect(delivered_emails.count).to eq(1)
+    # TODO: need to change follow-up to deliver later
+    it 'delivers two emails' do
+      expect(delivered_emails.count).to eq(2)
     end
 
     context 'approval' do
@@ -69,6 +73,12 @@ describe  WalkRequest do
       it 'has the expected subject' do
         expect(approved_email).to have_subject 'PupShare: Yay! Your walk request was approved'   
       end
+
+      # TODO: will use this after changing deliver_now to deliver_later
+      it 'follow-up email is enqueued to be delivered later'
+      #         expect(enqueued_jobs.size).to eq(1)
+      #       end
+
     end
   end # approved request
 

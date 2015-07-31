@@ -94,8 +94,6 @@ describe JobsController do
       it 'no_show'
     end
     it 'updates pup attributes'
-
-
   end
 
   describe 'POST #create' do

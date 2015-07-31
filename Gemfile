@@ -46,3 +46,6 @@ gem 'airbrake' ### NOT CONFIGURED, subscription product
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 gem 'puma' # new server, Heroku/ProductHunt recommended
+
+gem 'delayed_job_active_record' # asynchronous mailers
+gem 'daemons'

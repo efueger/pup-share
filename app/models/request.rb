@@ -12,6 +12,11 @@ class Request < ActiveRecord::Base
 
   def approve_walk_request
     WalkRequest.walk_request_approved(self).deliver_now 
+    self.job.update_attributes actual_walker_id: self.user.id
+    WalkRequest.walk_request_follow_up(self).deliver_now
+    # TODO: change delivery type
+    # WalkRequest.walk_request_follow_up(self).deliver_later(wait: 1.hour)
+    # TODO: test this
     self.update_attributes status: 'approved'
     return 'Request approved'
   end
@@ -24,6 +29,8 @@ class Request < ActiveRecord::Base
 
   def cancel_walk
     WalkRequest.walk_request_cancel(self).deliver_now 
+    # TODO: cancel follow up email
+    # TODO: test this
     self.update_attributes status: 'cancelled', hidden: true
     return 'Walk cancelled'
   end
