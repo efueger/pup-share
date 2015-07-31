@@ -11,24 +11,25 @@ class Job < ActiveRecord::Base
   has_many   :requests, dependent: :destroy
 
   def hide
-    self.update_attributes(hidden: true)
+    self.update_attributes hidden: true
   end
 
   def update_follow_up_attr(feedback)
-    self.how_did_it_go = feedback, 
-    self.hide
-    self.actual_walker.walks_completed += 1
-    self.pup.walks_completed += 1
+    self.update_attributes how_did_it_go: feedback, hidden: true
+    User.find(self.actual_walker_id).increment!(:walks_completed, by = 1)
+    self.pup.increment!(:walks_completed, by = 1)
+
     case feedback
     when 'awesome'
-      self.actual_walker.awesome_count += 1
+      User.find(self.actual_walker_id).increment!(:awesome_count, by = 1)
     when 'not_good'
-      self.actual_walker.not_good_count += 1
+      User.find(self.actual_walker_id).increment!(:not_good_count, by = 1)
     when 'no_show'
-      self.actual_walker.no_show_count += 1
+      User.find(self.actual_walker_id).increment!(:no_show_count, by = 1)
     end
+
     return 'Feedback recorded'
-  end
+  end # update_follow_up_attr
 
 end
 

@@ -47,11 +47,44 @@ describe Job do
 
   # methods
 
-  let(:job) { FactoryGirl.create(:job) }
+  let(:user) { FactoryGirl.create(:user) }
+  let(:job)  { FactoryGirl.create(:job, actual_walker_id: user.id) }
+  let(:pup)  { FactoryGirl.create(:pup, job_id: job.id, user_id: user.id) }
 
   it '.hide makes hidden true' do
     job.hide
     expect(job.hidden).to be true
   end
+
+  context '.update_follow_up_attr' do
+    it 'updates the job' do
+      job.update_follow_up_attr('awesome')
+      expect(job).to have_attributes(how_did_it_go: 'awesome', hidden: true)
+    end
+
+    it 'increments the actual walker\'s walks completed count' do
+      expect { job.update_follow_up_attr('awesome') }.to change{User.find(job.actual_walker_id).walks_completed}.from(0).to(1)
+    end
+
+    it 'increments the pup walk completed count' do
+      expect { job.update_follow_up_attr('awesome') }.to change{job.pup.walks_completed}.from(0).to(1)
+    end
+
+    it 'incrments the actual walker awesome count' do
+      expect { job.update_follow_up_attr('awesome') }.to change{User.find(job.actual_walker_id).awesome_count}.from(0).to(1)   
+    end
+
+    it 'incrments the actual walker not_good_count' do
+      expect { job.update_follow_up_attr('not_good') }.to change{User.find(job.actual_walker_id).not_good_count}.from(0).to(1)   
+    end
+
+    it 'incrments the actual walker no_show count' do
+      expect { job.update_follow_up_attr('no_show') }.to change{User.find(job.actual_walker_id).no_show_count}.from(0).to(1)   
+    end
+
+    it 'returns a notice' do
+      expect(job.update_follow_up_attr('awesome')).to eq 'Feedback recorded'
+    end 
+  end # update_follow_up_attr
 
 end
