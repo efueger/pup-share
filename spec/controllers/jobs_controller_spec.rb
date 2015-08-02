@@ -79,21 +79,7 @@ describe JobsController do
   end
 
   describe 'GET #edit' do
-
-    before :each do
-      sign_in @user = FactoryGirl.create(:user)      
-    end
-
-    let(:job) { FactoryGirl.create(:job) }
-
-    it 'notifies the user feedback was recorded'
-    it 'updates job attributes'
-    context 'updates walker attributes depending on' do
-      it 'awesome'
-      it 'not_good'
-      it 'no_show'
-    end
-    it 'updates pup attributes'
+    # edit calls a job method that is unit-tested elsewhere
   end
 
   describe 'POST #create' do

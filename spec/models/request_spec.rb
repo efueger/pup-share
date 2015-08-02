@@ -2,6 +2,10 @@ require 'rails_helper'
 
 describe Request do
 
+  before :each do
+    Delayed::Worker.delay_jobs = false
+  end
+
   # validations
 
   # methods

@@ -54,31 +54,26 @@ describe WalkRequest do
 
     let(:delivered_emails) { ActionMailer::Base.deliveries }
 
-    # TODO: need to change follow-up to deliver later
-    it 'delivers two emails' do
-      expect(delivered_emails.count).to eq(2)
+    it 'delivers one email' do
+      expect(delivered_emails.count).to eq(1)
     end
 
-    context 'approval' do
-      let(:approved_email) { delivered_emails.first }
+    let(:approved_email) { delivered_emails.first }
 
-      it 'delivered from the default' do
-        expect(approved_email).to be_delivered_from 'no-reply@PupShare.com'
-      end
+    it 'delivered from the default' do
+      expect(approved_email).to be_delivered_from 'no-reply@PupShare.com'
+    end
 
-      it 'delivered to the requesting user' do
-        expect(approved_email).to be_delivered_to user.email 
-      end
+    it 'delivered to the requesting user' do
+      expect(approved_email).to be_delivered_to user.email 
+    end
 
-      it 'has the expected subject' do
-        expect(approved_email).to have_subject 'PupShare: Yay! Your walk request was approved'   
-      end
+    it 'has the expected subject' do
+      expect(approved_email).to have_subject 'PupShare: Yay! Your walk request was approved'   
+    end
 
-      # TODO: will use this after changing deliver_now to deliver_later
-      it 'follow-up email is enqueued to be delivered later'
-      #         expect(enqueued_jobs.size).to eq(1)
-      #       end
-
+    it 'enqueued the follow-up' do
+      expect(enqueued_jobs.size).to eq(1)
     end
   end # approved request
 
