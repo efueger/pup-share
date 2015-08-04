@@ -92,7 +92,7 @@ describe RequestsController do
 
     it 'notifies the requester' do
       post :create, user_id: @user.id, request: request_attr
-      expect(flash[:notice]).to eq 'Request sent! Check your dashboard'
+      expect(flash[:notice]).to eq "Your offer to walk this pup has been sent to the owner! Check 'My Upcoming Walks' to monitor"
     end
 
     it 'redirects back to the referring page' do

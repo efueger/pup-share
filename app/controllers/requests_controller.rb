@@ -15,7 +15,7 @@ class RequestsController < ApplicationController
   def create
     @request = current_user.requests.create(request_params)
     @request.walk_request
-    flash[:notice] = 'Request sent! Check your dashboard'
+    flash[:notice] = "Your offer to walk this pup has been sent to the owner! Check 'My Upcoming Walks' to monitor"
     redirect_to :back
   end
 

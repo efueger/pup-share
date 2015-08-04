@@ -3,12 +3,12 @@
 <% # if current_user is the pup owner, then allow them to hide the job %> 
 <% if current_user.jobs.include?(job) %>
     <%= simple_form_for job, url: job_path(job, job: { hidden: true }) do |f| %>
-    <%= f.button :submit, 'Cancel walk', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>    
+<%= f.button :submit, 'I no longer need a walker', data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>    
     <% end %>
 
 <% # elsif current_user is the requester, then allow them to hide their request %>
 <% elsif !(current_user.requests & job.requests).empty? %>
-    <%= link_to 'Cancel walk', [current_user, job.requests.last], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+<%= link_to 'I want to cancel my offer to walk this pup', [current_user, job.requests.last], method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
 
 <% # else current_user is just some other guy, then create a new request %>
 <% else %>
