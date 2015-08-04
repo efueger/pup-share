@@ -1,7 +1,10 @@
 class RequestsController < ApplicationController
   before_action :authenticate_user!, except: [:edit]
 
-  def index; end
+  def index
+    @jobs = current_user.jobs
+    @requests = current_user.requests
+  end
 
   def show; end
 

@@ -1,13 +1,16 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :upcoming_walks, :edit, :update, :destroy]
 
-  def index; end
+  def index
+    @users = User.all  
+  end
 
   def show
+    @user = current_user
     @pups = current_user.pups
-    @availabilities = current_user.availabilities
-    @jobs = current_user.jobs
-    @requests = current_user.requests
+#     @availabilities = current_user.availabilities
+#     @jobs = current_user.jobs
+#     @requests = current_user.requests
   end
 
   def new

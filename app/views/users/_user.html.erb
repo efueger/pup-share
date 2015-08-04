@@ -1,32 +1,28 @@
 <div class="booyah-box">
   <div class="row">
     <div class="col-md-2">
-      <p><%= image_tag @user.pic, :class => 'img-responsive profile-image'  %></p>
+      <p><%= image_tag user.pic, :class => 'img-responsive profile-image'  %></p>
     </div>
 
     <div class="col-md-5">           
-      <p><%= "#{@user.first_name} #{@user.last_name}" %></p>
-      <p><%= "#{@user.email}" %></p>
-      <p> <%= "Phone #{@user.phone}" %></p>   
-      <p> <%= "Emergency phone #{@user.emergency_phone}" %></p>   
-      <p> <%= "Building #{@user.building}" %></p>
-      <p> <%= "Address #{@user.address}" %></p>
+      <p><%= "#{user.first_name} #{user.last_name}" %></p>
+      <p><%= "#{user.email}" %></p>
+      <p> <%= "Phone #{user.phone}" %></p>   
+      <p> <%= "Emergency phone #{user.emergency_phone}" %></p>   
+      <p> <%= "Building #{user.building}" %></p>
+      <p> <%= "Address #{user.address}" %></p>
       <p> <%= "Desk Number" %></p>
     </div>
 
     <div class="col-md-5">  
-      <p><%= "Small #{@user.small_pups}" %></p>
-      <p><%= "Medium #{@user.medium_pups}" %></p>
-      <p><%= "Large #{@user.large_pups}" %></p>
-      <p><%= "Giant #{@user.giant_pups}" %></p>
-      <p><%= "Puppies #{@user.puppies}" %></p>     
-      <p><%= "Senior pups #{@user.senior_pups}" %></p>
-      <p><%= "Special needs pups #{@user.pups_w_special_needs}" %></p>  
-      <p><%= "Oral medication administration #{@user.oral_med_admin}" %></p>
-    </div>
-
-    <div class="col-md-5"> 
-      <%= link_to 'Edit Profile', edit_user_path(@user), class: 'btn btn-warning' %>
+      <p><%= "Small #{user.small_pups}" %></p>
+      <p><%= "Medium #{user.medium_pups}" %></p>
+      <p><%= "Large #{user.large_pups}" %></p>
+      <p><%= "Giant #{user.giant_pups}" %></p>
+      <p><%= "Puppies #{user.puppies}" %></p>     
+      <p><%= "Senior pups #{user.senior_pups}" %></p>
+      <p><%= "Special needs pups #{user.pups_w_special_needs}" %></p>  
+      <p><%= "Oral medication administration #{user.oral_med_admin}" %></p>
     </div>
   </div><!-- row -->
 </div><!-- booyah-box -->

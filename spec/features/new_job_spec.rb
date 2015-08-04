@@ -6,7 +6,7 @@ feature 'Creating new job' do
 
   scenario 'while not logged in' do
     visit jobs_path
-    click_on 'New Job'
+    click_on 'walker needed'
     expect(page).to have_content 'You need to sign in or sign up before continuing.'
   end
 
@@ -19,7 +19,7 @@ feature 'Creating new job' do
     expect(page).to have_content 'Signed in successfully'
     # 
     visit jobs_path
-    click_on 'New Job'
+    click_on 'walker needed'
     expect(page).to have_content 'Create a pup to add to your job'
   end
 
@@ -32,7 +32,7 @@ feature 'Creating new job' do
     expect(page).to have_content 'Signed in successfully'
     # 
     visit jobs_path
-    click_on 'New Job'
+    click_on 'walker needed'
     expect(page).to have_content 'Create a pup to add to your job'    
   end
 
@@ -53,9 +53,9 @@ feature 'Creating new job' do
     expect(page).to have_content 'Pup created'
     expect(current_path).to eql(user_path(user))
     # create job
-    visit user_path(user)
-    expect(current_path).to eql(user_path(user))
-    click_on 'New Job'
+    visit jobs_path
+    expect(current_path).to eql(jobs_path)
+    click_on 'walker needed'
     expect(current_path).to eql(new_job_path)
     choose "job_pup_id_#{Pup.last.id}"
     fill_in 'Drop off location', with: Time.now

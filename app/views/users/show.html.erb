@@ -12,28 +12,6 @@
 <br>
 <% end %>
 
-<h1>My pup is walking</h1> 
-<%= link_to 'New Job', new_job_path, class: 'btn btn-primary' %>
-<br>
-<br>
-<% @jobs.each do |job| %>
-<%= render partial: 'jobs/job', locals: { job: job } %>
-<% end %>
-
-<h1>I am walking someone else's pup</h1> 
-<br>
-<% @requests.each do |request| %>
-<%= render partial: 'jobs/job', locals: { job: request.job } %>
-<% end %>
-
-
-<%#= link_to 'New Availability', new_availability_path, class: 'btn btn-primary' %>
-<!-- <br> -->
-<!-- <br> -->
-<%# @availabilities.each do |availability| %> 
-<%#= render partial: 'availabilities/availability', locals: { availability: availability } %>
-<%# end %>
-
 <br>
 <br>
 <br>

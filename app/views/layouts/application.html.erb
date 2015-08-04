@@ -17,11 +17,12 @@
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav navbar-left">
             <li><%= link_to 'Walk a Pup', jobs_path %>
-            <li><%#= link_to 'Find a Walker', availabilities_path %>
+            <li><%= link_to 'Find a Walker', users_path %>
           </ul>
           <ul class="nav navbar-nav navbar-right"> 
             <% if user_signed_in? %>
-            <li><%= link_to 'Dashboard', user_path(current_user) %>            
+            <li><%= link_to 'My Upcoming Walks', user_requests_path(current_user) %> 
+            <li><%= link_to 'Profile & Pups', user_path(current_user) %> 
             <li><%= link_to 'Sign Out', destroy_user_session_path, method: :delete %></li>
             <% else %>
             <li><%= link_to 'Sign In', new_user_session_path %></li>

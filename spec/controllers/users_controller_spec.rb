@@ -36,15 +36,15 @@ describe UsersController do
       expect(assigns(:pups)).to eq user.pups
     end
 
-    it 'assigns all of a user\'s availabilities to @availabilities' do
-      get :show, id: user
-      expect(assigns(:availabilities)).to eq user.availabilities
-    end
+#     it 'assigns all of a user\'s availabilities to @availabilities' do
+#       get :show, id: user
+#       expect(assigns(:availabilities)).to eq user.availabilities
+#     end
 
-    it 'assigns all of a user\'s jobs to to @jobs' do
-      get :show, id: user
-      expect(assigns(:jobs)).to eq user.jobs
-    end
+#     it 'assigns all of a user\'s jobs to to @jobs' do
+#       get :show, id: user
+#       expect(assigns(:jobs)).to eq user.jobs
+#     end
 
     it 'renders the :show template' do
       get :show, id: user
