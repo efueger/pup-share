@@ -1,3 +1,9 @@
+<%= render partial: 'users/session_buttons' %>
+
+<%= render partial: 'jobs/new_job_button' %>
+
+<h1>Walkers ready to lend you a hand</h1>
+
 <% @users.each do |user| %>
 <%= render partial: 'user', locals: { user: user } %>
 <br>

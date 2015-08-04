@@ -1,5 +1,6 @@
-<h1>My pup is walking</h1> 
-<%= link_to 'New Job', new_job_path, class: 'btn btn-primary' %>
+<%= render partial: 'jobs/new_job_button' %>
+
+<h1>Someone else is walking my pup</h1> 
 <br>
 <br>
 <% @jobs.each do |job| %>

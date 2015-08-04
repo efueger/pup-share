@@ -25,4 +25,7 @@
       <p><%= "Oral medication administration #{user.oral_med_admin}" %></p>
     </div>
   </div><!-- row -->
+  <% if user_signed_in? && user == current_user %>
+  <%= link_to 'Edit Profile', edit_user_path(current_user), class: 'btn btn-warning' %>
+  <% end %>
 </div><!-- booyah-box -->
