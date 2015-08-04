@@ -11,13 +11,13 @@ collection: current_user.pups, include_blank: false %>
 </div>
 
 <div class="form-inputs row">
-  <div class="col-md-6">
+  <div class="col-md-3">
     <%= f.input :drop_off_location %>
-    <%= f.input :drop_off_time %>
+    <%= f.input :drop_off_time, ampm: true, minute_step: 15 %>
   </div>
-  <div class="col-md-6">
+  <div class="col-md-3">
     <%= f.input :pick_up_location %>
-    <%= f.input :pick_up_time %>
+    <%= f.input :pick_up_time, ampm: true, minute_step: 15 %>
   </div>
 </div>
 
