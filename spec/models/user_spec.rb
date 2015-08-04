@@ -24,7 +24,7 @@ describe User do
   it 'is invalid without an @amazon.com email' do
     user = FactoryGirl.build(:invalid_user)
     user.valid?
-    expect(user.errors[:email]).to include("Email address must have @amazon domain")
+    expect(user.errors[:email]).to include("Email address must have @amazon.com domain")
   end
 
   #   it 'is valid with a first name'
