@@ -21,11 +21,11 @@ describe Job do
     expect(job.errors[:drop_off_location]).to include("can't be blank")    
   end
 
-  it 'is invalid without pick_up_time' do
-    job = FactoryGirl.build(:job, pup_id: 1, user_id: 1, pick_up_time: nil)
-    job.valid?
-    expect(job.errors[:pick_up_time]).to include("can't be blank") 
-  end
+#   it 'is invalid without pick_up_time' do
+#     job = FactoryGirl.build(:job, pup_id: 1, user_id: 1, pick_up_time: nil)
+#     job.valid?
+#     expect(job.errors[:pick_up_time]).to include("can't be blank") 
+#   end
 
   it 'is invalid without pick_up_location' do
     job = FactoryGirl.build(:job, pup_id: 1, user_id: 1, pick_up_location: nil)

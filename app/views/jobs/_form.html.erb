@@ -3,25 +3,24 @@
 
 <br>
 
-<div class="form-inputs row">
-  <div class="col-md-6">
-    <%= f.association :pup, as: :radio_buttons, label_method: :pup_name, 
-collection: current_user.pups, include_blank: false %>
-  </div>
+<div class="form-inputs col-md-2">
+  <%= f.association :pup, as: :radio_buttons, label_method: :pup_name, collection: current_user.pups, include_blank: false %>
 </div>
 
-<div class="form-inputs row">
-  <div class="col-md-3">
-    <%= f.input :drop_off_location %>
-    <%= f.input :drop_off_time, ampm: true, minute_step: 15 %>
-  </div>
-  <div class="col-md-3">
-    <%= f.input :pick_up_location %>
-    <%= f.input :pick_up_time, ampm: true, minute_step: 15 %>
-  </div>
+<div class="form-inputs col-md-4">
+  <%= f.input :drop_off_location %>
+  <%= f.input :drop_off_time, ampm: true, minute_step: 15 %>
 </div>
 
-<div class="form-actions">
+<div class="form-inputs col-md-2">
+  <%= f.input :walk_duration, as: :radio_buttons, collection: [5,10,15,30,45,60], include_blank: false %>
+</div>
+
+<div class="form-inputs col-md-4">
+  <%= f.input :pick_up_location %>
+</div>
+
+<div class="form-actions col-md-12">
   <%= f.button :submit, class: 'btn btn-success'%>
 </div>
 

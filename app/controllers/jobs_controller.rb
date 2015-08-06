@@ -1,7 +1,8 @@
 class JobsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_job, except: [:index, :new, :create] 
-
+  # after_create :set_job_pick_up_time, only: [:create]
+  
   def index
     @jobs = Job.all
   end
@@ -22,6 +23,7 @@ class JobsController < ApplicationController
 
   def create
     @job = current_user.jobs.new(job_params)
+    @job.update_attributes(pick_up_time: @job.drop_off_time + @job.walk_duration * 60)
     if @job.save
       redirect_to jobs_path, notice: 'Job created'
     else
@@ -52,6 +54,9 @@ class JobsController < ApplicationController
   def set_job
     @job = Job.find(params[:id])
   end
+
+  # def set_job_pick_up_time 
+  # end
 
   def job_params
     params.require(:job).permit!
