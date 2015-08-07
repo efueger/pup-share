@@ -10,7 +10,8 @@ class User < ActiveRecord::Base
   # validates :phone,                 presence: true 
   # validates :emergency_phone,       presence: true 
 
-  validates_format_of :email, :with => /.{1,50}@amazon.com/, message: "Email address must have @amazon.com domain"  
+  validates_format_of :email, with: /.{1,50}@amazon.com/, 
+  message: "Email address must have @amazon.com domain"  
 
   has_many :jobs, dependent: :destroy
   has_many :pups, dependent: :destroy
