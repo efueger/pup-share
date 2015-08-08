@@ -15,6 +15,9 @@ class Job < ActiveRecord::Base
   end
 
   def update_follow_up_attr(feedback)
+    # prevent user from submitting feedback multiple times on same job
+    return 'Feedback previously recorded for this walk' if self.hidden
+
     self.update_attributes how_did_it_go: feedback, hidden: true
     User.find(self.actual_walker_id).increment!(:walks_completed, by = 1)
     self.pup.increment!(:walks_completed, by = 1)

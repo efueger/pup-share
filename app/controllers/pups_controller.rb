@@ -16,9 +16,8 @@ class PupsController < ApplicationController
 
   def create
     @pup = current_user.pups.new(pup_params)
-
     if @pup.save
-      redirect_to user_path(current_user), notice: 'Pup created'
+      redirect_to new_job_path(current_user), notice: "You created a pup. Use this form to find a walker"
     else
       render :new 
     end

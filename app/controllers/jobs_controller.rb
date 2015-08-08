@@ -1,7 +1,6 @@
 class JobsController < ApplicationController
   before_action :authenticate_user!, except: [:index]
   before_action :set_job, except: [:index, :new, :create] 
-  # after_create :set_job_pick_up_time, only: [:create]
   
   def index
     @jobs = Job.all
@@ -10,7 +9,7 @@ class JobsController < ApplicationController
   def show; end
 
   def new
-    if current_user.pups.empty?
+    if current_user.pups.where(hidden: false).empty?
       redirect_to new_user_pup_path(current_user), alert: 'Create a pup to add to your job'
     else
       @job = Job.new
@@ -25,7 +24,7 @@ class JobsController < ApplicationController
     @job = current_user.jobs.new(job_params)
     @job.update_attributes(pick_up_time: @job.drop_off_time + @job.walk_duration * 60)
     if @job.save
-      redirect_to jobs_path, notice: 'Job created'
+      redirect_to jobs_path, notice: 'Job created. You can monitor its status in you \'My Upcoming Walks\' tab'
     else
       render :new
     end
@@ -54,9 +53,6 @@ class JobsController < ApplicationController
   def set_job
     @job = Job.find(params[:id])
   end
-
-  # def set_job_pick_up_time 
-  # end
 
   def job_params
     params.require(:job).permit!

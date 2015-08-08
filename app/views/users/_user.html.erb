@@ -2,10 +2,13 @@
   <div class="row">
     <div class="col-md-2">
       <p><%= image_tag user.pic, :class => 'img-responsive profile-image'  %></p>
+      <% if user_signed_in? && user == current_user %>
+      <%= link_to 'Edit Profile', edit_user_path(current_user), class: 'btn btn-warning' %>
+      <% end %>
     </div>
 
-    <div class="col-md-5">           
-      <p><%= "#{user.first_name} #{user.last_name}" %></p>
+    <div class="col-md-4">           
+      <p><strong><%= "#{user.first_name} #{user.last_name}" %></strong></p>
       <p><%= "#{user.email}" %></p>
       <p> <%= "Phone #{user.phone}" %></p>   
       <p> <%= "Emergency phone #{user.emergency_phone}" %></p>   
@@ -14,7 +17,8 @@
       <p> <%= "Desk Number" %></p>
     </div>
 
-    <div class="col-md-5">  
+    <div class="col-md-4"> 
+      <h6><strong>Pup skills</strong></h6>
       <p><%= "Small #{user.small_pups}" %></p>
       <p><%= "Medium #{user.medium_pups}" %></p>
       <p><%= "Large #{user.large_pups}" %></p>
@@ -24,8 +28,12 @@
       <p><%= "Special needs pups #{user.pups_w_special_needs}" %></p>  
       <p><%= "Oral medication administration #{user.oral_med_admin}" %></p>
     </div>
+
+    <div class="col-md-2"> 
+      <h6><strong>Previous walks</strong></h6>
+      <p><%= "Awesome #{user.awesome_count}" %></p>
+      <p><%= "Not good #{user.not_good_count}" %></p>
+      <p><%= "No show #{user.no_show_count}" %></p>
+    </div>
   </div><!-- row -->
-  <% if user_signed_in? && user == current_user %>
-  <%= link_to 'Edit Profile', edit_user_path(current_user), class: 'btn btn-warning' %>
-  <% end %>
 </div><!-- booyah-box -->

@@ -2,7 +2,9 @@
 <%= f.error_notification %>
 
 <div class="form-inputs">
-  <div class="col-md-3">  
+
+  <div class="col-md-4">  
+    <h2>Profile</h2>
     <%= f.input :first_name %>
     <%= f.input :last_name %>
     <%= f.input :email %>
@@ -10,31 +12,32 @@
     <%= f.input :emergency_phone %>
     <%= f.input :building %>
     <%= f.input :address %>
+  </div>
+
+  <div class="col-md-4">  
+    <h2></h2>
+    <%= image_tag @user.pic, class: 'img-responsive'  %>
     <%= f.input :pic %>
   </div>
 
-  <div class="col-md-3"> 
-    <strong>Acceptable Pup Size</strong>
+  <div class="col-md-4"> 
+    <h2>Pup Preferences</h2>
+    <h6>Tell us what types of pups you prefer to walk</h6>
+    <strong>Pup Size</strong>
     <%= f.input :small_pups %>
     <%= f.input :medium_pups %>
     <%= f.input :large_pups %>
     <%= f.input :giant_pups %>   
-  </div>
-
-  <div class="col-md-3">
-     <strong>Accepatable Pup Age</strong>
+    <strong>Pup Age</strong>
     <%= f.input :puppies %>
     <%= f.input :senior_pups %>
-  </div>
-
-  <div class="col-md-3">
-     <strong>Other Skills</strong>
+    <strong>Other Needs</strong>
     <%= f.input :pups_w_special_needs %>
     <%= f.input :oral_med_admin %>
   </div>
 </div>
 
 <div class="form-actions col-md-12">
-  <%= f.button :submit, class: 'btn btn-success' %>
+  <%= f.button :submit, 'Update Profile', class: 'btn btn-success' %>
 </div>
 <% end %>

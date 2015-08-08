@@ -71,13 +71,13 @@ describe PupsController do
       it 'redirects to user dashboard' do
         post :create, user_id: user.id, 
         pup: FactoryGirl.attributes_for(:pup, user_id: user.id)
-        expect(response).to redirect_to user_path(user)
+        expect(response).to redirect_to new_job_path(user)
       end
 
       it 'notifies the user of creation' do
         post :create, user_id: user.id, 
         pup: FactoryGirl.attributes_for(:pup, user_id: user.id)
-        expect(flash[:notice]). to eql 'Pup created'
+        expect(flash[:notice]). to eql 'You created a pup. Use this form to find a walker'
       end
     end
 

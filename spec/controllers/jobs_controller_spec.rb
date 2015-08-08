@@ -102,7 +102,7 @@ describe JobsController do
 
       it 'notifies the user of creation' do
         post :create, job: FactoryGirl.attributes_for(:job, user_id: @user.id, pup_id: @pup.id)
-        expect(flash[:notice]). to eql 'Job created'
+        expect(flash[:notice]). to eql 'Job created. You can monitor its status in you \'My Upcoming Walks\' tab'
       end
     end
 

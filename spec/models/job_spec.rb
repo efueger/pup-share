@@ -21,11 +21,11 @@ describe Job do
     expect(job.errors[:drop_off_location]).to include("can't be blank")    
   end
 
-#   it 'is invalid without pick_up_time' do
-#     job = FactoryGirl.build(:job, pup_id: 1, user_id: 1, pick_up_time: nil)
-#     job.valid?
-#     expect(job.errors[:pick_up_time]).to include("can't be blank") 
-#   end
+  #   it 'is invalid without pick_up_time' do
+  #     job = FactoryGirl.build(:job, pup_id: 1, user_id: 1, pick_up_time: nil)
+  #     job.valid?
+  #     expect(job.errors[:pick_up_time]).to include("can't be blank") 
+  #   end
 
   it 'is invalid without pick_up_location' do
     job = FactoryGirl.build(:job, pup_id: 1, user_id: 1, pick_up_location: nil)
@@ -57,6 +57,11 @@ describe Job do
   end
 
   context '.update_follow_up_attr' do
+    it 'does nothing if jobs is hidden' do
+      job.hide
+      expect(job.update_follow_up_attr('awesome')).to eq 'Feedback previously recorded for this walk'
+    end
+
     it 'updates the job' do
       job.update_follow_up_attr('awesome')
       expect(job).to have_attributes(how_did_it_go: 'awesome', hidden: true)

@@ -50,8 +50,7 @@ feature 'Creating new job' do
     expect(current_path).to eql(new_user_pup_path(user))
     fill_in 'Pup name', with: 'Ace'
     click_on 'Create Pup'
-    expect(page).to have_content 'Pup created'
-    expect(current_path).to eql(user_path(user))
+    expect(current_path).to eql(new_job_path(user))
     # create job
     visit jobs_path
     expect(current_path).to eql(jobs_path)
