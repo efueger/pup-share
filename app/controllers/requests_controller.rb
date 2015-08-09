@@ -15,11 +15,11 @@ class RequestsController < ApplicationController
   def create
     @request = current_user.requests.create(request_params)
     @request.walk_request
-    flash[:notice] = "Your offer to walk this pup has been sent to the owner! Check 'My Upcoming Walks' to monitor"
+    flash[:notice] = "Offer to walk sent to the owner. You will receive an email with their response. Thanks!"
     redirect_to :back
   end
 
-  def edit # facilitates mailer links
+  def edit # all links in mailers points here
     @request = Request.find(params[:id])
     redirect_to jobs_path, notice: @request.send_request_mailers(params[:status]) 
   rescue ActiveRecord::RecordNotFound

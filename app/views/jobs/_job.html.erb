@@ -1,16 +1,19 @@
 <% if !job.hidden %>
 <div class="booyah-box">
-  <strong><%= job.requests.last.status unless job.requests.empty? %></strong>
+  <p><strong><%= job.requests.last.status unless job.requests.empty? %></strong><p>
   <div class="row">
     <div class="col-md-3">
+      <p><strong>Pup Owner</strong></p>
       <%= "#{job.user.email}" %>
       <%= image_tag job.user.pic, :class => 'img-responsive profile-image' %>
     </div>
     <div class="col-md-3">
+      <p><strong>Pup</strong></p>
       <%= "#{job.pup.pup_name}" %>
       <%= image_tag job.pup.pup_pic, :class => 'img-responsive profile-image' %>
     </div>
     <div class="col-md-3">
+      <p><strong>Walk Details</strong></p>
       <p>Drop off: <%= job.drop_off_time.to_formatted_s(:long_ordinal) %></p>
       <p>Place: <%= job.drop_off_location %></p>
       <p>Pick up: <%= job.pick_up_time.to_formatted_s(:long_ordinal) %></p>
@@ -24,8 +27,8 @@
       
     </div>
     <div class="col-md-3">
+      <p><strong>Walker</strong></p>
       <% if job.requests.empty? %>
-      This could be you...
       <%= image_tag "fallback/question_mark.jpg", :class => 'img-responsive profile-image' %>
       <% else %>
       <%= "#{job.requests.last.user.email}" %>

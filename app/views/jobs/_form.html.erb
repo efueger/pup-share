@@ -11,7 +11,7 @@
 
 <div class="form-inputs col-md-4">
   <%= f.input :drop_off_location %>
-  <%= f.input :drop_off_time, ampm: true, start_hour: 6, end_hour: 18, minute_step: 15, start_year: Time.now.year, end_year: Time.now.year + 1 %>
+  <%= f.input :drop_off_time, ampm: true, start_hour: 6, end_hour: 18, minute_step: 5, start_year: Time.now.year, end_year: Time.now.year + 1 %>
 </div>
 
 <div class="form-inputs col-md-2">
@@ -20,6 +20,7 @@
 
 <div class="form-inputs col-md-4">
   <%= f.input :pick_up_location %>
+  
 </div>
 
 <div class="form-actions col-md-12">
