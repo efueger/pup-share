@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150805012939) do
+ActiveRecord::Schema.define(version: 20150809173009) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -128,10 +128,8 @@ ActiveRecord::Schema.define(version: 20150805012939) do
     t.boolean  "puppies"
     t.boolean  "bathroom_breaks"
     t.boolean  "hidden",                      default: false
-    t.integer  "awesome_count",               default: 0
-    t.integer  "not_good_count",              default: 0
-    t.integer  "no_show_count",               default: 0
     t.integer  "walks_completed",             default: 0
+    t.float    "feedback_rating",             default: 0.0
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree

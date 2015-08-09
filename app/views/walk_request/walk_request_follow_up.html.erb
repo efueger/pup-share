@@ -1,19 +1,31 @@
 <p><strong>
-  <%= link_to 'Awesome!', edit_job_url(id: @request.job,
+  <%= link_to '*****', edit_job_url(id: @request.job,
   user_id: @request.job.user, 
-  feedback: 'awesome') %>
+  feedback: 'stars_5') %>
   </strong></p>
 
 <p><strong>
-  <%= link_to 'Not Good...', edit_job_url(id: @request.job,
+  <%= link_to '****', edit_job_url(id: @request.job,
   user_id: @request.job.user, 
-  feedback: 'not_good') %>
+  feedback: 'stars_4') %>
   </strong></p>
 
 <p><strong>
-  <%= link_to 'No Show', edit_job_url(id: @request.job,
+  <%= link_to '***', edit_job_url(id: @request.job,
   user_id: @request.job.user, 
-  feedback: 'no_show') %>
+  feedback: 'stars_3') %>
+  </strong></p>
+
+<p><strong>
+  <%= link_to '**', edit_job_url(id: @request.job,
+  user_id: @request.job.user, 
+  feedback: 'stars_2') %>
+  </strong></p>
+
+<p><strong>
+  <%= link_to '*', edit_job_url(id: @request.job,
+  user_id: @request.job.user, 
+  feedback: 'stars_1') %>
   </strong></p>
 
 <%= render 'walk_request_person_details' %>

@@ -30,10 +30,9 @@
     </div>
 
     <div class="col-md-2"> 
-      <h6><strong>Previous walks</strong></h6>
-      <p><%= "Awesome #{user.awesome_count}" %></p>
-      <p><%= "Not good #{user.not_good_count}" %></p>
-      <p><%= "No show #{user.no_show_count}" %></p>
+      <p><%= "Walks completed #{user.walks_completed}" %></p>
+      <h6><strong>When I walk pups, this is how others rate me:</strong></h6>
+      <p><%= "#{user.feedback_rating.round(1)} / 5" %></p>
     </div>
   </div><!-- row -->
 </div><!-- booyah-box -->

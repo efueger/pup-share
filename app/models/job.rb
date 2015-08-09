@@ -19,20 +19,44 @@ class Job < ActiveRecord::Base
     return 'Feedback previously recorded for this walk' if self.hidden
 
     self.update_attributes how_did_it_go: feedback, hidden: true
-    User.find(self.actual_walker_id).increment!(:walks_completed, by = 1)
+
+    walker = User.find(self.actual_walker_id)
+    walker.increment!(:walks_completed, by = 1)
     self.pup.increment!(:walks_completed, by = 1)
 
+    ### ***
+    ### ***
+    ### ***
+    ### ***
+    ### ***
+    ### ***
+    ### ***
+    ### ***
+    ### ***
     case feedback
-    when 'awesome'
-      User.find(self.actual_walker_id).increment!(:awesome_count, by = 1)
-    when 'not_good'
-      User.find(self.actual_walker_id).increment!(:not_good_count, by = 1)
-    when 'no_show'
-      User.find(self.actual_walker_id).increment!(:no_show_count, by = 1)
+    when 'stars_5'
+      walker.update_attributes feedback_rating: walker.feedback_rating + 5.0 / walker.walks_completed
+    when 'stars_4'
+      walker.update_attributes feedback_rating: walker.feedback_rating + 4.0 / walker.walks_completed
+    when 'stars_3'
+      walker.update_attributes feedback_rating: walker.feedback_rating + 3.0 / walker.walks_completed
+    when 'stars_2'
+      walker.update_attributes feedback_rating: walker.feedback_rating + 2.0 / walker.walks_completed
+    when 'stars_1'
+      walker.update_attributes feedback_rating: walker.feedback_rating + 1.0 / walker.walks_completed
     end
-
-    return 'Feedback recorded'
+    return 'Feedback recorded. Thanks!'
   end # update_follow_up_attr
+
+  ### ***
+  ### ***
+  ### ***
+  ### ***
+  ### ***
+  ### ***
+  ### ***
+  ### ***
+  ### ***
 
 end
 

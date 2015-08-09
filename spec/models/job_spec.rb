@@ -57,38 +57,57 @@ describe Job do
   end
 
   context '.update_follow_up_attr' do
-    it 'does nothing if jobs is hidden' do
+    it 'does nothing if job is hidden' do
       job.hide
-      expect(job.update_follow_up_attr('awesome')).to eq 'Feedback previously recorded for this walk'
+      expect(job.update_follow_up_attr('anything')).to eq 'Feedback previously recorded for this walk'
     end
 
     it 'updates the job' do
-      job.update_follow_up_attr('awesome')
-      expect(job).to have_attributes(how_did_it_go: 'awesome', hidden: true)
+      job.update_follow_up_attr('stars_5')
+      expect(job).to have_attributes(how_did_it_go: 'stars_5', hidden: true)
     end
 
     it 'increments the actual walker\'s walks completed count' do
-      expect { job.update_follow_up_attr('awesome') }.to change{User.find(job.actual_walker_id).walks_completed}.from(0).to(1)
+      expect { job.update_follow_up_attr('stars_5') }.to change{User.find(job.actual_walker_id).walks_completed}.from(0).to(1)
     end
 
     it 'increments the pup walk completed count' do
-      expect { job.update_follow_up_attr('awesome') }.to change{job.pup.walks_completed}.from(0).to(1)
+      expect { job.update_follow_up_attr('stars_5') }.to change{job.pup.walks_completed}.from(0).to(1)
     end
 
-    it 'incrments the actual walker awesome count' do
-      expect { job.update_follow_up_attr('awesome') }.to change{User.find(job.actual_walker_id).awesome_count}.from(0).to(1)   
+    ### ***
+    ### ***
+    ### ***
+    ### ***
+    ### ***
+    ### ***
+    ### ***
+    ### ***
+    ### ***
+    it 'updates the feedback with five stars after the first walk' do
+      expect { job.update_follow_up_attr('stars_5') }.to change{User.find(job.actual_walker_id).feedback_rating}.from(0).to(5)  
     end
 
-    it 'incrments the actual walker not_good_count' do
-      expect { job.update_follow_up_attr('not_good') }.to change{User.find(job.actual_walker_id).not_good_count}.from(0).to(1)   
+    it 'updates the feedback with one star after the first walk' do
+      expect { job.update_follow_up_attr('stars_1') }.to change{User.find(job.actual_walker_id).feedback_rating}.from(0).to(1)  
     end
 
-    it 'incrments the actual walker no_show count' do
-      expect { job.update_follow_up_attr('no_show') }.to change{User.find(job.actual_walker_id).no_show_count}.from(0).to(1)   
-    end
+    context 'does the averaging math correctly' do
+      it 'adding in a 5 star rating' do
+        user = FactoryGirl.create(:user, walks_completed: 20, feedback_rating: 3.6)
+        job = FactoryGirl.create(:job, actual_walker_id: user.id)
+        expect { job.update_follow_up_attr('stars_5') }.to change{User.find(job.actual_walker_id).feedback_rating.round(2) }.from(user.feedback_rating).to(3.84)     
+      end
+
+      it 'adding in a 2 star rating' do
+        user = FactoryGirl.create(:user, walks_completed: 150, feedback_rating: 2.96)
+        job = FactoryGirl.create(:job, actual_walker_id: user.id)
+        expect { job.update_follow_up_attr('stars_2') }.to change{User.find(job.actual_walker_id).feedback_rating.round(2) }.from(user.feedback_rating).to(2.97)     
+      end
+    end # 'does the averaging math correctly'
 
     it 'returns a notice' do
-      expect(job.update_follow_up_attr('awesome')).to eq 'Feedback recorded'
+      expect(job.update_follow_up_attr('awesome')).to eq 'Feedback recorded. Thanks!'
     end 
   end # update_follow_up_attr
 
