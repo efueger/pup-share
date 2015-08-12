@@ -7,7 +7,7 @@ class UsersController < ApplicationController
 
   def show
     @user = current_user
-    @pups = current_user.pups.where(hidden: false)
+    @pups = current_user.all_pups_not_hidden
   end
 
   def new

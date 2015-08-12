@@ -10,5 +10,5 @@ class Pup < ActiveRecord::Base
   def hide
     self.update_attributes(hidden: true)
   end
-
+  
 end

@@ -35,4 +35,8 @@ class User < ActiveRecord::Base
     return empty_arr
   end
 
+  def all_pups_not_hidden
+    self.pups.where(hidden: false)
+  end
+
 end

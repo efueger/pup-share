@@ -4,7 +4,7 @@
 <br>
 
 <div class="form-inputs col-md-2">
-  <%= f.association :pup, as: :radio_buttons, label_method: :pup_name, collection: current_user.pups.where(hidden: false), include_blank: false %>
+  <%= f.association :pup, as: :radio_buttons, label_method: :pup_name, collection: current_user.all_pups_not_hidden, include_blank: false %>
   <br>
   <%= link_to 'New Pup', new_user_pup_path(current_user), class: 'btn btn-primary' %>
 </div>

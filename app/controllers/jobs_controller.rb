@@ -9,7 +9,7 @@ class JobsController < ApplicationController
   def show; end
 
   def new
-    if current_user.pups.where(hidden: false).empty?
+    if current_user.all_pups_not_hidden.empty?
       redirect_to new_user_pup_path(current_user), alert: 'Create a pup to add to your job'
     else
       @job = Job.new

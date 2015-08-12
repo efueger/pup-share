@@ -47,10 +47,13 @@ describe User do
   let(:owner)    { FactoryGirl.create(:user) }
   let(:job1)     { FactoryGirl.create(:job, user_id: owner.id) }
   let(:request2) { FactoryGirl.create(:request, user_id: owner.id, job_id: job2.id)}  
-  
+
   let(:walker)   { FactoryGirl.create(:user) }
   let(:job2)     { FactoryGirl.create(:job, user_id: walker.id) }
   let(:request1)  { FactoryGirl.create(:request, user_id: walker.id, job_id: job1.id)}
+
+  let(:pup1)     { FactoryGirl.create(:pup, user_id: owner.id, hidden: true) }
+  let(:pup2)     { FactoryGirl.create(:pup, user_id: owner.id, hidden: false) }
 
   before :each do
     walker.requests << request1
@@ -74,5 +77,9 @@ describe User do
       expect(owner.all_my_jobs).to eq ([job1,job2])
     end
   end
-  
+
+  it '.all_pups_not_hidden' do
+    expect(owner.all_pups_not_hidden).to eq ([pup2])
+  end
+
 end
