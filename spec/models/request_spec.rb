@@ -15,6 +15,14 @@ describe Request do
   let(:requested_of_user) { FactoryGirl.create(:user) } 
   let(:my_request) { FactoryGirl.create(:request, user_id: user.id,
     requested_of_user_id: requested_of_user.id, job_id: job.id) }
+  let(:delayed_job_last_id) { 999 }
+
+  before :each do
+    #     Delayed::Job = []
+    #     Delayed::Job << job # overwriting definition for testing
+    some_array = []
+    some_array << job
+  end
 
   it '.walk_request updates status' do
     my_request.walk_request
@@ -26,12 +34,18 @@ describe Request do
     it 'updates job actual walker' do
       my_request.approve_walk_request
       expect(my_request.job).to have_attributes(actual_walker_id: user.id)
+      # expect(my_request.job).to have_attributes(actual_walker_id: user.id, enqueued_job_id: some_array.last.id)
     end
 
     it 'updates request status' do
       my_request.approve_walk_request
       expect(my_request.status).to eq 'approved' 
     end
+
+    #     it 'updates the enqueued job id' do
+    #       my_request.approve_walk_request
+    #       expect(my_request.enqueued_job_id).to eq Delayed::Job.last.id
+    #     end
 
     it 'returns a notice' do
       expect(my_request.approve_walk_request).to eq 'Request approved'       

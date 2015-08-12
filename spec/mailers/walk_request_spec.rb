@@ -72,9 +72,9 @@ describe WalkRequest do
       expect(approved_email).to have_subject 'PupShare: Yay! Your walk request was approved'   
     end
 
-    it 'enqueued the follow-up' do
-      expect(enqueued_jobs.size).to eq(1)
-    end
+    #     it 'enqueued the follow-up' do
+    #       expect(enqueued_jobs.size).to eq(1)
+    #     end
   end # approved request
 
   describe 'declined request' do
@@ -88,7 +88,6 @@ describe WalkRequest do
 
     let(:delivered_emails) { ActionMailer::Base.deliveries }
 
-    # it 'delivers two emails' do
     it 'delivers one email' do
       expect(delivered_emails.count).to eq(1)
     end
@@ -107,6 +106,10 @@ describe WalkRequest do
       it 'has the expected subject' do
         expect(denied_email).to have_subject 'PupShare: Sorry. Your walk request was denied'  
       end
+
+      #       it 'destroys the queued mailer'
+      #       #           expect(enqueued_jobs.size).to eq(0)
+      #       #         end
     end
   end # declined request
 

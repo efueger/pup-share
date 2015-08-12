@@ -75,15 +75,6 @@ describe Job do
       expect { job.update_follow_up_attr('stars_5') }.to change{job.pup.walks_completed}.from(0).to(1)
     end
 
-    ### ***
-    ### ***
-    ### ***
-    ### ***
-    ### ***
-    ### ***
-    ### ***
-    ### ***
-    ### ***
     it 'updates the feedback with five stars after the first walk' do
       expect { job.update_follow_up_attr('stars_5') }.to change{User.find(job.actual_walker_id).feedback_rating}.from(0).to(5)  
     end
