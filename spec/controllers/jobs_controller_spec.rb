@@ -4,9 +4,9 @@ describe JobsController do
 
   describe 'GET #index' do
 
-    let(:user) { FactoryGirl.create(:user) }
-    let(:job1) { FactoryGirl.create(:job, user_id: user.id) }
-    let(:job2) { FactoryGirl.create(:job, user_id: user.id + 1) }
+    let(:user) { create(:user) }
+    let(:job1) { create(:job, user_id: user.id) }
+    let(:job2) { create(:job, user_id: user.id + 1) }
 
     context 'with params[:user_id]' do
       it 'populates an array of jobs belonging to a user' do
@@ -35,7 +35,7 @@ describe JobsController do
 
   #   describe "GET #show" do
 
-  #     let(:job) { FactoryGirl.create(:job) }
+  #     let(:job) { create(:job) }
 
   #     it 'assigns the requested job to @job' do
   #       get :show, id: job
@@ -51,7 +51,7 @@ describe JobsController do
   describe 'GET #new' do
 
     before :each do
-      sign_in @user = FactoryGirl.create(:user)      
+      sign_in @user = create(:user)      
     end
 
     context 'with current_user.pups.empty? = true' do
@@ -68,7 +68,7 @@ describe JobsController do
 
     context 'with current_user.pups.empty? = false' do
       before :each do
-        FactoryGirl.create(:pup, user_id: @user.id)        
+        create(:pup, user_id: @user.id)        
       end
 
       it 'assigns a new job to @job' do
@@ -85,23 +85,23 @@ describe JobsController do
   describe 'POST #create' do
 
     before :each do
-      sign_in @user = FactoryGirl.create(:user)
-      @pup = FactoryGirl.create(:pup)        
+      sign_in @user = create(:user)
+      @pup = create(:pup)        
     end
 
     context 'with valid attributes' do
       it 'saves the new job in the database' do
         expect{
-          post :create, job: FactoryGirl.attributes_for(:job, user_id: @user.id, pup_id: @pup.id)}.to change(Job, :count).by(1)
+          post :create, job: attributes_for(:job, user_id: @user.id, pup_id: @pup.id)}.to change(Job, :count).by(1)
       end
 
       it 'redirects to jobs index' do
-        post :create, job: FactoryGirl.attributes_for(:job, user_id: @user.id, pup_id: @pup.id)
+        post :create, job: attributes_for(:job, user_id: @user.id, pup_id: @pup.id)
         expect(response).to redirect_to jobs_path
       end
 
       it 'notifies the user of creation' do
-        post :create, job: FactoryGirl.attributes_for(:job, user_id: @user.id, pup_id: @pup.id)
+        post :create, job: attributes_for(:job, user_id: @user.id, pup_id: @pup.id)
         expect(flash[:notice]). to eql 'Job created. You can monitor its status in you \'My Upcoming Walks\' tab'
       end
     end
@@ -109,11 +109,11 @@ describe JobsController do
     context 'with invalid attributes' do
       it 'does not save the new job in the database' do 
         expect{
-          post :create, job: FactoryGirl.attributes_for(:invalid_job)}.not_to change(Job, :count)
+          post :create, job: attributes_for(:invalid_job)}.not_to change(Job, :count)
       end
 
       it 're-renders the :new template' do
-        post :create, job: FactoryGirl.attributes_for(:invalid_job) 
+        post :create, job: attributes_for(:invalid_job) 
         expect(response).to render_template :new
       end
     end
@@ -122,21 +122,21 @@ describe JobsController do
   describe 'PATCH #update' do
 
     before :each do
-      sign_in @user = FactoryGirl.create(:user)
-      @job = FactoryGirl.create(:job,
+      sign_in @user = create(:user)
+      @job = create(:job,
         drop_off_time: Time.now + 1.hours,
         drop_off_location: 'Ruby')
     end    
 
     context 'with valid attributes' do
       it 'locates the requested job' do
-        patch :update, id: @job, job: FactoryGirl.attributes_for(:job)
+        patch :update, id: @job, job: attributes_for(:job)
         expect(assigns(:job)).to eq(@job)
       end
 
       it 'changes @job attributes' do
         patch :update, id: @job,
-        job: FactoryGirl.attributes_for(:job, 
+        job: attributes_for(:job, 
           drop_off_time: Time.new(2002, 10, 31),
           drop_off_location: 'Blackfoot')
         @job.reload
@@ -145,7 +145,7 @@ describe JobsController do
       end
 
       it 'redirects to user\'s profile (i.e. dashboard)' do
-        patch :update, id: @job, job: FactoryGirl.attributes_for(:job)
+        patch :update, id: @job, job: attributes_for(:job)
         expect(response).to redirect_to user_path(@user)
       end
     end      
@@ -153,7 +153,7 @@ describe JobsController do
     context 'with invalid attributes' do
       it 'does not change the job\'s attributes' do
         patch :update, id: @job,
-        job: FactoryGirl.attributes_for(:job, 
+        job: attributes_for(:job, 
           drop_off_time: Time.new(2005, 12, 25),
           drop_off_location: nil)
         @job.reload
@@ -163,7 +163,7 @@ describe JobsController do
 
       it 're-renders the :edit template' do
         patch :update, id: @job,
-        job: FactoryGirl.attributes_for(:invalid_job)
+        job: attributes_for(:invalid_job)
         expect(response).to render_template :edit
       end
     end
@@ -172,8 +172,8 @@ describe JobsController do
   describe 'DELETE #destroy' do
 
     before :each do
-      sign_in @user = FactoryGirl.create(:user) 
-      @job = FactoryGirl.create(:job)
+      sign_in @user = create(:user) 
+      @job = create(:job)
     end 
 
     it 'deletes the job from the database' do
