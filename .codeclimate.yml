@@ -37,8 +37,7 @@ engines:
 
 ratings:
    paths:
-- app/**
-
+   - app/**
 
 # You can globally exclude files from being analyzed by any engine using the
 # exclude_paths key.
